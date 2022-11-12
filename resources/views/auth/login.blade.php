@@ -6,11 +6,6 @@
     <title>Login</title>
 
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <style>
-        body {
-            background-image: linear-gradient(to right, darkgreen ,royalblue);
-        }
-    </style>
     </head>
     <body class="hold-transition register-page">
         <div id="app">

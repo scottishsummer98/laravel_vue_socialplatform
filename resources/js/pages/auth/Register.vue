@@ -1,80 +1,68 @@
 <template class="hold-transition register-page">
-  <div class="register-box">
-    <div class="card card-outline">
-      <div class="card-header text-center">
-        <a href="" class="h4" style="text-decoration: none;">
-          <b>Registration</b>
-        </a>
-      </div>
-      <div class="card-body">
-        <div class="input-group mb-4">
-          <input
-            placeholder="Full Name"
-            id="name"
-            type="text"
-            class="form-control"
-            v-model="formData.name"
-          />
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-user"></span>
+  <div class="container">
+    <div>
+      <h1 class="text">Jinnbook</h1>
+      <h4 class="text">
+        Helps you connect and share with the jinns in your life.
+      </h4>
+    </div>
+    <div style="width: 100%;">
+      <div class="register-box">
+        <div class="card card-outline">
+          <div class="card-body">
+            <div class="input-group mb-4">
+              <input
+                placeholder="Full Name"
+                id="name"
+                type="text"
+                class="form-control"
+                v-model="formData.name"
+              />
+            </div>
+            <div class="input-group mb-4">
+              <input
+                placeholder="Email Address"
+                id="email"
+                type="email"
+                class="form-control"
+                v-model="formData.email"
+              />
+            </div>
+            <div class="input-group mb-4">
+              <input
+                placeholder="Password"
+                id="password"
+                type="password"
+                class="form-control"
+                v-model="formData.password"
+              />
+            </div>
+            <div class="input-group mb-4">
+              <input
+                placeholder="Retype Password"
+                id="password-confirm"
+                type="password"
+                class="form-control"
+                v-model="formData.password_confirmation"
+              />
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <button
+                  type="submit"
+                  class="btn btn-block btn-spooky"
+                  @click="registerUser"
+                >
+                  Register
+                </button>
+              </div>
+            </div>
+            <div class="social-auth-links text-center">
+              <button class="btn btn-block btn-spooky" @click="redirect">
+                Already Registered?
+              </button>
             </div>
           </div>
-        </div>
-        <div class="input-group mb-4">
-          <input
-            placeholder="Email Address"
-            id="email"
-            type="email"
-            class="form-control"
-            v-model="formData.email"
-          />
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-envelope"></span>
-            </div>
-          </div>
-        </div>
-        <div class="input-group mb-4">
-          <input
-            placeholder="Password"
-            id="password"
-            type="password"
-            class="form-control"
-            v-model="formData.password"
-          />
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
-            </div>
-          </div>
-        </div>
-        <div class="input-group mb-4">
-          <input
-            placeholder="Retype Password"
-            id="password-confirm"
-            type="password"
-            class="form-control"
-            v-model="formData.password_confirmation"
-          />
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-8"></div>
-          <div class="col-4">
-            <button type="submit" class="btn btn-success" @click="registerUser">
-              Register
-            </button>
-          </div>
-        </div>
-        <div class="social-auth-links text-center">
-          <button class="btn btn-block btn-primary" @click="redirect">
-            Already Registered?
-          </button>
         </div>
       </div>
     </div>
@@ -114,10 +102,45 @@ export default {
 </script>
 
 <style>
-.register-page {
-  background-image: linear-gradient(to right, darkgreen, royalblue);
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5rem;
 }
-.card-outline {
-  color: darkgreen;
+.text {
+  color: white;
+}
+.register-page {
+  background-image: linear-gradient(to right, #070707, rgb(74, 1, 1), black);
+}
+.register-box {
+  border: 2px solid transparent;
+  border-radius: 10px;
+}
+.btn-spooky {
+  color: white;
+  background-color: darkred;
+}
+.btn-spooky:hover {
+  color: black;
+  background-color: darkred;
+}
+/* Media Queries Medium Devices*/
+@media screen and (max-width: 1024px) {
+}
+
+/* Media Queries Small Devices*/
+@media screen and (max-width: 600px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+  .register-box {
+    width: 100%;
+    padding: 0;
+  }
 }
 </style>
