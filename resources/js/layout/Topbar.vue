@@ -7,14 +7,14 @@
         </a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <router-link to="/admin" class="nav-link">
+        <router-link to="/home" class="nav-link">
           <p>
             Home
           </p>
         </router-link>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <router-link to="/admin-about" class="nav-link">
+        <router-link to="/about" class="nav-link">
           <p>
             About
           </p>
@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import { showSuccess, showError } from '../../helper'
+import { showSuccess, showError } from '../helper'
 export default {
   data() {
     return {}

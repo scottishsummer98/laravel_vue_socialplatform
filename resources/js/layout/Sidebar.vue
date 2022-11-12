@@ -22,7 +22,7 @@
           data-accordion="false"
         >
           <li class="nav-item">
-            <router-link to="/admin" class="nav-link">
+            <router-link to="/home" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Home
@@ -30,7 +30,7 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/admin-about" class="nav-link">
+            <router-link to="/about" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 About

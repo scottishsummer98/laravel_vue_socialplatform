@@ -27,9 +27,9 @@
 </template>
 
 <script>
-import TopbarComponent from '../BackEnd/Topbar'
-import SidebarComponent from '../BackEnd/Sidebar'
-import FooterComponent from '../BackEnd/Footer'
+import TopbarComponent from './Topbar'
+import SidebarComponent from './Sidebar'
+import FooterComponent from './Footer'
 
 export default {
   components: {

@@ -14,10 +14,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('home');
+    return view('auth/login');
 });
-Route::get('/admin', function () {
-    return view('admin');
+Route::get('/home', function () {
+    return view('home');
 });
 Route::get('/register', function () {
     return view('auth/register');
@@ -26,3 +26,7 @@ Route::get('/register', function () {
 Route::get('/login', function () {
     return view('auth/login');
 });
+
+Route::get('/{vue_capture?}', function () {
+    return redirect('/home');
+})->where('vue_capture', '[\/\w\.-]*');

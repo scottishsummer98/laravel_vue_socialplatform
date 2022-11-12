@@ -1,25 +1,19 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="en">
 
-        <title>My Template</title>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Jinnbook</title>
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+</head>
 
-        <style>
-            body {
-                font-family: 'Nunito', sans-serif;
-                background-image: linear-gradient(to right, darkgreen ,royalblue);
-            }
-        </style>
-    </head>
-    <body class="antialiased">
-        <div id="app">
-            <frontend-component />
-        </div>
-        <script src="{{ asset('js/app.js') }}"></script>
-    </body>
+<body class="hold-transition sidebar-mini">
+<div id="app">
+        <layout-component />
+    </div>
+    <script src="{{ asset('js/app.js') }}"></script>
+</body>
+
 </html>
