@@ -12,18 +12,57 @@
           <div class="card-body">
             <div class="input-group mb-4">
               <input
-                placeholder="Full Name"
+                placeholder="First Name"
                 id="name"
                 type="text"
                 class="form-control"
-                v-model="formData.name"
+                v-model="formData.fname"
+              />
+            </div>
+            <div class="input-group mb-4">
+              <input
+                placeholder="Last Name"
+                id="name"
+                type="text"
+                class="form-control"
+                v-model="formData.lname"
+              />
+            </div>
+            <div class="input-group mb-4">
+              <input
+                placeholder="Date Of Birth"
+                id="name"
+                type="date"
+                class="form-control"
+                v-model="formData.dob"
+              />
+            </div>
+            <div class="input-group mb-4">
+              <select
+                id="gender"
+                class="form-control"
+                v-model="formData.gender"
+              >
+                <option selected disabled>Select Country</option>
+                <option value="M">Male</option>
+                <option value="F">Female</option>
+                <option value="O">Others</option>
+              </select>
+            </div>
+            <div class="input-group mb-4">
+              <input
+                placeholder="Mobile Number"
+                id="name"
+                type="text"
+                class="form-control"
+                v-model="formData.mobile"
               />
             </div>
             <div class="input-group mb-4">
               <input
                 placeholder="Email Address"
                 id="email"
-                type="email"
+                type="text"
                 class="form-control"
                 v-model="formData.email"
               />

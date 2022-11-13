@@ -10,7 +10,7 @@
           />
         </div>
         <div class="info">
-          <a href="#" class="d-block">{{ user.name }}</a>
+          <a href="#" class="d-block">{{ user.fname }} {{ user.lname }}</a>
         </div>
       </div>
 
