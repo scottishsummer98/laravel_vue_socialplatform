@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    Home
+    Pages
   </div>
 </template>
 

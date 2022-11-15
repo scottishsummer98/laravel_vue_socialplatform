@@ -8,16 +8,17 @@
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <router-link to="/home" class="nav-link">
-          <p>
-            Home
-          </p>
+          <i class="fa-sharp fa-solid fa-house"></i>
         </router-link>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <router-link to="/about" class="nav-link">
-          <p>
-            About
-          </p>
+        <router-link to="/friends" class="nav-link">
+          <i class="fa-solid fa-user-group"></i>
+        </router-link>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <router-link to="/pages" class="nav-link">
+          <i class="fas fa-flag"></i>
         </router-link>
       </li>
     </ul>

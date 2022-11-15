@@ -10,7 +10,11 @@
           />
         </div>
         <div class="info">
-          <a href="#" class="d-block">{{ user.fname }} {{ user.lname }}</a>
+          <a href="#" class="d-block" style="text-decoration: none;">
+            <router-link to="/profile" class="nav-link">
+              {{ user.fname }} {{ user.lname }}
+            </router-link>
+          </a>
         </div>
       </div>
 
@@ -22,49 +26,20 @@
           data-accordion="false"
         >
           <li class="nav-item">
-            <router-link to="/home" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
+            <router-link to="/friends" class="nav-link">
+              <i class="nav-icon fas fa-user-group mr-3"></i>
               <p>
-                Home
+                Find Friends
               </p>
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/about" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
+            <router-link to="/pages" class="nav-link">
+              <i class="nav-icon fas fa-flag mr-3"></i>
               <p>
-                About
+                Pages
               </p>
             </router-link>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Menu
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Submenu 1</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Submenu 2</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Submenu 3</p>
-                </a>
-              </li>
-            </ul>
           </li>
         </ul>
       </nav>

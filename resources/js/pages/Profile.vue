@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    Admin About Section
+    Profile
   </div>
 </template>
 

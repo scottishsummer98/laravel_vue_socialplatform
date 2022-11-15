@@ -25,8 +25,16 @@ const routes = [
     },
   },
   {
-    path: '/about',
-    component: require('./pages/About').default,
+    path: '/friends',
+    component: require('./pages/Friends').default,
+  },
+  {
+    path: '/pages',
+    component: require('./pages/Pages').default,
+  },
+  {
+    path: '/profile',
+    component: require('./pages/Profile').default,
   },
 ]
 
