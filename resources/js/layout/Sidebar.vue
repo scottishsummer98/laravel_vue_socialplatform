@@ -65,6 +65,6 @@ export default {
 </script>
 <style>
 .sidebar-dark-primary {
-  background-image: linear-gradient(45deg, black, rgb(74, 1, 1), black);
+  background-image: linear-gradient(black, rgb(74, 1, 1), black);
 }
 </style>
