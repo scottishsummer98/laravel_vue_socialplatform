@@ -4,7 +4,14 @@
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
           <img
-            src="dist/img/user2-160x160.jpg"
+            v-if="user.dp != null"
+            :src="`../storage/${user.dp}`"
+            class="img-circle elevation-2"
+            alt="User Image"
+          />
+          <img
+            v-else
+            :src="`/${formData.DP}`"
             class="img-circle elevation-2"
             alt="User Image"
           />
@@ -12,7 +19,7 @@
             href="#"
             class="icon"
             title="Change Profile Picture"
-            @click="edit(item)"
+            @click="edit()"
           >
             <i class="fa fa-camera"></i>
           </a>
@@ -65,17 +72,20 @@
         <div class="card">
           <h4 class="card-header">Upload New Profile Picture</h4>
           <div class="card-body">
-            <div class="row">
-              <div class="col-md-12" style="text-align: center;">
-                <div class="form-group">
-                  <img
-                    src="dist/img/user2-160x160.jpg"
-                    class="img-circle elevation-2"
-                    alt="User Image"
-                  />
-                </div>
-              </div>
-              <input class="form-control" type="file" name="" id="" />
+            <div v-if="!imageSelected">
+              <img :src="`/${formData.DP}`" class="DP" />
+            </div>
+            <div class="DP" :class="!imageSelected ? 'hidden' : ''">
+              <img :src="`/${formData.DP}`" id="target" class="DP" />
+            </div>
+            <div class="form-group">
+              <input
+                type="file"
+                class="form-control"
+                name="DP"
+                id="src"
+                @input="showImage"
+              />
             </div>
           </div>
           <button class="btn btn-primary btn-sm" @click="update">
@@ -93,15 +103,42 @@ import axios from 'axios'
 export default {
   data() {
     return {
+      formData: {
+        Email: user.email,
+        DP: 'dist/img/blank_avatar.png',
+      },
       user: [],
+      imageSelected: 0,
     }
   },
   methods: {
-    edit(item) {
-      for (let index in item) {
-        this.editingItem[index] = item[index]
+    showImage() {
+      this.imageSelected = 1
+      var src = document.getElementById('src')
+      var target = document.getElementById('target')
+
+      var fr = new FileReader()
+
+      fr.onload = function (e) {
+        target.src = this.result
       }
+      src.addEventListener('change', function () {
+        fr.readAsDataURL(src.files[0])
+      })
+    },
+    edit() {
       $('.modal').modal('toggle')
+    },
+    update() {
+      axios
+        .post(`/update-user/${this.formData.Email}`, this.formData)
+        .then((res) => {
+          showSuccess('Profile Photo Updated!')
+        })
+        .catch((err) => {
+          showError('Failed To Update Profile Picture!')
+        })
+      $('.modal').modal('hide')
     },
   },
   mounted() {
@@ -125,5 +162,14 @@ export default {
 }
 .image:hover .icon {
   visibility: visible;
+}
+.DP {
+  padding: 10px;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  width: 16rem;
+}
+.hidden {
+  display: none;
 }
 </style>
