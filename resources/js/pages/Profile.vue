@@ -1,11 +1,31 @@
 <template>
   <div class="fb-profile-block">
     <div class="fb-profile-block-thumb">
-      <img src="dist/img/blank_cover.jpg" alt="" title="" />
+      <img
+        v-if="user.cp != null"
+        :src="`../storage/${user.cp}`"
+        alt=""
+        title=""
+      />
+      <img v-else :src="`/${formData.CP}`" alt="" title="" />
+      <a
+        href="#"
+        class="icon_profile"
+        title="Change Cover Picture"
+        @click="edit(user.id)"
+      >
+        <i class="fa fa-camera"></i>
+      </a>
     </div>
     <div class="profile-img">
       <a href="#">
-        <img :src="`../storage/${user.dp}`" alt="" title="" />
+        <img
+          v-if="user.dp != null"
+          :src="`../storage/${user.dp}`"
+          alt=""
+          title=""
+        />
+        <img v-else :src="`dist/img/blank_avatar.webp`" alt="" title="" />
       </a>
     </div>
     <div class="profile-name">
@@ -24,16 +44,119 @@
       </div>
     </div>
   </div>
+  <div
+    class="modal fade bd-example-modal-lg"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="myLargeModalLabel"
+    aria-hidden="true"
+    id="modalcp"
+  >
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <form
+          @submit.prevent
+          method="post"
+          id="myForm2"
+          enctype="multipart/form-data"
+        >
+          <div class="card">
+            <h4 class="card-header">Upload New Cover Picture</h4>
+            <div class="card-body">
+              <div v-if="!imageSelected">
+                <img
+                  v-if="user.cp != null"
+                  :src="`../storage/${user.cp}`"
+                  class="CP"
+                />
+                <img v-else :src="`/${formData.CP}`" class="CP" />
+              </div>
+              <div class="CP" :class="!imageSelected ? 'hidden' : ''">
+                <img src id="target2" class="CP" />
+              </div>
+              <div class="form-group mt-5">
+                <input
+                  type="file"
+                  class="form-control"
+                  name="CP"
+                  id="src2"
+                  @input="showCP"
+                />
+              </div>
+            </div>
+            <button class="btn btn-spooky btn-sm" @click="updateCP">
+              Update
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
   data() {
     return {
+      formData: {
+        id: '',
+        CP: 'dist/img/blank_cover.jpg',
+      },
       user: [],
+      imageSelected: 0,
     }
   },
-  methods: {},
+  methods: {
+    showCP() {
+      this.imageSelected = 1
+      var src = document.getElementById('src2')
+      var target = document.getElementById('target2')
+
+      var fr = new FileReader()
+
+      fr.onload = function (e) {
+        target.src = this.result
+      }
+      src.addEventListener('change', function () {
+        fr.readAsDataURL(src.files[0])
+      })
+    },
+    edit(item) {
+      this.formData.id = item
+      $('#modalcp').modal('toggle')
+    },
+    updateCP() {
+      this.errors = {}
+      let myForm = document.getElementById('myForm2')
+      let formData = new FormData(myForm)
+      formData.append('id', this.formData.id)
+      axios
+        .post(`/update-user`, formData)
+        .then((response) => {
+          window.location.reload()
+          this.isSubmitted = 0
+          for (let key in this.formData) {
+            if (key == 'CP') {
+              this.formData[key] = 'dist/img/blank_cover.jpg'
+              this.imageSelected = 0
+            } else {
+              this.formData[key] = ''
+            }
+          }
+          var src = document.getElementById('src')
+          src.value = ''
+          this.imageSelected = 0
+        })
+        .catch((err) => {
+          if (err.response.status == 422) {
+            this.errors = err.response.data.errors
+          }
+          showError(err.response.data.message)
+          this.imageSelected = 0
+        })
+      $('#modalcp').modal('hide')
+    },
+  },
   mounted() {
     axios.get('/api/user').then((res) => {
       this.user = res.data
@@ -125,10 +248,34 @@ img {
   position: relative;
   vertical-align: middle;
   white-space: nowrap;
-  color: #4b4f56;
+  color: white;
   text-transform: capitalize;
+  text-decoration: none;
 }
 .block-menu ul li:first-child a {
   border-left: 1px solid #e9eaed;
+}
+.icon_profile {
+  font-size: 25px;
+  position: absolute;
+  top: 85%;
+  left: 95%;
+  text-align: center;
+  visibility: hidden;
+  color: white;
+}
+.fb-profile-block-thumb:hover .icon_profile {
+  color: grey;
+  transition: ease-in-out 0.5s;
+  visibility: visible;
+}
+.CP {
+  padding: 10px;
+  border: 1px solid transparent;
+  width: 45rem;
+  height: 20rem;
+}
+.hidden {
+  display: none;
 }
 </style>

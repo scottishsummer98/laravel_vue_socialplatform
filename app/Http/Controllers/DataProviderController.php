@@ -12,21 +12,37 @@ class DataProviderController extends Controller
     {
         $user = User::where('id', $request->id)->first();
         $dp = null;
+        $cp = null;
         if ($request->DP) {
             if ($user->dp != null) {
                 Storage::delete($user->dp);
                 $dp = $request->DP->store(
-                    '/user/' . date('Y') . '/' . date('m')
+                    '/user/dp/' . date('Y') . '/' . date('m')
                 );
             } else {
                 $dp = $request->DP->store(
-                    '/user/' . date('Y') . '/' . date('m')
+                    '/user/dp/' . date('Y') . '/' . date('m')
                 );
             }
+            User::where('id', $request->id)->update([
+                'dp' => $dp,
+            ]);
         }
 
-        User::where('id', $request->id)->update([
-            'dp' => $dp,
-        ]);
+        if ($request->CP) {
+            if ($user->cp != null) {
+                Storage::delete($user->cp);
+                $cp = $request->CP->store(
+                    '/user/cp/' . date('Y') . '/' . date('m')
+                );
+            } else {
+                $cp = $request->CP->store(
+                    '/user/cp/' . date('Y') . '/' . date('m')
+                );
+            }
+            User::where('id', $request->id)->update([
+                'cp' => $cp,
+            ]);
+        }
     }
 }

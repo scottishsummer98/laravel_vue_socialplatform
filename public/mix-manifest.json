@@ -7,6 +7,7 @@
     "/dist/img/avatar3.png": "/dist/img/avatar3.png",
     "/dist/img/avatar4.png": "/dist/img/avatar4.png",
     "/dist/img/avatar5.png": "/dist/img/avatar5.png",
+    "/dist/img/BG.jpg": "/dist/img/BG.jpg",
     "/dist/img/blank_avatar.png": "/dist/img/blank_avatar.png",
     "/dist/img/blank_cover.jpg": "/dist/img/blank_cover.jpg",
     "/dist/img/boxed-bg.jpg": "/dist/img/boxed-bg.jpg",
@@ -36,5 +37,6 @@
     "/dist/img/user5-128x128.jpg": "/dist/img/user5-128x128.jpg",
     "/dist/img/user6-128x128.jpg": "/dist/img/user6-128x128.jpg",
     "/dist/img/user7-128x128.jpg": "/dist/img/user7-128x128.jpg",
-    "/dist/img/user8-128x128.jpg": "/dist/img/user8-128x128.jpg"
+    "/dist/img/user8-128x128.jpg": "/dist/img/user8-128x128.jpg",
+    "/dist/img/blank_avatar.webp": "/dist/img/blank_avatar.webp"
 }

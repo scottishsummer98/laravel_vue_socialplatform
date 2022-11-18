@@ -66,13 +66,14 @@
     role="dialog"
     aria-labelledby="myLargeModalLabel"
     aria-hidden="true"
+    id="modaldp"
   >
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
         <form
           @submit.prevent
           method="post"
-          id="myForm"
+          id="myForm1"
           enctype="multipart/form-data"
         >
           <div class="card">
@@ -87,19 +88,19 @@
                 <img v-else :src="`/${formData.DP}`" class="DP" />
               </div>
               <div class="DP" :class="!imageSelected ? 'hidden' : ''">
-                <img src id="target" class="DP" />
+                <img src id="target1" class="DP" />
               </div>
               <div class="form-group mt-5">
                 <input
                   type="file"
                   class="form-control"
                   name="DP"
-                  id="src"
-                  @input="showImage"
+                  id="src1"
+                  @input="showDP"
                 />
               </div>
             </div>
-            <button class="btn btn-primary btn-sm" @click="updateDP">
+            <button class="btn btn-spooky btn-sm" @click="updateDP">
               Update
             </button>
           </div>
@@ -118,17 +119,17 @@ export default {
     return {
       formData: {
         id: '',
-        DP: 'dist/img/blank_avatar.png',
+        DP: 'dist/img/blank_avatar.webp',
       },
       user: [],
       imageSelected: 0,
     }
   },
   methods: {
-    showImage() {
+    showDP() {
       this.imageSelected = 1
-      var src = document.getElementById('src')
-      var target = document.getElementById('target')
+      var src = document.getElementById('src1')
+      var target = document.getElementById('target1')
 
       var fr = new FileReader()
 
@@ -141,11 +142,11 @@ export default {
     },
     edit(item) {
       this.formData.id = item
-      $('.modal').modal('toggle')
+      $('#modaldp').modal('toggle')
     },
     updateDP() {
       this.errors = {}
-      let myForm = document.getElementById('myForm')
+      let myForm = document.getElementById('myForm1')
       let formData = new FormData(myForm)
       formData.append('id', this.formData.id)
       axios
@@ -155,7 +156,7 @@ export default {
           this.isSubmitted = 0
           for (let key in this.formData) {
             if (key == 'DP') {
-              this.formData[key] = 'dist/img/blank_avatar.png'
+              this.formData[key] = 'dist/img/blank_avatar.webp'
               this.imageSelected = 0
             } else {
               this.formData[key] = ''
@@ -172,7 +173,7 @@ export default {
           showError(err.response.data.message)
           this.imageSelected = 0
         })
-      $('.modal').modal('hide')
+      $('#modaldp').modal('hide')
     },
   },
   mounted() {
@@ -193,6 +194,7 @@ export default {
   left: 13%;
   text-align: center;
   visibility: hidden;
+  color: darkred;
 }
 .image:hover .icon {
   visibility: visible;
