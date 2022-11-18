@@ -32,4 +32,8 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+.container-fluid {
+  padding: 1rem;
+}
+</style>
