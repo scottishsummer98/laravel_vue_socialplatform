@@ -19,7 +19,7 @@
             href="#"
             class="icon"
             title="Change Profile Picture"
-            @click="edit()"
+            @click="edit(user.id)"
           >
             <i class="fa fa-camera"></i>
           </a>
@@ -69,29 +69,36 @@
   >
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
-        <div class="card">
-          <h4 class="card-header">Upload New Profile Picture</h4>
-          <div class="card-body">
-            <div v-if="!imageSelected">
-              <img :src="`/${formData.DP}`" class="DP" />
+        <form
+          @submit.prevent
+          method="post"
+          id="myForm"
+          enctype="multipart/form-data"
+        >
+          <div class="card">
+            <h4 class="card-header">Upload New Profile Picture</h4>
+            <div class="card-body">
+              <div v-if="!imageSelected">
+                <img :src="`/${formData.DP}`" class="DP" />
+              </div>
+              <div class="DP" :class="!imageSelected ? 'hidden' : ''">
+                <img src id="target" class="DP" />
+              </div>
+              <div class="form-group">
+                <input
+                  type="file"
+                  class="form-control"
+                  name="DP"
+                  id="src"
+                  @input="showImage"
+                />
+              </div>
             </div>
-            <div class="DP" :class="!imageSelected ? 'hidden' : ''">
-              <img :src="`/${formData.DP}`" id="target" class="DP" />
-            </div>
-            <div class="form-group">
-              <input
-                type="file"
-                class="form-control"
-                name="DP"
-                id="src"
-                @input="showImage"
-              />
-            </div>
+            <button class="btn btn-primary btn-sm" @click="updateDP">
+              Update
+            </button>
           </div>
-          <button class="btn btn-primary btn-sm" @click="update">
-            Update
-          </button>
-        </div>
+        </form>
       </div>
     </div>
   </div>
@@ -99,12 +106,13 @@
 
 <script>
 import axios from 'axios'
+import { showSuccess, showError } from '../../helper'
 
 export default {
   data() {
     return {
       formData: {
-        Email: user.email,
+        id: '',
         DP: 'dist/img/blank_avatar.png',
       },
       user: [],
@@ -126,19 +134,41 @@ export default {
         fr.readAsDataURL(src.files[0])
       })
     },
-    edit() {
+    edit(item) {
+      this.formData.id = item
       $('.modal').modal('toggle')
     },
-    update() {
+    updateDP() {
+      this.errors = {}
+      let myForm = document.getElementById('myForm')
+      let formData = new FormData(myForm)
+      formData.append('id', this.formData.id)
+
       axios
-        .post(`/update-user/${this.formData.Email}`, this.formData)
-        .then((res) => {
-          showSuccess('Profile Photo Updated!')
+        .post(`/update-user`, formData)
+        .then((response) => {
+          this.clear()
+          showSuccess('Profile Picture Updated')
+          this.isSubmitted = 0
+          for (let key in this.formData) {
+            if (key == 'DP') {
+              this.formData[key] = 'dist/img/blank_avatar.png'
+              this.imageSelected = 0
+            } else {
+              this.formData[key] = ''
+            }
+          }
+          var src = document.getElementById('src')
+          src.value = ''
+          this.imageSelected = 0
         })
         .catch((err) => {
-          showError('Failed To Update Profile Picture!')
+          if (err.response.status == 422) {
+            this.errors = err.response.data.errors
+          }
+          showError(err.response.data.message)
+          this.imageSelected = 0
         })
-      $('.modal').modal('hide')
     },
   },
   mounted() {

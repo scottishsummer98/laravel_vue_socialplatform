@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DataProviderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,9 +13,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/{vue_capture?}', function () {
-    return redirect('/home');
-})->where('vue_capture', '[\/\w\.-]*');
 
 Route::get('/', function () {
     return view('auth/login');
@@ -22,14 +20,14 @@ Route::get('/', function () {
 Route::get('/home', function () {
     return view('home');
 });
-
 Route::get('/register', function () {
     return view('auth/register');
 });
 Route::get('/login', function () {
     return view('auth/login');
 });
-Route::post('/update-user/{email}', [
-    DataProviderController::class,
-    'updateUser',
-]);
+Route::post('/update-user', [DataProviderController::class, 'updateUser']);
+
+Route::get('/{vue_capture?}', function () {
+    return redirect('/home');
+})->where('vue_capture', '[\/\w\.-]*');
