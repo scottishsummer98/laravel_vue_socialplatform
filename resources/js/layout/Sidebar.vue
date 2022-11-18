@@ -8,6 +8,9 @@
             class="img-circle elevation-2"
             alt="User Image"
           />
+          <a href="#" class="icon" title="Change Profile Picture">
+            <i class="fa fa-camera"></i>
+          </a>
         </div>
         <div class="info">
           <a href="#" class="d-block" style="text-decoration: none;">
@@ -66,5 +69,16 @@ export default {
 <style>
 .sidebar-dark-primary {
   background-image: linear-gradient(black, rgb(74, 1, 1), black);
+}
+.icon {
+  font-size: 15px;
+  position: absolute;
+  top: 34%;
+  left: 13%;
+  text-align: center;
+  visibility: hidden;
+}
+.image:hover .icon {
+  visibility: visible;
 }
 </style>
