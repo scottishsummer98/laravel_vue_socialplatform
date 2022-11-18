@@ -28,4 +28,8 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+.container-fluid {
+  background-image: url('../../../public/dist/img/BG.jpg');
+}
+</style>
