@@ -6,11 +6,7 @@
 
     <div class="content-wrapper">
       <div class="container-fluid">
-        <div class="card">
-          <div class="card-body">
-            <router-view></router-view>
-          </div>
-        </div>
+        <router-view></router-view>
       </div>
     </div>
 
@@ -32,8 +28,4 @@ export default {
 }
 </script>
 
-<style>
-.container-fluid {
-  padding: 1rem;
-}
-</style>
+<style></style>

@@ -89,7 +89,7 @@
               <div class="DP" :class="!imageSelected ? 'hidden' : ''">
                 <img src id="target" class="DP" />
               </div>
-              <div class="form-group">
+              <div class="form-group mt-5">
                 <input
                   type="file"
                   class="form-control"
@@ -197,11 +197,15 @@ export default {
 .image:hover .icon {
   visibility: visible;
 }
+.user-panel img {
+  height: 2.1rem;
+}
 .DP {
   padding: 10px;
   border: 1px solid transparent;
   border-radius: 50%;
   width: 16rem;
+  height: 16rem;
 }
 .hidden {
   display: none;
