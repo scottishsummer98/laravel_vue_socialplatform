@@ -8,7 +8,12 @@
             class="img-circle elevation-2"
             alt="User Image"
           />
-          <a href="#" class="icon" title="Change Profile Picture">
+          <a
+            href="#"
+            class="icon"
+            title="Change Profile Picture"
+            @click="edit(item)"
+          >
             <i class="fa fa-camera"></i>
           </a>
         </div>
@@ -48,6 +53,38 @@
       </nav>
     </div>
   </aside>
+  <div
+    class="modal fade bd-example-modal-lg"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="myLargeModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="card">
+          <h4 class="card-header">Upload New Profile Picture</h4>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-12" style="text-align: center;">
+                <div class="form-group">
+                  <img
+                    src="dist/img/user2-160x160.jpg"
+                    class="img-circle elevation-2"
+                    alt="User Image"
+                  />
+                </div>
+              </div>
+              <input class="form-control" type="file" name="" id="" />
+            </div>
+          </div>
+          <button class="btn btn-primary btn-sm" @click="update">
+            Update
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -58,6 +95,14 @@ export default {
     return {
       user: [],
     }
+  },
+  methods: {
+    edit(item) {
+      for (let index in item) {
+        this.editingItem[index] = item[index]
+      }
+      $('.modal').modal('toggle')
+    },
   },
   mounted() {
     axios.get('/api/user').then((res) => {

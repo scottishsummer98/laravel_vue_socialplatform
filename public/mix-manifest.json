@@ -10,6 +10,7 @@
     "/dist/img/Bg.jpg": "/dist/img/Bg.jpg",
     "/dist/img/boxed-bg.jpg": "/dist/img/boxed-bg.jpg",
     "/dist/img/boxed-bg.png": "/dist/img/boxed-bg.png",
+    "/dist/img/camera.png": "/dist/img/camera.png",
     "/dist/img/credit/american-express.png": "/dist/img/credit/american-express.png",
     "/dist/img/credit/cirrus.png": "/dist/img/credit/cirrus.png",
     "/dist/img/credit/mastercard.png": "/dist/img/credit/mastercard.png",
@@ -34,6 +35,5 @@
     "/dist/img/user5-128x128.jpg": "/dist/img/user5-128x128.jpg",
     "/dist/img/user6-128x128.jpg": "/dist/img/user6-128x128.jpg",
     "/dist/img/user7-128x128.jpg": "/dist/img/user7-128x128.jpg",
-    "/dist/img/user8-128x128.jpg": "/dist/img/user8-128x128.jpg",
-    "/dist/img/camera.png": "/dist/img/camera.png"
+    "/dist/img/user8-128x128.jpg": "/dist/img/user8-128x128.jpg"
 }
