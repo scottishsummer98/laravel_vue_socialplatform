@@ -79,7 +79,12 @@
             <h4 class="card-header">Upload New Profile Picture</h4>
             <div class="card-body">
               <div v-if="!imageSelected">
-                <img :src="`/${formData.DP}`" class="DP" />
+                <img
+                  v-if="user.dp != null"
+                  :src="`../storage/${user.dp}`"
+                  class="DP"
+                />
+                <img v-else :src="`/${formData.DP}`" class="DP" />
               </div>
               <div class="DP" :class="!imageSelected ? 'hidden' : ''">
                 <img src id="target" class="DP" />
@@ -106,7 +111,7 @@
 
 <script>
 import axios from 'axios'
-import { showSuccess, showError } from '../../helper'
+import { showSuccess, showError } from '../helper'
 
 export default {
   data() {
@@ -143,12 +148,10 @@ export default {
       let myForm = document.getElementById('myForm')
       let formData = new FormData(myForm)
       formData.append('id', this.formData.id)
-
       axios
         .post(`/update-user`, formData)
         .then((response) => {
-          this.clear()
-          showSuccess('Profile Picture Updated')
+          window.location.reload()
           this.isSubmitted = 0
           for (let key in this.formData) {
             if (key == 'DP') {
@@ -169,6 +172,7 @@ export default {
           showError(err.response.data.message)
           this.imageSelected = 0
         })
+      $('.modal').modal('hide')
     },
   },
   mounted() {
