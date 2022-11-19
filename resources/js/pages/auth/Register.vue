@@ -131,7 +131,7 @@ export default {
       axios
         .post('api/register-user', this.formData)
         .then(() => {
-          window.location.href = '/home'
+          // window.location.href = '/home'
           showSuccess('Registration Successful')
         })
         .catch((error) => {
