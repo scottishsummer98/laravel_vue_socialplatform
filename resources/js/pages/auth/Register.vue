@@ -10,97 +10,99 @@
       <div class="register-box">
         <div class="card card-outline">
           <div class="card-body">
-            <div class="input-group mb-4">
-              <input
-                placeholder="First Name"
-                id="name"
-                type="text"
-                class="form-control"
-                v-model="formData.fname"
-              />
-            </div>
-            <div class="input-group mb-4">
-              <input
-                placeholder="Last Name"
-                id="name"
-                type="text"
-                class="form-control"
-                v-model="formData.lname"
-              />
-            </div>
-            <div class="input-group mb-4">
-              <input
-                placeholder="Date Of Birth"
-                id="name"
-                type="date"
-                class="form-control"
-                v-model="formData.dob"
-              />
-            </div>
-            <div class="input-group mb-4">
-              <select
-                id="gender"
-                class="form-control"
-                v-model="formData.gender"
-              >
-                <option selected disabled>Select Country</option>
-                <option value="M">Male</option>
-                <option value="F">Female</option>
-                <option value="O">Others</option>
-              </select>
-            </div>
-            <div class="input-group mb-4">
-              <input
-                placeholder="Mobile Number"
-                id="name"
-                type="text"
-                class="form-control"
-                v-model="formData.mobile"
-              />
-            </div>
-            <div class="input-group mb-4">
-              <input
-                placeholder="Email Address"
-                id="email"
-                type="text"
-                class="form-control"
-                v-model="formData.email"
-              />
-            </div>
-            <div class="input-group mb-4">
-              <input
-                placeholder="Password"
-                id="password"
-                type="password"
-                class="form-control"
-                v-model="formData.password"
-              />
-            </div>
-            <div class="input-group mb-4">
-              <input
-                placeholder="Retype Password"
-                id="password-confirm"
-                type="password"
-                class="form-control"
-                v-model="formData.password_confirmation"
-              />
-            </div>
-            <div class="row">
-              <div class="col-12">
-                <button
-                  type="submit"
-                  class="btn btn-block btn-spooky"
-                  @click="registerUser"
+            <form @submit.prevent method="post" enctype="multipart/form-data">
+              <div class="input-group mb-4">
+                <input
+                  placeholder="First Name"
+                  id="name"
+                  type="text"
+                  class="form-control"
+                  v-model="formData.fname"
+                />
+              </div>
+              <div class="input-group mb-4">
+                <input
+                  placeholder="Last Name"
+                  id="name"
+                  type="text"
+                  class="form-control"
+                  v-model="formData.lname"
+                />
+              </div>
+              <div class="input-group mb-4">
+                <input
+                  placeholder="Date Of Birth"
+                  id="name"
+                  type="date"
+                  class="form-control"
+                  v-model="formData.dob"
+                />
+              </div>
+              <div class="input-group mb-4">
+                <select
+                  id="gender"
+                  class="form-control"
+                  v-model="formData.gender"
                 >
-                  Register
+                  <option selected disabled>Select Country</option>
+                  <option value="M">Male</option>
+                  <option value="F">Female</option>
+                  <option value="O">Others</option>
+                </select>
+              </div>
+              <div class="input-group mb-4">
+                <input
+                  placeholder="Mobile Number"
+                  id="name"
+                  type="text"
+                  class="form-control"
+                  v-model="formData.mobile"
+                />
+              </div>
+              <div class="input-group mb-4">
+                <input
+                  placeholder="Email Address"
+                  id="email"
+                  type="text"
+                  class="form-control"
+                  v-model="formData.email"
+                />
+              </div>
+              <div class="input-group mb-4">
+                <input
+                  placeholder="Password"
+                  id="password"
+                  type="password"
+                  class="form-control"
+                  v-model="formData.password"
+                />
+              </div>
+              <div class="input-group mb-4">
+                <input
+                  placeholder="Retype Password"
+                  id="password-confirm"
+                  type="password"
+                  class="form-control"
+                  v-model="formData.password_confirmation"
+                />
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <button
+                    type="submit"
+                    class="btn btn-block btn-spooky"
+                    @click="registerUser"
+                  >
+                    Register
+                  </button>
+                </div>
+              </div>
+              <div class="social-auth-links text-center">
+                <button class="btn btn-block btn-spooky" @click="redirect">
+                  Already Registered?
                 </button>
               </div>
-            </div>
-            <div class="social-auth-links text-center">
-              <button class="btn btn-block btn-spooky" @click="redirect">
-                Already Registered?
-              </button>
-            </div>
+            </form>
           </div>
         </div>
       </div>

@@ -10,44 +10,46 @@
       <div class="login-box">
         <div class="card card-outline">
           <div class="card-body">
-            <div class="input-group mb-3">
-              <input
-                placeholder="Email"
-                id="email"
-                type="email"
-                class="form-control"
-                name="email"
-                v-model="formData.email"
-              />
-            </div>
-            <div class="input-group mb-3">
-              <input
-                placeholder="Password"
-                id="password"
-                type="password"
-                class="form-control"
-                v-model="formData.password"
-              />
-            </div>
-            <div class="row">
-              <div class="col-12">
-                <button
-                  type="submit"
-                  class="btn btn-spooky btn-block"
-                  @click="loginUser"
-                >
-                  Log in
-                </button>
+            <form @submit.prevent method="post" enctype="multipart/form-data">
+              <div class="input-group mb-3">
+                <input
+                  placeholder="Email"
+                  id="email"
+                  type="email"
+                  class="form-control"
+                  name="email"
+                  v-model="formData.email"
+                />
               </div>
-            </div>
-            <div class="social-auth-links text-center mt-2 mb-3">
-              <button class="btn btn-block btn-spooky" @click="redirect">
-                Create New Account
-              </button>
-              <router-link to="#" class="btn btn-block btn-spooky">
-                Forgotten Password?
-              </router-link>
-            </div>
+              <div class="input-group mb-3">
+                <input
+                  placeholder="Password"
+                  id="password"
+                  type="password"
+                  class="form-control"
+                  v-model="formData.password"
+                />
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <button
+                    type="submit"
+                    class="btn btn-spooky btn-block"
+                    @click="loginUser"
+                  >
+                    Log in
+                  </button>
+                </div>
+              </div>
+              <div class="social-auth-links text-center mt-2 mb-3">
+                <button class="btn btn-block btn-spooky" @click="redirect">
+                  Create New Account
+                </button>
+                <router-link to="#" class="btn btn-block btn-spooky">
+                  Forgotten Password?
+                </router-link>
+              </div>
+            </form>
           </div>
         </div>
       </div>
