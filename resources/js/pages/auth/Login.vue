@@ -70,13 +70,13 @@ export default {
   },
   methods: {
     redirect() {
-      this.$router.push('/register')
+      window.location.href = '/register'
     },
     loginUser() {
       axios
         .post('api/login-user', this.formData)
         .then(() => {
-          this.$router.push('/home')
+          window.location.href = '/home'
           showSuccess('Login Successful')
         })
         .catch((error) => {
