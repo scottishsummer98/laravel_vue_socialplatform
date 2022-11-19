@@ -76,6 +76,7 @@ export default {
       axios
         .post('api/login-user', this.formData)
         .then(() => {
+          window.location.href = '/home'
           showSuccess('Login Successful')
         })
         .catch((error) => {
