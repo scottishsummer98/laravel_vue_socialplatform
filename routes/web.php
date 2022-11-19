@@ -28,6 +28,6 @@ Route::get('/login', function () {
 });
 Route::post('/update-user', [DataProviderController::class, 'updateUser']);
 
-// Route::get('/{vue_capture?}', function () {
-//     return redirect('/home');
-// })->where('vue_capture', '[\/\w\.-]*');
+Route::get('/{vue_capture?}', function () {
+    return redirect('/home');
+})->where('vue_capture', '[\/\w\.-]*');

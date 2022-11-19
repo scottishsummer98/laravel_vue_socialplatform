@@ -125,13 +125,13 @@ export default {
   },
   methods: {
     redirect() {
-      window.location.href = '/login'
+      this.$router.push({ path: '/login' })
     },
     registerUser() {
       axios
         .post('api/register-user', this.formData)
         .then(() => {
-          // window.location.href = '/home'
+          this.$router.push({ path: '/home' })
           showSuccess('Registration Successful')
         })
         .catch((error) => {
