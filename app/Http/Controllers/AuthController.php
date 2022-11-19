@@ -31,6 +31,8 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+
+        return view('home');
     }
 
     public function login(Request $request)
@@ -46,10 +48,13 @@ class AuthController extends Controller
         throw ValidationException::withMessages([
             'email' => ['The Provided credentials are incorrect'],
         ]);
+
+        return view('home');
     }
 
     public function logout()
     {
         Auth::logout();
+        return view('auth/login');
     }
 }
