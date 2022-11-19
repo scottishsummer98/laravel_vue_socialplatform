@@ -6,13 +6,14 @@
         :src="`../storage/${user.cp}`"
         alt=""
         title=""
+        @click="CPOverlay"
       />
       <img v-else :src="`/${formData.CP}`" alt="" title="" />
       <a
         href="#"
-        class="icon_profile"
+        class="icon_profile_cp"
         title="Change Cover Picture"
-        @click="edit(user.id)"
+        @click="editcp(user.id)"
       >
         <i class="fa fa-camera"></i>
       </a>
@@ -24,8 +25,16 @@
           :src="`../storage/${user.dp}`"
           alt=""
           title=""
+          @click="DPOverlay"
         />
-        <img v-else :src="`dist/img/blank_avatar.webp`" alt="" title="" />
+        <img v-else :src="`/${formData.DP}`" alt="" title="" />
+        <div
+          class="icon_profile_dp"
+          title="Change Profile Picture"
+          @click="editdp(user.id)"
+        >
+          <i class="fa fa-camera"></i>
+        </div>
       </a>
     </div>
     <div class="profile-name">
@@ -41,6 +50,54 @@
           <li><a href="#">Photos</a></li>
           <li><a href="#">Edit Profile</a></li>
         </ul>
+      </div>
+    </div>
+  </div>
+  <div
+    class="modal fade bd-example-modal-lg"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="myLargeModalLabel"
+    aria-hidden="true"
+    id="modaldpp"
+  >
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <form
+          @submit.prevent
+          method="post"
+          id="myForm3"
+          enctype="multipart/form-data"
+        >
+          <div class="card">
+            <h4 class="card-header">Upload New Profile Picture</h4>
+            <div class="card-body">
+              <div v-if="!imageSelected">
+                <img
+                  v-if="user.dp != null"
+                  :src="`../storage/${user.dp}`"
+                  class="DP"
+                />
+                <img v-else :src="`/${formData.DP}`" class="DP" />
+              </div>
+              <div class="DP" :class="!imageSelected ? 'hidden' : ''">
+                <img src id="target3" class="DP" />
+              </div>
+              <div class="form-group mt-5">
+                <input
+                  type="file"
+                  class="form-control"
+                  name="DP"
+                  id="src3"
+                  @input="showDPP"
+                />
+              </div>
+            </div>
+            <button class="btn btn-spooky btn-sm" @click="updateDP">
+              Update
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
@@ -92,6 +149,38 @@
       </div>
     </div>
   </div>
+  <div
+    class="modal fade bd-example-modal-lg"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="myLargeModalLabel"
+    aria-hidden="true"
+    id="modalcpshow"
+  >
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div>
+          <img :src="`../storage/${user.cp}`" class="img_Overlay" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="modal fade bd-example-modal-sm"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="myLargeModalLabel"
+    aria-hidden="true"
+    id="modaldpshow"
+  >
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div>
+          <img :src="`../storage/${user.dp}`" class="img_Overlay" />
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -100,6 +189,7 @@ export default {
     return {
       formData: {
         id: '',
+        DP: 'dist/img/blank_avatar.webp',
         CP: 'dist/img/blank_cover.jpg',
       },
       user: [],
@@ -107,13 +197,17 @@ export default {
     }
   },
   methods: {
-    showCP() {
+    DPOverlay() {
+      $('#modaldpshow').modal('toggle')
+    },
+    CPOverlay() {
+      $('#modalcpshow').modal('toggle')
+    },
+    showDPP() {
       this.imageSelected = 1
-      var src = document.getElementById('src2')
-      var target = document.getElementById('target2')
-
+      var src = document.getElementById('src3')
+      var target = document.getElementById('target3')
       var fr = new FileReader()
-
       fr.onload = function (e) {
         target.src = this.result
       }
@@ -121,9 +215,56 @@ export default {
         fr.readAsDataURL(src.files[0])
       })
     },
-    edit(item) {
+    showCP() {
+      this.imageSelected = 1
+      var src = document.getElementById('src2')
+      var target = document.getElementById('target2')
+      var fr = new FileReader()
+      fr.onload = function (e) {
+        target.src = this.result
+      }
+      src.addEventListener('change', function () {
+        fr.readAsDataURL(src.files[0])
+      })
+    },
+    editdp(item) {
+      this.formData.id = item
+      $('#modaldpp').modal('toggle')
+    },
+    editcp(item) {
       this.formData.id = item
       $('#modalcp').modal('toggle')
+    },
+    updateDP() {
+      this.errors = {}
+      let myForm = document.getElementById('myForm3')
+      let formData = new FormData(myForm)
+      formData.append('id', this.formData.id)
+      axios
+        .post(`/update-user`, formData)
+        .then((response) => {
+          window.location.reload()
+          this.isSubmitted = 0
+          for (let key in this.formData) {
+            if (key == 'DP') {
+              this.formData[key] = 'dist/img/blank_avatar.webp'
+              this.imageSelected = 0
+            } else {
+              this.formData[key] = ''
+            }
+          }
+          var src = document.getElementById('src')
+          src.value = ''
+          this.imageSelected = 0
+        })
+        .catch((err) => {
+          if (err.response.status == 422) {
+            this.errors = err.response.data.errors
+          }
+          showError(err.response.data.message)
+          this.imageSelected = 0
+        })
+      $('#modaldpp').modal('hide')
     },
     updateCP() {
       this.errors = {}
@@ -255,17 +396,32 @@ img {
 .block-menu ul li:first-child a {
   border-left: 1px solid #e9eaed;
 }
-.icon_profile {
+.icon_profile_cp {
   font-size: 25px;
   position: absolute;
   top: 85%;
   left: 95%;
   text-align: center;
   visibility: hidden;
-  color: white;
-}
-.fb-profile-block-thumb:hover .icon_profile {
   color: grey;
+}
+.icon_profile_dp {
+  font-size: 25px;
+  position: absolute;
+  bottom: -1%;
+  left: 78%;
+  text-align: center;
+  visibility: hidden;
+  color: grey;
+}
+.fb-profile-block-thumb:hover .icon_profile_cp {
+  color: white;
+  transition: ease-in-out 0.5s;
+  visibility: visible;
+}
+
+.profile-img:hover .icon_profile_dp {
+  color: white;
   transition: ease-in-out 0.5s;
   visibility: visible;
 }
@@ -274,6 +430,10 @@ img {
   border: 1px solid transparent;
   width: 45rem;
   height: 20rem;
+}
+.img_Overlay {
+  width: 50rem;
+  height: 35rem;
 }
 .hidden {
   display: none;

@@ -194,7 +194,6 @@ export default {
   left: 13%;
   text-align: center;
   visibility: hidden;
-  color: darkred;
 }
 .image:hover .icon {
   visibility: visible;
