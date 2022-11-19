@@ -20,7 +20,7 @@ const routes = [
           next()
         })
         .catch(() => {
-          window.location.href = '/login'
+          this.$router.push('/login')
         })
     },
   },
