@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 19, 2022 at 06:16 AM
+-- Generation Time: Nov 21, 2022 at 05:50 PM
 -- Server version: 5.7.33
 -- PHP Version: 7.4.27
 
@@ -118,7 +118,10 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `fname`, `lname`, `dp`, `cp`, `dob`, `gender`, `mobile`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
 (3, 'Tonwy', 'Khan', 'user/dp/2022/11/AhWuBZTk5lOtNFCDnaLMw1U2NyyQuqEsq0rnq7Rx.jpg', 'user/cp/2022/11/V9LbBwwx8lBAkpNE04AevaSzmrXm5ztKBJe76HJd.jpg', '1997-12-27 00:00:00', 'F', '+8801797091622', 'tonwy@gmail.com', NULL, '$2y$10$6G1wSjcr.k/ZZA2OfoXKvOND2qFKfSUOaRtWpJ7PzT5pgFc98cQuK', NULL, '2022-11-18 12:54:05', '2022-11-18 13:57:01'),
-(4, 'Scottish', 'Summer', 'user/dp/2022/11/JEX5y3w7nj8MypZYIXOkVya7Gc8xYl2NELDlFPI4.webp', 'user/cp/2022/11/ETtmVtfCWMXkpLA4XEtS9PuEA9E6xxDCUy5xmalg.jpg', '1997-11-21 00:00:00', 'M', '+8801715085046', 'sami@gmail.com', NULL, '$2y$10$6G1wSjcr.k/ZZA2OfoXKvOND2qFKfSUOaRtWpJ7PzT5pgFc98cQuK', NULL, '2022-11-18 13:27:28', '2022-11-18 22:37:46');
+(4, 'Scottish', 'Summer', 'user/dp/2022/11/NHgiXlpiUz3ONK6F2i71eIz9KuMtzqAGqPjpICjF.webp', 'user/cp/2022/11/i8SjnMDGpabSuFqWkkHB6gmLbtQawq8CprMvStrK.jpg', '1997-11-21 00:00:00', 'M', '+8801715085046', 'sami@gmail.com', NULL, '$2y$10$6G1wSjcr.k/ZZA2OfoXKvOND2qFKfSUOaRtWpJ7PzT5pgFc98cQuK', NULL, '2022-11-18 13:27:28', '2022-11-21 11:29:39'),
+(5, 'Samantha', 'Jinn', 'user/dp/2022/11/b5e0gp5Nfd1drDxeC9M4i30F9p9E8Wtcrr89Luib.webp', 'user/cp/2022/11/oG6aWKHGdpDLpxz2SyFuX1fJsorwGskHgue6RRPe.jpg', '2002-06-20 00:00:00', 'F', '+8801684741226', 'samantha@gmail.com', NULL, '$2y$10$qUp4U9d/YME3BNld.U45DO8oHosWDelgL5lMXziVh1G4FibhzczLe', NULL, '2022-11-19 06:28:15', '2022-11-19 06:30:01'),
+(6, 'Armana', 'Jinnman', 'user/dp/2022/11/zzW5QzwCcRNDDq83lGt1NkwfmOmoMgImLEdbopk7.gif', 'user/cp/2022/11/0dquoIjrLCa4K5LxwenrHeWgwuljrI5VFeARVSDh.webp', '1998-06-05 00:00:00', 'F', '+8801687896541', 'armana@gmail.com', NULL, '$2y$10$CGrdC0mRBtLj9n6i.YaKvON9kgNCrDghBZeLB17/w8apYbhngYp72', NULL, '2022-11-21 11:37:30', '2022-11-21 11:43:35'),
+(7, 'Alfi', 'Jinshid', 'user/dp/2022/11/8ILHDpPakjvLUWy2WeSgrr5dxw8fAY3cfzsfmtnu.webp', 'user/cp/2022/11/gTvYiBVTwh53AaNaHiK5qdHS7HK459daoZWmrTVa.jpg', '1998-01-01 00:00:00', 'M', '+8801719965456', 'alfi@gmail.com', NULL, '$2y$10$AF8upWAd8kIWAG/wQwa8xO8Xtff8sa7NhwMDoUKC8DLUMo9NatutK', NULL, '2022-11-21 11:48:00', '2022-11-21 11:50:20');
 
 --
 -- Indexes for dumped tables
@@ -184,7 +187,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
