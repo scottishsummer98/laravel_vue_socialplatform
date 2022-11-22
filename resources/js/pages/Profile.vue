@@ -158,7 +158,7 @@
             v-if="!isEditingdob"
             type="text"
             ref="dob"
-            :value="dateFormat(formData.dob)"
+            :value="formData.dob"
             :disabled="!isEditingdob"
             :class="{ view: !isEditingdob }"
           />
@@ -448,9 +448,9 @@ export default {
     }
   },
   methods: {
-    dateFormat(date) {
-      return moment(date).format('MMMM Do, YYYY')
-    },
+    // dateFormat(date) {
+    //   return moment(date).format('MMMM Do, YYYY')
+    // },
     DPOverlay() {
       $('#modaldpshow').modal('toggle')
     },
@@ -558,7 +558,7 @@ export default {
       formData.append('id', this.formData.id)
       formData.append('fname', this.$refs['fname'].value)
       formData.append('lname', this.$refs['lname'].value)
-      // formData.append('dob', this.$refs['dob'].value)
+      formData.append('dob', this.$refs['dob'].value)
       formData.append('email', this.$refs['email'].value)
       formData.append('mobile', this.$refs['mobile'].value)
       axios

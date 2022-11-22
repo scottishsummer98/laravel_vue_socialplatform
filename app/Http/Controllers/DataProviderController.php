@@ -45,7 +45,7 @@ class DataProviderController extends Controller
             User::where('id', $request->id)->update([
                 'fname' => $request->fname,
                 'lname' => $request->lname,
-                // 'dob' => $request->dob,
+                'dob' => $request->dob,
                 'email' => $request->email,
                 'mobile' => $request->mobile,
             ]);
