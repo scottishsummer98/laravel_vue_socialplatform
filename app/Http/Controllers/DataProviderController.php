@@ -27,9 +27,7 @@ class DataProviderController extends Controller
             User::where('id', $request->id)->update([
                 'dp' => $dp,
             ]);
-        }
-
-        if ($request->CP) {
+        } elseif ($request->CP) {
             if ($user->cp != null) {
                 Storage::delete($user->cp);
                 $cp = $request->CP->store(
@@ -42,6 +40,14 @@ class DataProviderController extends Controller
             }
             User::where('id', $request->id)->update([
                 'cp' => $cp,
+            ]);
+        } else {
+            User::where('id', $request->id)->update([
+                'fname' => $request->fname,
+                'lname' => $request->lname,
+                // 'dob' => $request->dob,
+                'email' => $request->email,
+                'mobile' => $request->mobile,
             ]);
         }
     }

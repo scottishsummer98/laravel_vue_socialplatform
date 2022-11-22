@@ -53,61 +53,243 @@
     </div>
   </div>
   <div class="edit-profile-block" v-if="component == 'edit'">
-    <div class="row">
-      <div class="col-lg-4 col-md-4 col-sm-4">
-        <label class="text-white mb-1" for="">First Name</label>
+    <form
+      @submit.prevent
+      method="post"
+      id="myForm4"
+      enctype="multipart/form-data"
+    >
+      <h4 class="text-white text-center">Account Information</h4>
+      <hr class="text-white" style="border-width: 0.5rem;" />
+      <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-4">
+          <label class="text-white mb-1" for="">First Name</label>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <input
+            type="text"
+            ref="fname"
+            :value="formData.fname"
+            :disabled="!isEditingfname"
+            :class="{ view: !isEditingfname }"
+          />
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2">
+          <button
+            class="btn-spooky mb-1"
+            @click="
+              ;(isEditingfname = !isEditingfname),
+                (isEditinglname = false),
+                (isEditingdob = false),
+                (isEditingemail = false),
+                (isEditingmobile = false)
+            "
+            v-if="!isEditingfname"
+          >
+            Edit
+          </button>
+          <button
+            class="btn-spooky mb-1"
+            @click="update"
+            v-else-if="isEditingfname"
+          >
+            Save
+          </button>
+          <button
+            class="btn-spooky mb-1"
+            v-if="isEditingfname"
+            @click="isEditingfname = false"
+          >
+            Cancel
+          </button>
+        </div>
       </div>
-      <div class="col-lg-6 col-md-6 col-sm-6">
-        <label class="text-white mb-1" for="">{{ user.fname }}</label>
+      <hr class="text-white" />
+      <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-4">
+          <label class="text-white mb-1" for="">Last Name</label>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <input
+            type="text"
+            ref="lname"
+            :value="formData.lname"
+            :disabled="!isEditinglname"
+            :class="{ view: !isEditinglname }"
+          />
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2">
+          <button
+            class="btn-spooky mb-1"
+            @click="
+              ;(isEditingfname = false),
+                (isEditinglname = !isEditinglname),
+                (isEditingdob = false),
+                (isEditingemail = false),
+                (isEditingmobile = false)
+            "
+            v-if="!isEditinglname"
+          >
+            Edit
+          </button>
+          <button
+            class="btn-spooky mb-1"
+            @click="update"
+            v-else-if="isEditinglname"
+          >
+            Save
+          </button>
+          <button
+            class="btn-spooky mb-1"
+            v-if="isEditinglname"
+            @click="isEditinglname = false"
+          >
+            Cancel
+          </button>
+        </div>
       </div>
-      <div class="col-lg-2 col-md-2 col-sm-2">
-        <button class="btn-spooky mb-1">Edit</button>
+      <hr class="text-white" />
+      <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-4">
+          <label class="text-white mb-1" for="">Date Of Birth</label>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <input
+            v-if="!isEditingdob"
+            type="text"
+            ref="dob"
+            :value="dateFormat(formData.dob)"
+            :disabled="!isEditingdob"
+            :class="{ view: !isEditingdob }"
+          />
+          <input
+            v-else
+            type="date"
+            ref="dob"
+            :value="formData.dob"
+            :disabled="!isEditingdob"
+            :class="{ view: !isEditingdob }"
+          />
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2">
+          <button
+            class="btn-spooky mb-1"
+            @click="
+              ;(isEditingfname = false),
+                (isEditinglname = false),
+                (isEditingdob = !isEditingdob),
+                (isEditingemail = false),
+                (isEditingmobile = false)
+            "
+            v-if="!isEditingdob"
+          >
+            Edit
+          </button>
+          <button
+            class="btn-spooky mb-1"
+            @click="update"
+            v-else-if="isEditingdob"
+          >
+            Save
+          </button>
+          <button
+            class="btn-spooky mb-1"
+            v-if="isEditingdob"
+            @click="isEditingdob = false"
+          >
+            Cancel
+          </button>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-4 col-md-4 col-sm-4">
-        <label class="text-white mb-1" for="">Last Name</label>
+      <hr class="text-white" />
+      <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-4">
+          <label class="text-white mb-1" for="">Email</label>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <input
+            type="email"
+            ref="email"
+            :value="formData.email"
+            :disabled="!isEditingemail"
+            :class="{ view: !isEditingemail }"
+          />
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2">
+          <button
+            class="btn-spooky mb-1"
+            @click="
+              ;(isEditingfname = false),
+                (isEditinglname = false),
+                (isEditingdob = false),
+                (isEditingemail = !isEditingemail),
+                (isEditingmobile = false)
+            "
+            v-if="!isEditingemail"
+          >
+            Edit
+          </button>
+          <button
+            class="btn-spooky mb-1"
+            @click="update"
+            v-else-if="isEditingemail"
+          >
+            Save
+          </button>
+          <button
+            class="btn-spooky mb-1"
+            v-if="isEditingemail"
+            @click="isEditingemail = false"
+          >
+            Cancel
+          </button>
+        </div>
       </div>
-      <div class="col-lg-6 col-md-6 col-sm-6">
-        <label class="text-white mb-1" for="">{{ user.lname }}</label>
+      <hr class="text-white" />
+      <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-4">
+          <label class="text-white mb-1" for="">Mobile No</label>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <input
+            type="text"
+            ref="mobile"
+            :value="formData.mobile"
+            :disabled="!isEditingmobile"
+            :class="{ view: !isEditingmobile }"
+          />
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2">
+          <button
+            class="btn-spooky mb-1"
+            @click="
+              ;(isEditingfname = false),
+                (isEditinglname = false),
+                (isEditingdob = false),
+                (isEditingemail = false),
+                (isEditingmobile = !isEditingmobile)
+            "
+            v-if="!isEditingmobile"
+          >
+            Edit
+          </button>
+          <button
+            class="btn-spooky mb-1"
+            @click="update"
+            v-else-if="isEditingmobile"
+          >
+            Save
+          </button>
+          <button
+            class="btn-spooky mb-1"
+            v-if="isEditingmobile"
+            @click="isEditingmobile = false"
+          >
+            Cancel
+          </button>
+        </div>
       </div>
-      <div class="col-lg-2 col-md-2 col-sm-2">
-        <button class="btn-spooky mb-1">Edit</button>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-4 col-md-4 col-sm-4">
-        <label class="text-white mb-1" for="">Date Of Birth</label>
-      </div>
-      <div class="col-lg-6 col-md-6 col-sm-6">
-        <label class="text-white mb-1" for="">{{ user.dob }}</label>
-      </div>
-      <div class="col-lg-2 col-md-2 col-sm-2">
-        <button class="btn-spooky mb-1">Edit</button>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-4 col-md-4 col-sm-4">
-        <label class="text-white mb-1" for="">Email</label>
-      </div>
-      <div class="col-lg-6 col-md-6 col-sm-6">
-        <label class="text-white mb-1" for="">{{ user.email }}</label>
-      </div>
-      <div class="col-lg-2 col-md-2 col-sm-2">
-        <button class="btn-spooky mb-1">Edit</button>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-4 col-md-4 col-sm-4">
-        <label class="text-white mb-1" for="">Mobile No</label>
-      </div>
-      <div class="col-lg-6 col-md-6 col-sm-6">
-        <label class="text-white mb-1" for="">{{ user.mobile }}</label>
-      </div>
-      <div class="col-lg-2 col-md-2 col-sm-2">
-        <button class="btn-spooky mb-1">Edit</button>
-      </div>
-    </div>
+    </form>
   </div>
   <div
     class="modal fade bd-example-modal-lg"
@@ -240,20 +422,35 @@
 </template>
 
 <script>
+import moment from 'moment'
+import { showSuccess, showError } from '../helper'
 export default {
   data() {
     return {
       formData: {
         id: '',
+        fname: '',
+        lname: '',
+        dob: '',
+        email: '',
+        mobile: '',
         DP: 'dist/img/blank_avatar.webp',
         CP: 'dist/img/blank_cover.jpg',
       },
       user: [],
       imageSelected: 0,
       component: '',
+      isEditingfname: false,
+      isEditinglname: false,
+      isEditingdob: false,
+      isEditingemail: false,
+      isEditingmobile: false,
     }
   },
   methods: {
+    dateFormat(date) {
+      return moment(date).format('MMMM Do, YYYY')
+    },
     DPOverlay() {
       $('#modaldpshow').modal('toggle')
     },
@@ -354,11 +551,48 @@ export default {
         })
       $('#modalcp').modal('hide')
     },
+    update() {
+      this.errors = {}
+      let myForm = document.getElementById('myForm4')
+      let formData = new FormData(myForm)
+      formData.append('id', this.formData.id)
+      formData.append('fname', this.$refs['fname'].value)
+      formData.append('lname', this.$refs['lname'].value)
+      // formData.append('dob', this.$refs['dob'].value)
+      formData.append('email', this.$refs['email'].value)
+      formData.append('mobile', this.$refs['mobile'].value)
+      axios
+        .post(`/update-user`, formData)
+        .then((response) => {
+          showSuccess('User Information Updated')
+          this.isEditingfname = false
+          this.isEditinglname = false
+          this.isEditingdob = false
+          this.isEditingemail = false
+          this.isEditingmobile = false
+          this.authenticatedUser()
+        })
+        .catch((err) => {
+          if (err.response.status == 422) {
+            this.errors = err.response.data.errors
+          }
+          showError(err.response.data.message)
+        })
+    },
+    authenticatedUser() {
+      axios.get('/api/user').then((res) => {
+        this.user = res.data
+        this.formData.id = res.data.id
+        this.formData.fname = res.data.fname
+        this.formData.lname = res.data.lname
+        this.formData.dob = res.data.dob
+        this.formData.email = res.data.email
+        this.formData.mobile = res.data.mobile
+      })
+    },
   },
   mounted() {
-    axios.get('/api/user').then((res) => {
-      this.user = res.data
-    })
+    this.authenticatedUser()
   },
 }
 </script>
@@ -500,5 +734,10 @@ img {
 }
 .hidden {
   display: none;
+}
+.view {
+  border-color: transparent;
+  background-color: initial;
+  color: white;
 }
 </style>
