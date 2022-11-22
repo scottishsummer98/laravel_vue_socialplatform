@@ -69,7 +69,11 @@
         />
       </div>
       <div class="col-lg-8">
-        <input type="text" placeholder="What's on your mind?" />
+        <input
+          class="form-control"
+          type="text"
+          placeholder="What's on your mind?"
+        />
       </div>
       <div class="col-lg-3">
         <button class="btn-spooky mb-2" style="width: 100%;">
