@@ -52,6 +52,10 @@
       </div>
     </div>
   </div>
+  <div class="timeline-profile-block" v-if="component == 'timeline'"></div>
+  <div class="friends-profile-block" v-if="component == 'friends'"></div>
+  <div class="pages-profile-block" v-if="component == 'pages'"></div>
+  <div class="photos-profile-block" v-if="component == 'photos'"></div>
   <div class="edit-profile-block" v-if="component == 'edit'">
     <form
       @submit.prevent
@@ -599,6 +603,30 @@ export default {
 
 <style>
 .fb-profile-block {
+  margin: auto;
+  position: relative;
+  width: 850px;
+}
+.timeline-profile-block {
+  padding: 2rem;
+  margin: auto;
+  position: relative;
+  width: 850px;
+}
+.friends-profile-block {
+  padding: 2rem;
+  margin: auto;
+  position: relative;
+  width: 850px;
+}
+.pages-profile-block {
+  padding: 2rem;
+  margin: auto;
+  position: relative;
+  width: 850px;
+}
+.photos-profile-block {
+  padding: 2rem;
   margin: auto;
   position: relative;
   width: 850px;
