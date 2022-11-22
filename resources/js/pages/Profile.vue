@@ -52,7 +52,34 @@
       </div>
     </div>
   </div>
-  <div class="timeline-profile-block" v-if="component == 'timeline'"></div>
+  <div class="timeline-profile-block" v-if="component == 'timeline'">
+    <div class="row">
+      <div class="col-lg-1">
+        <img
+          class="timeline-img"
+          v-if="user.dp != null"
+          :src="`../storage/${user.dp}`"
+          alt="User Image"
+        />
+        <img
+          v-else
+          :src="`/${formData.DP}`"
+          class="timeline-img"
+          alt="User Image"
+        />
+      </div>
+      <div class="col-lg-8">
+        <input type="text" placeholder="What's on your mind?" />
+      </div>
+      <div class="col-lg-3">
+        <button class="btn-spooky mb-2" style="width: 100%;">
+          Upload Image
+        </button>
+        <br />
+        <button class="btn-spooky" style="width: 100%;">Post</button>
+      </div>
+    </div>
+  </div>
   <div class="friends-profile-block" v-if="component == 'friends'"></div>
   <div class="pages-profile-block" v-if="component == 'pages'"></div>
   <div class="photos-profile-block" v-if="component == 'photos'"></div>
@@ -767,5 +794,15 @@ img {
   border-color: transparent;
   background-color: initial;
   color: white;
+}
+.timeline-img {
+  border-radius: 50%;
+  width: 3rem;
+  height: 3rem;
+}
+.timeline-profile-block input {
+  border-radius: 10px;
+  width: 100%;
+  height: 5rem;
 }
 </style>
