@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Posts;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class DataProviderController extends Controller
@@ -73,6 +74,7 @@ class DataProviderController extends Controller
     }
     public function showPosts(Request $request)
     {
-        return Posts::where('userid', $request->id)->get();
+        $id = Auth::id();
+        return Posts::where('userid', $id)->get();
     }
 }

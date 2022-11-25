@@ -677,7 +677,7 @@ export default {
     },
     showPosts() {
       axios
-        .post(`/show-posts?id=1`)
+        .post(`/show-posts`)
         .then((response) => {
           this.posts = response.data
         })
