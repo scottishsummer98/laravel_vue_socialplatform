@@ -83,7 +83,66 @@
         <button class="btn-spooky" style="width: 100%;">Post</button>
       </div>
     </div>
-    <div></div>
+    <div
+      class="card mt-4"
+      style="background-color: #320000; color: white;"
+      v-for="(item, index) in posts"
+      :key="index"
+    >
+      <div class="card-header">
+        <div class="row" style="align-items: center;">
+          <div class="col-lg-1">
+            <img
+              class="timeline-img"
+              v-if="user.dp != null"
+              :src="`../storage/${user.dp}`"
+              alt="User Image"
+            />
+            <img
+              v-else
+              :src="`/${formData.DP}`"
+              class="timeline-img"
+              alt="User Image"
+            />
+          </div>
+          <div class="col-lg-10">
+            <h3 v-if="item.posttype == 'dp'">
+              {{ user.fname }} {{ user.lname }} Updated the Profile Picture
+              <br />
+              <h6>{{ dateFormat(item.created_at) }}</h6>
+            </h3>
+            <h3 v-else-if="item.posttype == 'cp'">
+              {{ user.fname }} {{ user.lname }} Updated the Cover Picture
+              <br />
+              <h6>{{ dateFormat(item.created_at) }}</h6>
+            </h3>
+            <h3 v-else>
+              {{ user.fname }} {{ user.lname }} Posted a Status
+              <br />
+              <h6>{{ dateFormat(item.created_at) }}</h6>
+            </h3>
+          </div>
+          <div class="col-lg-1">
+            <div class="btn-group dropend">
+              <button
+                type="button"
+                class="btn"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                style="border: none;"
+              >
+                <i class="fa-solid fa-ellipsis-vertical text-white"></i>
+              </button>
+              <ul class="p-2 dropdown-menu">
+                <li>Edit Post</li>
+                <li>Delete Post</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body"></div>
+    </div>
   </div>
   <div class="friends-profile-block" v-if="component == 'friends'"></div>
   <div class="pages-profile-block" v-if="component == 'pages'"></div>
@@ -474,8 +533,9 @@ export default {
         CP: 'dist/img/blank_cover.jpg',
       },
       user: [],
+      posts: {},
       imageSelected: 0,
-      component: '',
+      component: 'timeline',
       isEditingfname: false,
       isEditinglname: false,
       isEditingdob: false,
@@ -484,9 +544,9 @@ export default {
     }
   },
   methods: {
-    // dateFormat(date) {
-    //   return moment(date).format('MMMM Do, YYYY')
-    // },
+    dateFormat(date) {
+      return moment(date).format('MMMM Do YYYY, LT')
+    },
     DPOverlay() {
       $('#modaldpshow').modal('toggle')
     },
@@ -615,6 +675,16 @@ export default {
           showError(err.response.data.message)
         })
     },
+    showPosts() {
+      axios
+        .post(`/show-posts?id=1`)
+        .then((response) => {
+          this.posts = response.data
+        })
+        .catch((err) => {
+          // console.log(err.response);
+        })
+    },
     authenticatedUser() {
       axios.get('/api/user').then((res) => {
         this.user = res.data
@@ -629,6 +699,7 @@ export default {
   },
   mounted() {
     this.authenticatedUser()
+    this.showPosts()
   },
 }
 </script>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Posts;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -24,8 +25,16 @@ class DataProviderController extends Controller
                     '/user/dp/' . date('Y') . '/' . date('m')
                 );
             }
+            $dpphotos = $request->DP->store(
+                '/user/photos/dp/' . date('Y') . '/' . date('m')
+            );
             User::where('id', $request->id)->update([
                 'dp' => $dp,
+            ]);
+            Posts::create([
+                'userid' => $request->id,
+                'posttype' => 'dp',
+                'img' => $dpphotos,
             ]);
         } elseif ($request->CP) {
             if ($user->cp != null) {
@@ -38,8 +47,16 @@ class DataProviderController extends Controller
                     '/user/cp/' . date('Y') . '/' . date('m')
                 );
             }
+            $cpphotos = $request->CP->store(
+                '/user/photos/cp/' . date('Y') . '/' . date('m')
+            );
             User::where('id', $request->id)->update([
                 'cp' => $cp,
+            ]);
+            Posts::create([
+                'userid' => $request->id,
+                'posttype' => 'cp',
+                'img' => $cpphotos,
             ]);
         } else {
             User::where('id', $request->id)->update([
@@ -50,5 +67,12 @@ class DataProviderController extends Controller
                 'mobile' => $request->mobile,
             ]);
         }
+    }
+    public function createPost(Request $request)
+    {
+    }
+    public function showPosts(Request $request)
+    {
+        return Posts::where('userid', $request->id)->get();
     }
 }
