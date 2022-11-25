@@ -75,6 +75,12 @@
           />
         </div>
         <div class="col-lg-8">
+          <input
+            type="file"
+            id="src4"
+            @input="showPostImage"
+            style="color: white; position: absolute; top: 100px;"
+          />
           <textarea
             rows="5"
             style="resize: none;"
@@ -83,21 +89,11 @@
             placeholder="What's on your mind?"
             v-model="formData.desc"
           ></textarea>
-          <div class="CP" :class="!postimageSelected ? 'hidden' : ''">
-            <img src id="target4" class="CP" />
+          <div :class="!postimageSelected ? 'hidden' : ''">
+            <img src id="target4" class="PostImage" />
           </div>
         </div>
         <div class="col-lg-3">
-          <button class="btn-spooky" style="width: 100%;">
-            <input
-              type="file"
-              id="src4"
-              @input="showPostImage"
-              value="Upload"
-            />
-          </button>
-          <br />
-          <br />
           <button class="btn-spooky" style="width: 100%;" @click="createPost">
             Post
           </button>
@@ -163,7 +159,7 @@
         </div>
         <div v-if="item.posttype == 'dp'" style="text-align: center;">
           <img
-            class="dpclass"
+            class="dpclass mt-3"
             :src="`../storage/${item.img}`"
             alt="DP Image"
             @click="PostImageOverlay(item.img)"
@@ -171,7 +167,7 @@
         </div>
         <div v-else-if="item.posttype == 'cp'" style="text-align: center;">
           <img
-            class="cpclass"
+            class="cpclass mt-3"
             :src="`../storage/${item.img}`"
             alt="CP Image"
             @click="PostImageOverlay(item.img)"
@@ -187,6 +183,12 @@
             <h4>
               {{ item.desc }}
             </h4>
+            <img
+              class="cpclass mt-3"
+              :src="`../storage/${item.img}`"
+              alt="Post Image"
+              @click="PostImageOverlay(item.img)"
+            />
           </div>
         </div>
       </div>
@@ -595,7 +597,7 @@ export default {
         email: '',
         mobile: '',
         desc: '',
-        img: '',
+        PP: '',
         DP: 'dist/img/blank_avatar.webp',
         CP: 'dist/img/blank_cover.jpg',
       },
@@ -782,7 +784,7 @@ export default {
           showSuccess('You posted an status!')
           this.isSubmitted = 0
           for (let key in this.formData) {
-            if (key == 'img') {
+            if (key == 'PP') {
               this.formData[key] = ''
               this.postimageSelected = 0
             } else {
@@ -798,7 +800,7 @@ export default {
             this.errors = err.response.data.errors
           }
           showError(err.response.data.message)
-          this.imageSelected = 0
+          this.postimageSelected = 0
         })
       this.showPosts()
     },
@@ -976,6 +978,10 @@ img {
   width: 45rem;
   height: 20rem;
 }
+.PostImage {
+  border: 1px solid white;
+  height: 20rem;
+}
 .img_Overlay {
   width: 50rem;
   height: 35rem;
@@ -992,11 +998,6 @@ img {
   border-radius: 50%;
   width: 3rem;
   height: 3rem;
-}
-.timeline-profile-block input {
-  border-radius: 10px;
-  width: 100%;
-  height: 5rem;
 }
 .dpclass {
   width: 30rem;

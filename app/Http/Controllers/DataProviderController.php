@@ -71,10 +71,10 @@ class DataProviderController extends Controller
     }
     public function createPost(Request $request)
     {
-        if ($request->img) {
+        if ($request->PP) {
             $img = null;
-            $img = $request->img->store(
-                '/user/photos/generalposts' . date('Y') . '/' . date('m')
+            $img = $request->PP->store(
+                '/user/photos/generalposts/' . date('Y') . '/' . date('m')
             );
             Posts::create([
                 'userid' => $request->id,
