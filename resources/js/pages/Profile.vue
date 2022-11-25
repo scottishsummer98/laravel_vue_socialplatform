@@ -83,6 +83,7 @@
         <button class="btn-spooky" style="width: 100%;">Post</button>
       </div>
     </div>
+    <div></div>
   </div>
   <div class="friends-profile-block" v-if="component == 'friends'"></div>
   <div class="pages-profile-block" v-if="component == 'pages'"></div>
