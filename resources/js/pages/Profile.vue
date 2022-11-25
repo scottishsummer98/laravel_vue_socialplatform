@@ -53,36 +53,57 @@
     </div>
   </div>
   <div class="timeline-profile-block" v-if="component == 'timeline'">
-    <div class="row">
-      <div class="col-lg-1">
-        <img
-          class="timeline-img"
-          v-if="user.dp != null"
-          :src="`../storage/${user.dp}`"
-          alt="User Image"
-        />
-        <img
-          v-else
-          :src="`/${formData.DP}`"
-          class="timeline-img"
-          alt="User Image"
-        />
+    <form
+      @submit.prevent
+      method="post"
+      id="myForm5"
+      enctype="multipart/form-data"
+    >
+      <div class="row">
+        <div class="col-lg-1">
+          <img
+            class="timeline-img"
+            v-if="user.dp != null"
+            :src="`../storage/${user.dp}`"
+            alt="User Image"
+          />
+          <img
+            v-else
+            :src="`/${formData.DP}`"
+            class="timeline-img"
+            alt="User Image"
+          />
+        </div>
+        <div class="col-lg-8">
+          <textarea
+            rows="5"
+            style="resize: none;"
+            class="form-control"
+            type="text"
+            placeholder="What's on your mind?"
+            v-model="formData.desc"
+          ></textarea>
+          <div class="CP" :class="!postimageSelected ? 'hidden' : ''">
+            <img src id="target4" class="CP" />
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <button class="btn-spooky" style="width: 100%;">
+            <input
+              type="file"
+              id="src4"
+              @input="showPostImage"
+              value="Upload"
+            />
+          </button>
+          <br />
+          <br />
+          <button class="btn-spooky" style="width: 100%;" @click="createPost">
+            Post
+          </button>
+        </div>
       </div>
-      <div class="col-lg-8">
-        <input
-          class="form-control"
-          type="text"
-          placeholder="What's on your mind?"
-        />
-      </div>
-      <div class="col-lg-3">
-        <button class="btn-spooky mb-2" style="width: 100%;">
-          Upload Image
-        </button>
-        <br />
-        <button class="btn-spooky" style="width: 100%;">Post</button>
-      </div>
-    </div>
+    </form>
     <div
       class="card mt-4"
       style="background-color: #320000; color: white;"
@@ -138,6 +159,34 @@
                 <li>Delete Post</li>
               </ul>
             </div>
+          </div>
+        </div>
+        <div v-if="item.posttype == 'dp'" style="text-align: center;">
+          <img
+            class="dpclass"
+            :src="`../storage/${item.img}`"
+            alt="DP Image"
+            @click="PostImageOverlay(item.img)"
+          />
+        </div>
+        <div v-else-if="item.posttype == 'cp'" style="text-align: center;">
+          <img
+            class="cpclass"
+            :src="`../storage/${item.img}`"
+            alt="CP Image"
+            @click="PostImageOverlay(item.img)"
+          />
+        </div>
+        <div v-else>
+          <div v-if="item.img == null">
+            <h4 style="text-align: justify; margin: 1rem 4rem;">
+              {{ item.desc }}
+            </h4>
+          </div>
+          <div v-else>
+            <h4>
+              {{ item.desc }}
+            </h4>
           </div>
         </div>
       </div>
@@ -514,6 +563,22 @@
       </div>
     </div>
   </div>
+  <div
+    class="modal fade bd-example-modal-sm"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="myLargeModalLabel"
+    aria-hidden="true"
+    id="modalpostimageshow"
+  >
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div>
+          <img :src="`../storage/${imgsrc}`" class="img_Overlay" />
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -529,12 +594,16 @@ export default {
         dob: '',
         email: '',
         mobile: '',
+        desc: '',
+        img: '',
         DP: 'dist/img/blank_avatar.webp',
         CP: 'dist/img/blank_cover.jpg',
       },
       user: [],
       posts: {},
       imageSelected: 0,
+      postimageSelected: 0,
+      imgsrc: '',
       component: 'timeline',
       isEditingfname: false,
       isEditinglname: false,
@@ -553,6 +622,10 @@ export default {
     CPOverlay() {
       $('#modalcpshow').modal('toggle')
     },
+    PostImageOverlay(item) {
+      this.imgsrc = item
+      $('#modalpostimageshow').modal('toggle')
+    },
     showDPP() {
       this.imageSelected = 1
       var src = document.getElementById('src3')
@@ -569,6 +642,18 @@ export default {
       this.imageSelected = 1
       var src = document.getElementById('src2')
       var target = document.getElementById('target2')
+      var fr = new FileReader()
+      fr.onload = function (e) {
+        target.src = this.result
+      }
+      src.addEventListener('change', function () {
+        fr.readAsDataURL(src.files[0])
+      })
+    },
+    showPostImage() {
+      this.postimageSelected = 1
+      var src = document.getElementById('src4')
+      var target = document.getElementById('target4')
       var fr = new FileReader()
       fr.onload = function (e) {
         target.src = this.result
@@ -684,6 +769,38 @@ export default {
         .catch((err) => {
           // console.log(err.response);
         })
+    },
+    createPost() {
+      this.errors = {}
+      let myForm = document.getElementById('myForm5')
+      let formData = new FormData(myForm)
+      formData.append('id', this.formData.id)
+      formData.append('desc', this.formData.desc)
+      axios
+        .post(`/create-post`, formData)
+        .then((response) => {
+          showSuccess('You posted an status!')
+          this.isSubmitted = 0
+          for (let key in this.formData) {
+            if (key == 'img') {
+              this.formData[key] = ''
+              this.postimageSelected = 0
+            } else {
+              this.formData[key] = ''
+            }
+          }
+          var src = document.getElementById('src')
+          src.value = ''
+          this.postimageSelected = 0
+        })
+        .catch((err) => {
+          if (err.response.status == 422) {
+            this.errors = err.response.data.errors
+          }
+          showError(err.response.data.message)
+          this.imageSelected = 0
+        })
+      this.showPosts()
     },
     authenticatedUser() {
       axios.get('/api/user').then((res) => {
@@ -880,5 +997,13 @@ img {
   border-radius: 10px;
   width: 100%;
   height: 5rem;
+}
+.dpclass {
+  width: 30rem;
+  height: 30rem;
+}
+.cpclass {
+  width: 45rem;
+  height: 25rem;
 }
 </style>

@@ -71,10 +71,30 @@ class DataProviderController extends Controller
     }
     public function createPost(Request $request)
     {
+        if ($request->img) {
+            $img = null;
+            $img = $request->img->store(
+                '/user/photos/generalposts' . date('Y') . '/' . date('m')
+            );
+            Posts::create([
+                'userid' => $request->id,
+                'desc' => $request->desc,
+                'img' => $img,
+                'posttype' => 'generalposts',
+            ]);
+        } else {
+            Posts::create([
+                'userid' => $request->id,
+                'desc' => $request->desc,
+                'posttype' => 'generalposts',
+            ]);
+        }
     }
     public function showPosts(Request $request)
     {
         $id = Auth::id();
-        return Posts::where('userid', $id)->get();
+        return Posts::where('userid', $id)
+            ->orderBy('created_at', 'DESC')
+            ->get();
     }
 }
