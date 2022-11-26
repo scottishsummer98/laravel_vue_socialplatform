@@ -92,12 +92,11 @@ class DataProviderController extends Controller
             ]);
         }
     }
-    public function showPosts(Request $request)
+    public function updatePost(Request $request)
     {
-        $id = Auth::id();
-        return Posts::where('userid', $id)
-            ->orderBy('created_at', 'DESC')
-            ->get();
+        Posts::where('id', $request->postid)->update([
+            'desc' => $request->desc,
+        ]);
     }
     public function deletePost(Request $request)
     {
@@ -120,5 +119,12 @@ class DataProviderController extends Controller
             Storage::delete($post->img);
         }
         Posts::destroy('id', $request->postid);
+    }
+    public function showPosts(Request $request)
+    {
+        $id = Auth::id();
+        return Posts::where('userid', $id)
+            ->orderBy('created_at', 'DESC')
+            ->get();
     }
 }

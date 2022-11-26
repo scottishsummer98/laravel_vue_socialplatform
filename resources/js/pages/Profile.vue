@@ -152,7 +152,7 @@
                 <i class="fa-solid fa-ellipsis-vertical text-white"></i>
               </button>
               <ul class="p-2 dropdown-menu">
-                <li>Edit Post</li>
+                <li @click="editOverlay(item)">Edit Post</li>
                 <li @click="deleteOverlay(item.id, item.posttype)">
                   Delete Post
                 </li>
@@ -161,24 +161,50 @@
           </div>
         </div>
         <div v-if="item.posttype == 'dp'" style="text-align: center;">
-          <img
-            class="dpclass mt-3"
-            :src="`../storage/${item.img}`"
-            alt="DP Image"
-            @click="PostImageOverlay(item.img)"
-          />
+          <div v-if="item.desc == 'dp'">
+            <img
+              class="dpclass mt-3"
+              :src="`../storage/${item.img}`"
+              alt="DP Image"
+              @click="PostImageOverlay(item.img)"
+            />
+          </div>
+          <div v-else>
+            <h4 style="text-align: justify; margin: 1rem 0;">
+              {{ item.desc }}
+            </h4>
+            <img
+              class="dpclass mt-3"
+              :src="`../storage/${item.img}`"
+              alt="DP Image"
+              @click="PostImageOverlay(item.img)"
+            />
+          </div>
         </div>
         <div v-else-if="item.posttype == 'cp'" style="text-align: center;">
-          <img
-            class="cpclass mt-3"
-            :src="`../storage/${item.img}`"
-            alt="CP Image"
-            @click="PostImageOverlay(item.img)"
-          />
+          <div v-if="item.desc == 'cp'">
+            <img
+              class="cpclass mt-3"
+              :src="`../storage/${item.img}`"
+              alt="CP Image"
+              @click="PostImageOverlay(item.img)"
+            />
+          </div>
+          <div v-else>
+            <h4 style="text-align: justify; margin: 1rem 0;">
+              {{ item.desc }}
+            </h4>
+            <img
+              class="cpclass mt-3"
+              :src="`../storage/${item.img}`"
+              alt="CP Image"
+              @click="PostImageOverlay(item.img)"
+            />
+          </div>
         </div>
         <div v-else>
           <div v-if="item.img == null">
-            <h4 style="text-align: justify; margin: 1rem 4rem;">
+            <h4 style="text-align: justify; margin: 1rem 0;">
               {{ item.desc }}
             </h4>
           </div>
@@ -615,6 +641,45 @@
       </div>
     </div>
   </div>
+  <div
+    class="modal fade bd-example-modal-sm"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="myLargeModalLabel"
+    aria-hidden="true"
+    id="modaleditconfirmation"
+  >
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-lg-6">
+              <textarea
+                rows="5"
+                class="form-control"
+                v-model="editingItem.desc"
+              ></textarea>
+            </div>
+            <div class="col-lg-6">
+              <img
+                class="PostImage"
+                :src="`../storage/${editingItem.img}`"
+                alt="Post Image"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-spooky" data-bs-dismiss="modal">
+            Cancel
+          </button>
+          <button type="button" class="btn btn-spooky" @click="updatePost">
+            Update
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -648,6 +713,9 @@ export default {
       isEditingdob: false,
       isEditingemail: false,
       isEditingmobile: false,
+      editingItem: {
+        desc: '',
+      },
     }
   },
   methods: {
@@ -663,6 +731,12 @@ export default {
     PostImageOverlay(item) {
       this.imgsrc = item
       $('#modalpostimageshow').modal('toggle')
+    },
+    editOverlay(item) {
+      for (let index in item) {
+        this.editingItem[index] = item[index]
+      }
+      $('#modaleditconfirmation').modal('toggle')
     },
     deleteOverlay(ptid, pttype) {
       this.postId = ptid
@@ -841,6 +915,20 @@ export default {
           showError('Someting went wrong!')
           this.postimageSelected = 0
         })
+    },
+    updatePost() {
+      axios
+        .post(
+          `/update-post?postid=${this.editingItem.id}&desc=${this.editingItem.desc}`,
+        )
+        .then((res) => {
+          showSuccess('Post has been Edited')
+          window.location.reload()
+        })
+        .catch((err) => {
+          showError('Something went wrong!')
+        })
+      $('#modaleditconfirmation').modal('hide')
     },
     deletePost(item) {
       axios

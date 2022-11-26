@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 26, 2022 at 03:22 PM
+-- Generation Time: Nov 26, 2022 at 04:51 PM
 -- Server version: 5.7.33
 -- PHP Version: 7.4.27
 
@@ -111,13 +111,14 @@ CREATE TABLE `posts` (
 --
 
 INSERT INTO `posts` (`id`, `userid`, `posttype`, `desc`, `img`, `created_at`, `updated_at`) VALUES
-(1, '1', 'dp', 'dp', 'user/photos/dp/2022/11/3MDXc8jrhMVuiKQwbhoDUPV4tbLyKe0CbzKcwJVA.jpg', '2022-11-26 08:55:50', '2022-11-26 08:55:50'),
-(4, '1', 'generalposts', 'Amazing match between USA and England yesterday!! 🔥🔥 Absolutely Loved it ⚽⚽🏆🏆 #fifawc2022', 'user/photos/generalposts/2022/11/PqUDeVLpepqeQCjuEpmfq0KUYDKnIa7NBomIC2iR.jpg', '2022-11-26 08:59:03', '2022-11-26 08:59:03'),
-(5, '1', 'cp', 'cp', 'user/photos/cp/2022/11/tUtWb58sqtvh2kyCkKAVV3t1a7g3IYJ2KI8tnK0d.jpg', '2022-11-26 08:59:27', '2022-11-26 08:59:27'),
+(1, '1', 'dp', 'Me flying my cousins to Dhaka from Kohkaf! Good day indeed !! 😄😄', 'user/photos/dp/2022/11/3MDXc8jrhMVuiKQwbhoDUPV4tbLyKe0CbzKcwJVA.jpg', '2022-11-26 08:55:50', '2022-11-26 10:47:51'),
+(4, '1', 'generalposts', 'Amazing game between USA and England yesterday!! ⚽⚽ Absolutely Loved it 🧡🧡 🏆🏆', 'user/photos/generalposts/2022/11/PqUDeVLpepqeQCjuEpmfq0KUYDKnIa7NBomIC2iR.jpg', '2022-11-26 08:59:03', '2022-11-26 10:39:18'),
+(5, '1', 'cp', 'One of my favorite footballers of all time 👑 CR7 👑', 'user/photos/cp/2022/11/tUtWb58sqtvh2kyCkKAVV3t1a7g3IYJ2KI8tnK0d.jpg', '2022-11-26 08:59:27', '2022-11-26 10:46:56'),
 (8, '2', 'dp', 'dp', 'user/photos/dp/2022/11/371UbsMo28x0xndFXc9QZvvPdhx3my0W9JlutD2V.gif', '2022-11-26 09:03:21', '2022-11-26 09:03:21'),
-(10, '2', 'cp', 'cp', 'user/photos/cp/2022/11/y1Ao7A2qqZIjhsAagTxjJPWbxOFg0kj4SEo9Swo2.jpg', '2022-11-26 09:19:25', '2022-11-26 09:19:25'),
+(10, '2', 'cp', 'Baby Yoda. My first love 🤭🤭', 'user/photos/cp/2022/11/y1Ao7A2qqZIjhsAagTxjJPWbxOFg0kj4SEo9Swo2.jpg', '2022-11-26 09:19:25', '2022-11-26 10:49:45'),
 (11, '2', 'generalposts', 'আমার ড্রাগনটা সকাল থেকে খাওয়া দাওয়া করতেসে না। খুবই অসুস্থ হয়ে পরেছে। কারোও কাছে পরিচিত পেটক্লিনিকের নাম্বার থাকলে প্লিজ কমেন্ট করে জানাবেন প্লিজ 😭😭', 'user/photos/generalposts/2022/11/VRmBKAQqs8H2z8TkNzi804OLpgqrqEfPZD5wIU2v.jpg', '2022-11-26 09:21:21', '2022-11-26 09:21:21'),
-(12, '2', 'generalposts', 'কি খবর সবাই? কেমন আছেন? ভাল তোহ?', NULL, '2022-11-26 09:21:53', '2022-11-26 09:21:53');
+(12, '2', 'generalposts', 'কি খবর সবাই? কেমন আছেন? ভাল তোহ?', NULL, '2022-11-26 09:21:53', '2022-11-26 09:21:53'),
+(14, '1', 'generalposts', 'Hey!! is anyone else watching France VS Denmark?? What a game!! 😵😵', NULL, '2022-11-26 10:48:38', '2022-11-26 10:48:38');
 
 -- --------------------------------------------------------
 
@@ -220,7 +221,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `users`
