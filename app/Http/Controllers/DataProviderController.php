@@ -106,16 +106,16 @@ class DataProviderController extends Controller
         $post = Posts::where('id', $request->postid)->first();
         if ($request->posttype == 'dp') {
             Storage::delete($user->dp);
-            User::where('id', $user)->update([
+            Storage::delete($post->img);
+            User::where('id', $id)->update([
                 'dp' => null,
             ]);
-            Storage::delete($post->img);
         } elseif ($request->posttype == 'cp') {
             Storage::delete($user->cp);
-            User::where('id', $user)->update([
+            Storage::delete($post->img);
+            User::where('id', $id)->update([
                 'cp' => null,
             ]);
-            Storage::delete($post->img);
         } else {
             Storage::delete($post->img);
         }
