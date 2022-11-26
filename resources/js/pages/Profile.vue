@@ -74,16 +74,16 @@
             alt="User Image"
           />
         </div>
-        <div class="col-lg-8">
+        <div class="col-lg-10">
           <input
             type="file"
             name="PP"
             id="src4"
             @input="showPostImage"
-            style="color: white; position: absolute; top: 100px;"
+            style="color: white; position: absolute; top: 55px;"
           />
           <textarea
-            rows="5"
+            rows="3"
             style="resize: none;"
             class="form-control"
             type="text"
@@ -94,7 +94,7 @@
             <img src id="target4" class="PostImage" />
           </div>
         </div>
-        <div class="col-lg-3">
+        <div class="col-lg-1">
           <button class="btn-spooky" style="width: 100%;" @click="createPost">
             Post
           </button>
@@ -153,7 +153,9 @@
               </button>
               <ul class="p-2 dropdown-menu">
                 <li>Edit Post</li>
-                <li>Delete Post</li>
+                <li @click="deleteOverlay(item.id, item.posttype)">
+                  Delete Post
+                </li>
               </ul>
             </div>
           </div>
@@ -581,6 +583,38 @@
       </div>
     </div>
   </div>
+  <div
+    class="modal fade bd-example-modal-sm"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="myLargeModalLabel"
+    aria-hidden="true"
+    id="modaldeleteconfirmation"
+  >
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">
+            Are you sure you want to delete this post?
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-spooky" data-bs-dismiss="modal">
+            No
+          </button>
+          <button type="button" class="btn btn-spooky" @click="deletePost">
+            Yes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -606,6 +640,8 @@ export default {
       imageSelected: 0,
       postimageSelected: 0,
       imgsrc: '',
+      postId: '',
+      posttype: '',
       component: 'timeline',
       isEditingfname: false,
       isEditinglname: false,
@@ -627,6 +663,11 @@ export default {
     PostImageOverlay(item) {
       this.imgsrc = item
       $('#modalpostimageshow').modal('toggle')
+    },
+    deleteOverlay(ptid, pttype) {
+      this.postId = ptid
+      this.posttype = pttype
+      $('#modaldeleteconfirmation').modal('toggle')
     },
     showDPP() {
       this.imageSelected = 1
@@ -800,6 +841,18 @@ export default {
           showError('Someting went wrong!')
           this.postimageSelected = 0
         })
+    },
+    deletePost(item) {
+      axios
+        .post(`/delete-post?postid=${this.postId}&posttype=${this.posttype}`)
+        .then((response) => {
+          showSuccess('Post Deleted Successfully')
+          window.location.reload()
+        })
+        .catch((err) => {
+          showError('Someting went wrong!')
+        })
+      $('#modaldeleteconfirmation').modal('hide')
     },
     authenticatedUser() {
       axios.get('/api/user').then((res) => {

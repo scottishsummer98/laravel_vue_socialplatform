@@ -99,4 +99,26 @@ class DataProviderController extends Controller
             ->orderBy('created_at', 'DESC')
             ->get();
     }
+    public function deletePost(Request $request)
+    {
+        $id = Auth::id();
+        $user = User::where('id', $id)->first();
+        $post = Posts::where('id', $request->postid)->first();
+        if ($request->posttype == 'dp') {
+            Storage::delete($user->dp);
+            User::where('id', $user)->update([
+                'dp' => null,
+            ]);
+            Storage::delete($post->img);
+        } elseif ($request->posttype == 'cp') {
+            Storage::delete($user->cp);
+            User::where('id', $user)->update([
+                'cp' => null,
+            ]);
+            Storage::delete($post->img);
+        } else {
+            Storage::delete($post->img);
+        }
+        Posts::destroy('id', $request->postid);
+    }
 }

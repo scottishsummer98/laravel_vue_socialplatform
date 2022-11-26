@@ -28,6 +28,7 @@ Route::get('/login', function () {
 });
 Route::post('/update-user', [DataProviderController::class, 'updateUser']);
 Route::post('/create-post', [DataProviderController::class, 'createPost']);
+Route::post('/delete-post', [DataProviderController::class, 'deletePost']);
 Route::post('/show-posts', [DataProviderController::class, 'showPosts']);
 
 Route::get('/{vue_capture?}', function () {
