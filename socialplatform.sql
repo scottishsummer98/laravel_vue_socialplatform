@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 21, 2022 at 05:50 PM
+-- Generation Time: Nov 26, 2022 at 05:16 AM
 -- Server version: 5.7.33
 -- PHP Version: 7.4.27
 
@@ -54,10 +54,11 @@ CREATE TABLE `migrations` (
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(13, '2014_10_12_000000_create_users_table', 1),
-(14, '2014_10_12_100000_create_password_resets_table', 1),
-(15, '2019_08_19_000000_create_failed_jobs_table', 1),
-(16, '2019_12_14_000001_create_personal_access_tokens_table', 1);
+(17, '2014_10_12_000000_create_users_table', 1),
+(18, '2014_10_12_100000_create_password_resets_table', 1),
+(19, '2019_08_19_000000_create_failed_jobs_table', 1),
+(20, '2019_12_14_000001_create_personal_access_tokens_table', 1),
+(21, '2022_11_25_125153_create_posts_table', 2);
 
 -- --------------------------------------------------------
 
@@ -92,6 +93,37 @@ CREATE TABLE `personal_access_tokens` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `posts`
+--
+
+CREATE TABLE `posts` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `userid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `posttype` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `desc` text COLLATE utf8mb4_unicode_ci,
+  `img` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `posts`
+--
+
+INSERT INTO `posts` (`id`, `userid`, `posttype`, `desc`, `img`, `created_at`, `updated_at`) VALUES
+(36, '3', 'dp', NULL, 'user/photos/dp/2022/11/c7NTbFwoNjhmvKYN6OmS9ymYOWmRiIHU4UDX6MWs.webp', '2022-11-25 23:02:38', '2022-11-25 23:02:38'),
+(37, '3', 'cp', NULL, 'user/photos/cp/2022/11/xcSumW3Q6T3MqKAa9o1P6XGJQ6Qjumz0zNlfVRDq.jpg', '2022-11-25 23:03:07', '2022-11-25 23:03:07'),
+(38, '3', 'generalposts', 'What an exciting game between England VS Usa. Absolutely Loved it!!', 'user/photos/generalposts/2022/11/muQmUWlM6o3OOuqwObsJsYj17uGkYWDkAGFYIWJ3.jpg', '2022-11-25 23:03:42', '2022-11-25 23:03:42'),
+(39, '3', 'generalposts', 'আব্বা, পাঁচ-দশ টাকা দামের ১৫ টাকার মধ্যে একটি করে খানা খাওয়াতে হবে জিনদের। বাজান, এই খানা খাওয়ানোর সঙ্গে সঙ্গেই সম্পদ তোর হাতে তুলে দেয়া হবে', NULL, '2022-11-25 23:05:14', '2022-11-25 23:05:14'),
+(40, '4', 'generalposts', 'আমার পোষা ড্রাগনটা সকাল থেকে কিছু খাচ্ছেনা।😭😭 কারোও কাছে পরিচিত কোন পেটক্লিনিক এর নাম্বার থাকলে প্লিজ জানাও আমাকে!!', 'user/photos/generalposts/2022/11/mHueHejufbOgpbgGSzl7K9Br7Q1GW2EVwkIvZeE5.jpg', '2022-11-25 23:13:50', '2022-11-25 23:13:50'),
+(41, '4', 'cp', NULL, 'user/photos/cp/2022/11/yHygR866KbjhOkkiZDYiMV4YRZHSd3oy0rYdXnLW.webp', '2022-11-25 23:14:39', '2022-11-25 23:14:39'),
+(42, '4', 'dp', NULL, 'user/photos/dp/2022/11/caxBhANkT28M8LKlTQoABGWQSRVCZybUAMhyqCxn.gif', '2022-11-25 23:14:47', '2022-11-25 23:14:47'),
+(43, '4', 'generalposts', 'Hi guys, How are you all?  😎😎', NULL, '2022-11-25 23:15:20', '2022-11-25 23:15:20'),
+(44, '4', 'cp', NULL, 'user/photos/cp/2022/11/o0isS3KKgkFVSfusDWzezCfDzL7G0DNv3MV5rbuq.jpg', '2022-11-25 23:15:40', '2022-11-25 23:15:40');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -101,7 +133,7 @@ CREATE TABLE `users` (
   `lname` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `dp` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `cp` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `dob` datetime NOT NULL,
+  `dob` date NOT NULL,
   `gender` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `mobile` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -117,11 +149,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `fname`, `lname`, `dp`, `cp`, `dob`, `gender`, `mobile`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(3, 'Tonwy', 'Khan', 'user/dp/2022/11/AhWuBZTk5lOtNFCDnaLMw1U2NyyQuqEsq0rnq7Rx.jpg', 'user/cp/2022/11/V9LbBwwx8lBAkpNE04AevaSzmrXm5ztKBJe76HJd.jpg', '1997-12-27 00:00:00', 'F', '+8801797091622', 'tonwy@gmail.com', NULL, '$2y$10$6G1wSjcr.k/ZZA2OfoXKvOND2qFKfSUOaRtWpJ7PzT5pgFc98cQuK', NULL, '2022-11-18 12:54:05', '2022-11-18 13:57:01'),
-(4, 'Scottish', 'Summer', 'user/dp/2022/11/NHgiXlpiUz3ONK6F2i71eIz9KuMtzqAGqPjpICjF.webp', 'user/cp/2022/11/i8SjnMDGpabSuFqWkkHB6gmLbtQawq8CprMvStrK.jpg', '1997-11-21 00:00:00', 'M', '+8801715085046', 'sami@gmail.com', NULL, '$2y$10$6G1wSjcr.k/ZZA2OfoXKvOND2qFKfSUOaRtWpJ7PzT5pgFc98cQuK', NULL, '2022-11-18 13:27:28', '2022-11-21 11:29:39'),
-(5, 'Samantha', 'Jinn', 'user/dp/2022/11/b5e0gp5Nfd1drDxeC9M4i30F9p9E8Wtcrr89Luib.webp', 'user/cp/2022/11/oG6aWKHGdpDLpxz2SyFuX1fJsorwGskHgue6RRPe.jpg', '2002-06-20 00:00:00', 'F', '+8801684741226', 'samantha@gmail.com', NULL, '$2y$10$qUp4U9d/YME3BNld.U45DO8oHosWDelgL5lMXziVh1G4FibhzczLe', NULL, '2022-11-19 06:28:15', '2022-11-19 06:30:01'),
-(6, 'Armana', 'Jinnman', 'user/dp/2022/11/zzW5QzwCcRNDDq83lGt1NkwfmOmoMgImLEdbopk7.gif', 'user/cp/2022/11/0dquoIjrLCa4K5LxwenrHeWgwuljrI5VFeARVSDh.webp', '1998-06-05 00:00:00', 'F', '+8801687896541', 'armana@gmail.com', NULL, '$2y$10$CGrdC0mRBtLj9n6i.YaKvON9kgNCrDghBZeLB17/w8apYbhngYp72', NULL, '2022-11-21 11:37:30', '2022-11-21 11:43:35'),
-(7, 'Alfi', 'Jinshid', 'user/dp/2022/11/8ILHDpPakjvLUWy2WeSgrr5dxw8fAY3cfzsfmtnu.webp', 'user/cp/2022/11/gTvYiBVTwh53AaNaHiK5qdHS7HK459daoZWmrTVa.jpg', '1998-01-01 00:00:00', 'M', '+8801719965456', 'alfi@gmail.com', NULL, '$2y$10$AF8upWAd8kIWAG/wQwa8xO8Xtff8sa7NhwMDoUKC8DLUMo9NatutK', NULL, '2022-11-21 11:48:00', '2022-11-21 11:50:20');
+(3, '𝔍𝔦𝔫𝔫 𝔢𝔯', '𝔟𝔞𝔡𝔰𝔥𝔞𝔥', 'user/dp/2022/11/c7NTbFwoNjhmvKYN6OmS9ymYOWmRiIHU4UDX6MWs.webp', 'user/cp/2022/11/xcSumW3Q6T3MqKAa9o1P6XGJQ6Qjumz0zNlfVRDq.jpg', '0500-11-21', 'M', '+8801746547899', 'sami@gmail.com', NULL, '$2y$10$vF8bda1WOGL4dP2hqmR/9eiH3RJSYgLoxi/7a2v6tyHNpfThAZ0Be', NULL, '2022-11-25 23:01:56', '2022-11-25 23:11:03'),
+(4, 'দুষ্টু░জীন░', 'মারিয়াম░', 'user/dp/2022/11/caxBhANkT28M8LKlTQoABGWQSRVCZybUAMhyqCxn.gif', 'user/cp/2022/11/o0isS3KKgkFVSfusDWzezCfDzL7G0DNv3MV5rbuq.jpg', '0650-06-05', 'F', '+8801457789654', 'armana@gmail.com', NULL, '$2y$10$lCY.QGaKlE5lvJQGx8GOL.Eu3eERNT6DBgehTg20TdicsCqgu7tqC', NULL, '2022-11-25 23:09:01', '2022-11-25 23:15:40');
 
 --
 -- Indexes for dumped tables
@@ -155,6 +184,12 @@ ALTER TABLE `personal_access_tokens`
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
 
 --
+-- Indexes for table `posts`
+--
+ALTER TABLE `posts`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -175,7 +210,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -184,10 +219,16 @@ ALTER TABLE `personal_access_tokens`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `posts`
+--
+ALTER TABLE `posts`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
