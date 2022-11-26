@@ -35,6 +35,7 @@ class DataProviderController extends Controller
             Posts::create([
                 'userid' => $request->id,
                 'posttype' => 'dp',
+                'desc' => 'dp',
                 'img' => $dpphotos,
             ]);
         } elseif ($request->CP) {
@@ -57,6 +58,7 @@ class DataProviderController extends Controller
             Posts::create([
                 'userid' => $request->id,
                 'posttype' => 'cp',
+                'desc' => 'cp',
                 'img' => $cpphotos,
             ]);
         } else {

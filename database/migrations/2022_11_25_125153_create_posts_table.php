@@ -17,7 +17,7 @@ class CreatePostsTable extends Migration
             $table->id();
             $table->string('userid');
             $table->string('posttype');
-            $table->text('desc')->nullable();
+            $table->text('desc');
             $table->string('img')->nullable();
             $table->timestamps();
         });

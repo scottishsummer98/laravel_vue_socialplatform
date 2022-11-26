@@ -181,7 +181,7 @@
             </h4>
           </div>
           <div v-else>
-            <h4>
+            <h4 class="mt-3">
               {{ item.desc }}
             </h4>
             <img
@@ -193,7 +193,6 @@
           </div>
         </div>
       </div>
-      <div class="card-body"></div>
     </div>
   </div>
   <div class="friends-profile-block" v-if="component == 'friends'"></div>
@@ -781,6 +780,7 @@ export default {
         .post(`/create-post`, formData)
         .then((response) => {
           showSuccess('You posted an status!')
+          window.location.reload()
           for (let key in this.formData) {
             if (key == 'PP') {
               this.formData[key] = ''
@@ -797,10 +797,9 @@ export default {
           if (err.response.status == 422) {
             this.errors = err.response.data.errors
           }
-          showError(err.response.data.message)
+          showError('Someting went wrong!')
           this.postimageSelected = 0
         })
-      this.showPosts()
     },
     authenticatedUser() {
       axios.get('/api/user').then((res) => {
