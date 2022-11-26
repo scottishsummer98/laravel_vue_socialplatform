@@ -77,6 +77,7 @@
         <div class="col-lg-8">
           <input
             type="file"
+            name="PP"
             id="src4"
             @input="showPostImage"
             style="color: white; position: absolute; top: 100px;"
@@ -89,7 +90,7 @@
             placeholder="What's on your mind?"
             v-model="formData.desc"
           ></textarea>
-          <div :class="!postimageSelected ? 'hidden' : ''">
+          <div class="PostImage" :class="!postimageSelected ? 'hidden' : ''">
             <img src id="target4" class="PostImage" />
           </div>
         </div>
@@ -681,7 +682,6 @@ export default {
         .post(`/update-user`, formData)
         .then((response) => {
           window.location.reload()
-          this.isSubmitted = 0
           for (let key in this.formData) {
             if (key == 'DP') {
               this.formData[key] = 'dist/img/blank_avatar.webp'
@@ -712,7 +712,6 @@ export default {
         .post(`/update-user`, formData)
         .then((response) => {
           window.location.reload()
-          this.isSubmitted = 0
           for (let key in this.formData) {
             if (key == 'CP') {
               this.formData[key] = 'dist/img/blank_cover.jpg'
@@ -782,7 +781,6 @@ export default {
         .post(`/create-post`, formData)
         .then((response) => {
           showSuccess('You posted an status!')
-          this.isSubmitted = 0
           for (let key in this.formData) {
             if (key == 'PP') {
               this.formData[key] = ''

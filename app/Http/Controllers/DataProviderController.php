@@ -71,8 +71,8 @@ class DataProviderController extends Controller
     }
     public function createPost(Request $request)
     {
+        $img = null;
         if ($request->PP) {
-            $img = null;
             $img = $request->PP->store(
                 '/user/photos/generalposts/' . date('Y') . '/' . date('m')
             );
