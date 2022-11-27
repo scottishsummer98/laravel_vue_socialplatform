@@ -225,9 +225,7 @@
   </div>
   <div class="friends-profile-block" v-if="component == 'friends'"></div>
   <div class="pages-profile-block" v-if="component == 'pages'"></div>
-  <div class="photos-profile-block" v-if="component == 'photos'">
-    <lightbox cells="4" :items="images"></lightbox>
-  </div>
+  <div class="photos-profile-block" v-if="component == 'photos'"></div>
   <div class="edit-profile-block" v-if="component == 'edit'">
     <form
       @submit.prevent
@@ -685,8 +683,6 @@
 </template>
 
 <script>
-import '@morioh/v-lightbox/dist/lightbox.css'
-import Lightbox from '@morioh/v-lightbox'
 import moment from 'moment'
 import { showSuccess, showError } from '../helper'
 export default {
