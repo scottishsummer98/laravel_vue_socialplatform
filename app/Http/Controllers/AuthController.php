@@ -41,14 +41,12 @@ class AuthController extends Controller
             'password' => ['required'],
         ]);
 
-        $user = User::where('email', $request->email)->first();
-
-        if (!$user || !Hash::check($request->password, $user->password)) {
-            throw ValidationException::withMessages([
-                'email' => ['The provided credentials are incorrect'],
-            ]);
+        if (Auth::attempt($request->only('email', 'password'))) {
+            return response()->json(Auth::user(), 200);
         }
-        return $user->createToken($request->device_name)->plainTextToken;
+        throw ValidationException::withMessages([
+            'email' => ['The Provided credentials are incorrect'],
+        ]);
     }
 
     public function logout()
