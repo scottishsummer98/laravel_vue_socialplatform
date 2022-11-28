@@ -11,6 +11,14 @@ import axios from 'axios'
 
 const routes = [
   {
+    path: '/register',
+    component: require('./pages/auth/Register').default,
+  },
+  {
+    path: '/login',
+    component: require('./pages/auth/Login').default,
+  },
+  {
     path: '/home',
     component: require('./pages/Dashboard').default,
     beforeEnter: (to, form, next) => {
@@ -20,7 +28,7 @@ const routes = [
           next()
         })
         .catch(() => {
-          window.location.href = '/login'
+          this.$router.push('/login')
         })
     },
   },
