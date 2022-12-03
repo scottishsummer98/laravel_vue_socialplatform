@@ -28,7 +28,7 @@ const routes = [
           next()
         })
         .catch(() => {
-          this.$router.push('/login')
+          return next({ path: '/login' })
         })
     },
   },

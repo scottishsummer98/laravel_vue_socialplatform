@@ -31,6 +31,6 @@ export default {
 <style>
 .container-fluid {
   background-image: url('../../../public/dist/img/BG.jpg');
-  background-repeat: inherit;
+  background-repeat: repeat;
 }
 </style>
