@@ -229,19 +229,19 @@
     <div class="gallery-row">
       <div class="gallery-container">
         <h3 class="text-white">Profile Pictures</h3>
-        <lightbox :items="images"></lightbox>
+        <lightbox :items="dpimages"></lightbox>
       </div>
     </div>
     <div class="gallery-row mt-4">
       <div class="gallery-container">
         <h3 class="text-white">Cover Pictures</h3>
-        <lightbox :items="images"></lightbox>
+        <lightbox :items="cpimages"></lightbox>
       </div>
     </div>
     <div class="gallery-row mt-4">
       <div class="gallery-container">
         <h3 class="text-white">Uploaded Pictures</h3>
-        <lightbox :items="images"></lightbox>
+        <lightbox :items="timelineimages"></lightbox>
       </div>
     </div>
   </div>
@@ -739,28 +739,9 @@ export default {
       editingItem: {
         desc: '',
       },
-      images: [
-        'https://i.wifegeek.com/200426/f9459c52.jpg',
-        'https://i.wifegeek.com/200426/5ce1e1c7.jpg',
-        'https://i.wifegeek.com/200426/5fa51df3.jpg',
-        'https://i.wifegeek.com/200426/663181fe.jpg',
-        'https://i.wifegeek.com/200426/2d110780.jpg',
-        'https://i.wifegeek.com/200426/e73cd3fa.jpg',
-        'https://i.wifegeek.com/200426/15160d6e.jpg',
-        'https://i.wifegeek.com/200426/d0c881ae.jpg',
-        'https://i.wifegeek.com/200426/a154fc3d.jpg',
-        'https://i.wifegeek.com/200426/71d3aa60.jpg',
-        'https://i.wifegeek.com/200426/d17ce9a0.jpg',
-        'https://i.wifegeek.com/200426/7c4deca9.jpg',
-        'https://i.wifegeek.com/200426/64672676.jpg',
-        'https://i.wifegeek.com/200426/de6ab9c6.jpg',
-        'https://i.wifegeek.com/200426/d8bcb6a7.jpg',
-        'https://i.wifegeek.com/200426/4085d03b.jpg',
-        'https://i.wifegeek.com/200426/177ef44c.jpg',
-        'https://i.wifegeek.com/200426/d74d9040.jpg',
-        'https://i.wifegeek.com/200426/81e24a47.jpg',
-        'https://i.wifegeek.com/200426/43e2e8bb.jpg',
-      ],
+      dpimages: [],
+      cpimages: [],
+      timelineimages: [],
     }
   },
   methods: {
@@ -920,6 +901,36 @@ export default {
           showError(err.response.data.message)
         })
     },
+    showDPGallery() {
+      axios
+        .post(`/show-posts?gtype=DP`)
+        .then((response) => {
+          this.dpimages = response.data
+        })
+        .catch((err) => {
+          // console.log(err.response);
+        })
+    },
+    showCPGallery() {
+      axios
+        .post(`/show-posts?gtype=CP`)
+        .then((response) => {
+          this.cpimages = response.data
+        })
+        .catch((err) => {
+          // console.log(err.response);
+        })
+    },
+    showTimeLineGallery() {
+      axios
+        .post(`/show-posts?gtype=timeline`)
+        .then((response) => {
+          this.timelineimages = response.data
+        })
+        .catch((err) => {
+          // console.log(err.response);
+        })
+    },
     showPosts() {
       axios
         .post(`/show-posts`)
@@ -1002,6 +1013,9 @@ export default {
   mounted() {
     this.authenticatedUser()
     this.showPosts()
+    this.showDPGallery()
+    this.showCPGallery()
+    this.showTimeLineGallery()
   },
 }
 </script>

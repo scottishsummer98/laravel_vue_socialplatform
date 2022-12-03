@@ -12,7 +12,7 @@
         v-for="(src, i) in items"
         v-bind:key="src"
         @click="show(i)"
-        :style="bg(src)"
+        :style="bg(`../storage/` + src)"
       >
         <span class="lb-more" v-if="i == cells - 1 && items.length - cells > 0">
           {{ items.length - cells }}+
@@ -80,7 +80,7 @@ export default {
 
     cells: {
       type: Number,
-      default: () => 5,
+      default: () => 3,
     },
   },
 
@@ -127,10 +127,10 @@ export default {
       this.index = i
       var src = this.items[i]
       var img = new Image()
-      img.src = src
+      img.src = `../storage/` + src
       img.onload = () => {
         this.loading = false
-        this.src = src
+        this.src = `../storage/` + src
       }
     },
     next() {

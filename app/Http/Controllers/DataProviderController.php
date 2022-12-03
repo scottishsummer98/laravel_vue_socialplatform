@@ -122,9 +122,32 @@ class DataProviderController extends Controller
     }
     public function showPosts(Request $request)
     {
-        $id = Auth::id();
-        return Posts::where('userid', $id)
-            ->orderBy('created_at', 'DESC')
-            ->get();
+        if ($request->filled('gtype')) {
+            if ($request->gtype == 'DP') {
+                $id = Auth::id();
+                return Posts::where('userid', $id)
+                    ->where('posttype', 'dp')
+                    ->orderBy('created_at', 'DESC')
+                    ->pluck('img');
+            } elseif ($request->gtype == 'CP') {
+                $id = Auth::id();
+                return Posts::where('userid', $id)
+                    ->where('posttype', 'cp')
+                    ->orderBy('created_at', 'DESC')
+                    ->pluck('img');
+            } elseif ($request->gtype == 'timeline') {
+                $id = Auth::id();
+                return Posts::where('userid', $id)
+                    ->where('posttype', 'generalposts')
+                    ->where('img', '!=', null)
+                    ->orderBy('created_at', 'DESC')
+                    ->pluck('img');
+            }
+        } else {
+            $id = Auth::id();
+            return Posts::where('userid', $id)
+                ->orderBy('created_at', 'DESC')
+                ->get();
+        }
     }
 }
