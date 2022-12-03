@@ -225,7 +225,26 @@
   </div>
   <div class="friends-profile-block" v-if="component == 'friends'"></div>
   <div class="pages-profile-block" v-if="component == 'pages'"></div>
-  <div class="photos-profile-block" v-if="component == 'photos'"></div>
+  <div class="photos-profile-block" v-if="component == 'photos'">
+    <div class="gallery-row">
+      <div class="gallery-container">
+        <h3 class="text-white">Profile Pictures</h3>
+        <lightbox :items="images"></lightbox>
+      </div>
+    </div>
+    <div class="gallery-row mt-4">
+      <div class="gallery-container">
+        <h3 class="text-white">Cover Pictures</h3>
+        <lightbox :items="images"></lightbox>
+      </div>
+    </div>
+    <div class="gallery-row mt-4">
+      <div class="gallery-container">
+        <h3 class="text-white">Uploaded Pictures</h3>
+        <lightbox :items="images"></lightbox>
+      </div>
+    </div>
+  </div>
   <div class="edit-profile-block" v-if="component == 'edit'">
     <form
       @submit.prevent
@@ -683,9 +702,13 @@
 </template>
 
 <script>
+import lightbox from '../extra/Lightbox.vue'
 import moment from 'moment'
 import { showSuccess, showError } from '../helper'
 export default {
+  components: {
+    lightbox,
+  },
   data() {
     return {
       formData: {

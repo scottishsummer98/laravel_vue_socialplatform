@@ -7,6 +7,10 @@
     <title>Jinnbook</title>
 
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link
+      href="https://cdn.jsdelivr.net/npm/morioh@1.0.9/dist/css/morioh.min.css"
+      rel="stylesheet"
+    />
 </head>
 
 <body class="hold-transition sidebar-mini sidebar-collapse">
