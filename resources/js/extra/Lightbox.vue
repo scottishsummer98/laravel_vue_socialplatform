@@ -104,7 +104,8 @@
                 </h3>
               </div>
               <div class="col-lg-12 mt-3"></div>
-              <h4 v-if="item.desc != 'dp' || item.desc != 'cp'">
+              <h4 v-if="item.desc == 'dp' || item.desc == 'cp'"></h4>
+              <h4 v-else>
                 {{ item.desc }}
               </h4>
             </div>
