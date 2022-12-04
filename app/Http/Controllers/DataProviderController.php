@@ -142,6 +142,11 @@ class DataProviderController extends Controller
                     ->where('img', '!=', null)
                     ->orderBy('created_at', 'DESC')
                     ->pluck('img');
+            } elseif ($request->gtype == 'lightbox') {
+                $id = Auth::id();
+                return Posts::where('userid', $id)
+                    ->where('img', $request->img)
+                    ->get();
             }
         } else {
             $id = Auth::id();

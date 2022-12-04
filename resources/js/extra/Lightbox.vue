@@ -37,7 +37,6 @@
         <button class="btn btn-outline-primary lb-modal-next" @click="next">
           <i class="fas far fa-angle-right fa-2x"></i>
         </button>
-
         <div class="lb-modal-img" @click="close">
           <img :src="src" />
           <div class="spinner spinner-dots-wave" v-if="loading">
@@ -58,12 +57,66 @@
             </span>
           </div>
         </div>
+        <!-- <div
+          v-for="(item, index) in imageInfo"
+          :key="index"
+          style="
+            position: absolute;
+            top: 20%;
+            left: 60%;
+            right: 5%;
+            color: white;
+            background-color: #320000;
+            color: white;
+          "
+        >
+          <div class="card-header">
+            <div class="row">
+              <div class="col-lg-1">
+                <img
+                  class="timeline-img"
+                  v-if="user.dp != null"
+                  :src="`../storage/${user.dp}`"
+                  alt="User Image"
+                />
+                <img
+                  v-else
+                  :src="`/${formData.DP}`"
+                  class="timeline-img"
+                  alt="User Image"
+                />
+              </div>
+              <div class="col-lg-11">
+                <h3 v-if="item.posttype == 'dp'">
+                  {{ user.fname }} {{ user.lname }} Updated the Profile Picture
+                  <br />
+                  <h6>{{ dateFormat(item.created_at) }}</h6>
+                </h3>
+                <h3 v-else-if="item.posttype == 'cp'">
+                  {{ user.fname }} {{ user.lname }} Updated the Cover Picture
+                  <br />
+                  <h6>{{ dateFormat(item.created_at) }}</h6>
+                </h3>
+                <h3 v-else>
+                  {{ user.fname }} {{ user.lname }} Posted a Status
+                  <br />
+                  <h6>{{ dateFormat(item.created_at) }}</h6>
+                </h3>
+              </div>
+              <div class="col-lg-12 mt-3"></div>
+              <h4 v-if="item.desc != 'dp' || item.desc != 'cp'">
+                {{ item.desc }}
+              </h4>
+            </div>
+          </div>
+        </div> -->
       </div>
     </transition>
   </div>
 </template>
 
 <script>
+import moment from 'moment'
 export default {
   props: {
     items: {
@@ -90,10 +143,15 @@ export default {
       index: -1,
       loading: false,
       events: [],
+      imageInfo: {},
+      user: [],
     }
   },
 
   methods: {
+    dateFormat(date) {
+      return moment(date).format('MMMM Do YYYY, LT')
+    },
     bind() {
       if (this.events.length > 0) return
 
@@ -132,6 +190,14 @@ export default {
         this.loading = false
         this.src = `../storage/` + src
       }
+      axios
+        .post(`/show-posts?gtype=lightbox&img=${this.items[i]}`)
+        .then((response) => {
+          this.imageInfo = response.data
+        })
+        .catch((err) => {
+          // console.log(err.response);
+        })
     },
     next() {
       this.show(this.index - 1)
@@ -150,6 +216,14 @@ export default {
     bg(i) {
       return i && i.length > 0 ? `background-image: url('${i}')` : ''
     },
+    authenticatedUser() {
+      axios.get('/api/user').then((res) => {
+        this.user = res.data
+      })
+    },
+  },
+  mounted() {
+    this.authenticatedUser()
   },
 }
 </script>
@@ -251,14 +325,14 @@ export default {
   height: 100%;
 }
 
-/* 
+/*
   .lb-more:after{
       position: absolute;
       top: 0;
       left: 0;
       left: 0;
       right: 0;
-      z-index: -1;   
+      z-index: -1;
       content: "";
       background: #222;
       opacity: 0.9;
@@ -314,8 +388,7 @@ export default {
 .lb-modal-img {
   position: absolute;
   top: 10px;
-  left: 70px;
-  right: 70px;
+  left: 90px;
   bottom: 10px;
   text-align: center;
 }
@@ -328,8 +401,8 @@ export default {
 }
 
 .lb-modal-img img {
-  max-width: 100%;
-  max-height: 100%;
+  width: 60rem;
+  height: 50rem;
   vertical-align: middle;
   object-fit: contain;
 }

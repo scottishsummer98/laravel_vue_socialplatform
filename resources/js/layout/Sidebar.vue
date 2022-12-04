@@ -1,7 +1,7 @@
 <template>
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <div class="sidebar">
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <div class="user-panel mt-3 pb-3 mb-3">
         <div class="image">
           <img
             v-if="user.dp != null"
@@ -197,6 +197,11 @@ export default {
 }
 .image:hover .icon {
   visibility: visible;
+}
+.user-panel {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 .user-panel img {
   height: 2.1rem;
