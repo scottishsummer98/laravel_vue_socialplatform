@@ -173,32 +173,32 @@ export default {
       })
     },
 
-    // show(i) {
-    //   if (i >= this.items.length) {
-    //     i = 0
-    //   }
-    //   if (i < 0) {
-    //     i = this.items.length - 1
-    //   }
-    //   this.loading = true
-    //   this.bind()
-    //   this.index = i
-    //   var src = this.items[i]
-    //   var img = new Image()
-    //   img.src = `../storage/` + src
-    //   img.onload = () => {
-    //     this.loading = false
-    //     this.src = `../storage/` + src
-    //   }
-    //   axios
-    //     .post(`/show-posts?gtype=lightbox&img=${this.items[i]}`)
-    //     .then((response) => {
-    //       this.imageInfo = response.data
-    //     })
-    //     .catch((err) => {
-    //       // console.log(err.response);
-    //     })
-    // },
+    show(i) {
+      if (i >= this.items.length) {
+        i = 0
+      }
+      if (i < 0) {
+        i = this.items.length - 1
+      }
+      this.loading = true
+      this.bind()
+      this.index = i
+      var src = this.items[i]
+      var img = new Image()
+      img.src = `../storage/` + src
+      img.onload = () => {
+        this.loading = false
+        this.src = `../storage/` + src
+      }
+      axios
+        .post(`/show-posts?gtype=lightbox&img=${this.items[i]}`)
+        .then((response) => {
+          this.imageInfo = response.data
+        })
+        .catch((err) => {
+          // console.log(err.response);
+        })
+    },
     next() {
       this.show(this.index - 1)
     },
