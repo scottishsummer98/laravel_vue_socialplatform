@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 03, 2022 at 07:02 PM
+-- Generation Time: Dec 10, 2022 at 12:58 PM
 -- Server version: 5.7.33
 -- PHP Version: 7.4.27
 
@@ -40,6 +40,21 @@ CREATE TABLE `failed_jobs` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `followers`
+--
+
+CREATE TABLE `followers` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `userid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `friendsid` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `pageid` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `migrations`
 --
 
@@ -58,7 +73,42 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (28, '2014_10_12_100000_create_password_resets_table', 1),
 (29, '2019_08_19_000000_create_failed_jobs_table', 1),
 (30, '2019_12_14_000001_create_personal_access_tokens_table', 1),
-(31, '2022_11_25_125153_create_posts_table', 1);
+(31, '2022_11_25_125153_create_posts_table', 1),
+(32, '2022_12_10_123453_create_followers_table', 2),
+(33, '2022_12_10_123825_create_pages_table', 2),
+(34, '2022_12_10_125441_create_page_posts_table', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pages`
+--
+
+CREATE TABLE `pages` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `owner` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `pagetype` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `img` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `page_posts`
+--
+
+CREATE TABLE `page_posts` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `userid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `pageid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `desc` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `img` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -186,9 +236,27 @@ ALTER TABLE `failed_jobs`
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
 
 --
+-- Indexes for table `followers`
+--
+ALTER TABLE `followers`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `pages`
+--
+ALTER TABLE `pages`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `page_posts`
+--
+ALTER TABLE `page_posts`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -229,10 +297,28 @@ ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `followers`
+--
+ALTER TABLE `followers`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+
+--
+-- AUTO_INCREMENT for table `pages`
+--
+ALTER TABLE `pages`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `page_posts`
+--
+ALTER TABLE `page_posts`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
