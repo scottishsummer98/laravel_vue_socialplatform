@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 10, 2022 at 12:58 PM
+-- Generation Time: Dec 10, 2022 at 02:02 PM
 -- Server version: 5.7.33
 -- PHP Version: 7.4.27
 
@@ -47,7 +47,9 @@ CREATE TABLE `followers` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `userid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `friendsid` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `apprstatusfriend` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `pageid` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `apprstatuspage` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -74,9 +76,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (29, '2019_08_19_000000_create_failed_jobs_table', 1),
 (30, '2019_12_14_000001_create_personal_access_tokens_table', 1),
 (31, '2022_11_25_125153_create_posts_table', 1),
-(32, '2022_12_10_123453_create_followers_table', 2),
-(33, '2022_12_10_123825_create_pages_table', 2),
-(34, '2022_12_10_125441_create_page_posts_table', 2);
+(35, '2022_12_10_123453_create_followers_table', 2),
+(36, '2022_12_10_123825_create_pages_table', 2),
+(37, '2022_12_10_125441_create_page_posts_table', 2);
 
 -- --------------------------------------------------------
 
@@ -191,7 +193,13 @@ INSERT INTO `posts` (`id`, `userid`, `posttype`, `desc`, `img`, `created_at`, `u
 (39, '2', 'dp', 'YOWO - You Only Witch Once', 'user/photos/dp/2022/12/fgelmLzCDG2JbeOyVabPUCSsY6AuVBAAEK6tMic7.jpg', '2022-12-03 12:57:06', '2022-12-03 12:57:32'),
 (40, '1', 'cp', 'cp', 'user/photos/cp/2022/12/4dmEyGEPO3DW5XgAUYnXnmao5tQamB1ECO5YUo8g.jpg', '2022-12-03 12:57:57', '2022-12-03 12:57:57'),
 (41, '1', 'cp', 'cp', 'user/photos/cp/2022/12/728xLDfDXgotivGaNTxsRsrPsAc6NFCjImAozvyZ.jpg', '2022-12-03 12:59:15', '2022-12-03 12:59:15'),
-(42, '1', 'cp', 'cp', 'user/photos/cp/2022/12/SItzwZdJxHx8vQMelO24IewwgPgzN1EoTYgfXpkN.jpg', '2022-12-03 13:00:38', '2022-12-03 13:00:38');
+(42, '1', 'cp', 'cp', 'user/photos/cp/2022/12/SItzwZdJxHx8vQMelO24IewwgPgzN1EoTYgfXpkN.jpg', '2022-12-03 13:00:38', '2022-12-03 13:00:38'),
+(43, '3', 'dp', 'dp', 'user/photos/dp/2022/12/6rvrfxE0MFp3gg5N2sR68cg9q1GL2tkdCJ0YZKaM.jpg', '2022-12-10 07:22:01', '2022-12-10 07:22:01'),
+(44, '3', 'cp', 'cp', 'user/photos/cp/2022/12/IVJ5etWKbbEUpi64zk8ajYEwesGi7CibXj0E02eO.jpg', '2022-12-10 07:23:00', '2022-12-10 07:23:00'),
+(45, '3', 'generalposts', 'Awww cutu <3', 'user/photos/generalposts/2022/12/5puOYzE0dUUDXpwTiTmN5JLz73Ugad2uXnVCJKuK.webp', '2022-12-10 07:23:37', '2022-12-10 07:23:37'),
+(48, '4', 'dp', 'dp', 'user/photos/dp/2022/12/FQ5KJzlUB4E8qLbvdrgJkVAOJBwqHW6CRrbHDlsf.jpg', '2022-12-10 07:32:05', '2022-12-10 07:32:05'),
+(49, '4', 'cp', 'cp', 'user/photos/cp/2022/12/pXvduOF5mx7EAtZkGgo8qXEphWPK979D2d5AQb5d.jpg', '2022-12-10 07:35:32', '2022-12-10 07:35:32'),
+(50, '4', 'generalposts', 'OMG!!!! Brazil is out. This world cup is crazyyy 🤩🤩🤩', 'user/photos/generalposts/2022/12/OclLHtiIvL7xQEzfBPCN4TVvWFPK09Jni6qlKG45.webp', '2022-12-10 07:41:31', '2022-12-10 07:41:31');
 
 -- --------------------------------------------------------
 
@@ -222,7 +230,9 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `fname`, `lname`, `dp`, `cp`, `dob`, `gender`, `mobile`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, '𝔍𝔦𝔫𝔫 𝔢𝔯', '𝔅𝔞𝔡𝔰𝔥𝔞𝔥', 'user/dp/2022/12/VcrXUrDK4H57DF0RxIY3nmIPd1S0JmSOI5NNsNSb.webp', 'user/cp/2022/12/SItzwZdJxHx8vQMelO24IewwgPgzN1EoTYgfXpkN.jpg', '0500-11-21', 'M', '+8801715085046', 'sami@gmail.com', NULL, '$2y$10$vyRJAmvPeaSH8plSNyXL3uPee6yE.56LhA4NJk9eQdg/IO9qh9yki', NULL, '2022-11-26 08:54:09', '2022-12-03 13:00:38'),
-(2, 'দুষ্টু░জীন░', 'মারিয়াম░', 'user/dp/2022/12/fgelmLzCDG2JbeOyVabPUCSsY6AuVBAAEK6tMic7.jpg', 'user/cp/2022/12/opUErCq3JrjjnY5PTDnOJZXlKmJ5GTaQ2g10rTEw.jpg', '0550-06-05', 'F', '+8801688874598', 'armana@gmail.com', NULL, '$2y$10$Eq..OmBwL/5p7Gvl8f9YTe5YQGT8/ACJMoFgCZ/YzddXVCeWXMFNS', NULL, '2022-11-26 09:01:14', '2022-12-03 12:57:06');
+(2, 'দুষ্টু░জীন░', 'মারিয়াম░', 'user/dp/2022/12/fgelmLzCDG2JbeOyVabPUCSsY6AuVBAAEK6tMic7.jpg', 'user/cp/2022/12/opUErCq3JrjjnY5PTDnOJZXlKmJ5GTaQ2g10rTEw.jpg', '0550-06-05', 'F', '+8801688874598', 'armana@gmail.com', NULL, '$2y$10$Eq..OmBwL/5p7Gvl8f9YTe5YQGT8/ACJMoFgCZ/YzddXVCeWXMFNS', NULL, '2022-11-26 09:01:14', '2022-12-03 12:57:06'),
+(3, 'Kԋαɳ', 'Jιɳɳ', 'user/dp/2022/12/6rvrfxE0MFp3gg5N2sR68cg9q1GL2tkdCJ0YZKaM.jpg', 'user/cp/2022/12/IVJ5etWKbbEUpi64zk8ajYEwesGi7CibXj0E02eO.jpg', '1997-12-27', 'F', '+8801447896541', 'tonwy@gmail.com', NULL, '$2y$10$Nm5tEEJB0fIsfYem2owXm.vk28oKF8GWt3BDeYm8g5Nd/AaSLvG7y', NULL, '2022-12-10 07:20:49', '2022-12-10 07:25:54'),
+(4, 'Č𝐫𝐀ŽЎ 𝐣Ꭵ𝓃𝐧', 'Ⓐ𝓁ｆ𝕚', 'user/dp/2022/12/FQ5KJzlUB4E8qLbvdrgJkVAOJBwqHW6CRrbHDlsf.jpg', 'user/cp/2022/12/pXvduOF5mx7EAtZkGgo8qXEphWPK979D2d5AQb5d.jpg', '1997-01-01', 'M', '+88014785511', 'alfi@gmail.com', NULL, '$2y$10$1GfSRFs0f5IlyOrl2ACiEORIS.yRgVDuWqefFTiaOkzQ7JQIQ7756', NULL, '2022-12-10 07:24:38', '2022-12-10 07:35:32');
 
 --
 -- Indexes for dumped tables
@@ -306,7 +316,7 @@ ALTER TABLE `followers`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `pages`
@@ -330,13 +340,13 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
