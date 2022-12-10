@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 10, 2022 at 02:02 PM
+-- Generation Time: Dec 10, 2022 at 02:28 PM
 -- Server version: 5.7.33
 -- PHP Version: 7.4.27
 
@@ -35,23 +35,6 @@ CREATE TABLE `failed_jobs` (
   `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `followers`
---
-
-CREATE TABLE `followers` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `userid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `friendsid` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `apprstatusfriend` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `pageid` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `apprstatuspage` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -246,12 +229,6 @@ ALTER TABLE `failed_jobs`
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
 
 --
--- Indexes for table `followers`
---
-ALTER TABLE `followers`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
@@ -304,12 +281,6 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `followers`
---
-ALTER TABLE `followers`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
