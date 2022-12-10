@@ -5,9 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Friends extends Model
+class Followers extends Model
 {
     use HasFactory;
-
-    protected $fillable = ['userid', 'posttype', 'desc', 'img'];
 }
