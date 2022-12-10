@@ -17,7 +17,9 @@ class CreateFollowersTable extends Migration
             $table->id();
             $table->string('userid');
             $table->string('friendsid')->nullable();
+            $table->string('apprstatusfriend')->nullable();
             $table->string('pageid')->nullable();
+            $table->string('apprstatuspage')->nullable();
             $table->timestamps();
         });
     }
