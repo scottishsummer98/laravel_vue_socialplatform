@@ -74,7 +74,7 @@
             alt="User Image"
           />
         </div>
-        <div class="col-lg-10">
+        <div class="col-lg-9">
           <input
             type="file"
             name="PP"
@@ -94,7 +94,7 @@
             <img src id="target4" class="PostImage" />
           </div>
         </div>
-        <div class="col-lg-1">
+        <div class="col-lg-2">
           <button class="btn-spooky" style="width: 100%;" @click="createPost">
             Post
           </button>
@@ -223,7 +223,17 @@
       </div>
     </div>
   </div>
-  <div class="friends-profile-block" v-if="component == 'friends'"></div>
+  <div class="friends-profile-block" v-if="component == 'friends'">
+    <div>
+      <h3 class="text-white">Friend Requests</h3>
+    </div>
+    <div>
+      <h3 class="text-white">Friends</h3>
+    </div>
+    <div>
+      <h3 class="text-white">Friend Suggestions</h3>
+    </div>
+  </div>
   <div class="pages-profile-block" v-if="component == 'pages'"></div>
   <div class="photos-profile-block" v-if="component == 'photos'">
     <div class="gallery-row">
