@@ -227,46 +227,30 @@
     <div>
       <h3 class="text-white">Friend Requests</h3>
       <div style="display: flex; flex-direction: row; gap: 1rem;">
-        <div>
-          <img
-            src="../../../public/images/user1-128x128.jpg"
-            alt=""
-            style="width: 17rem; height: 14rem; padding-bottom: 1rem;"
-          />
-          <br />
-          <button
-            class="btn btn-block btn-spooky"
-            style="border: 1px solid black;"
-          >
-            Unfriend
-          </button>
-          <button
-            class="btn btn-block btn-spooky"
-            style="border: 1px solid black;"
-          >
-            Remove
-          </button>
-        </div>
-        <div>
-          <img
-            src="../../../public/images/user1-128x128.jpg"
-            alt=""
-            style="width: 17rem; height: 14rem; padding-bottom: 1rem;"
-          />
-          <br />
-          <button
-            class="btn btn-block btn-spooky"
-            style="border: 1px solid black;"
-          >
-            Unfriend
-          </button>
-          <button
-            class="btn btn-block btn-spooky"
-            style="border: 1px solid black;"
-          >
-            Remove
-          </button>
-        </div>
+        <swiper :slides-per-view="4" :space-between="10">
+          <swiper-slide v-for="(item, index) in friendlist" :key="index">
+            <div>
+              <img
+                src="../../../public/images/user1-128x128.jpg"
+                alt=""
+                style="width: 17rem; height: 14rem; padding-bottom: 1rem;"
+              />
+              <br />
+              <button
+                class="btn btn-block btn-spooky"
+                style="border: 1px solid black;"
+              >
+                Unfriend
+              </button>
+              <button
+                class="btn btn-block btn-spooky"
+                style="border: 1px solid black;"
+              >
+                Remove
+              </button>
+            </div>
+          </swiper-slide>
+        </swiper>
       </div>
     </div>
     <br />
@@ -820,10 +804,16 @@
 <script>
 import lightbox from '../extra/Lightbox.vue'
 import moment from 'moment'
+// Import Swiper Vue.js components
+import { Swiper, SwiperSlide } from 'swiper/vue'
+// Import Swiper styles
+import 'swiper/css'
 import { showSuccess, showError } from '../helper'
 export default {
   components: {
     lightbox,
+    Swiper,
+    SwiperSlide,
   },
   data() {
     return {
@@ -841,6 +831,9 @@ export default {
       },
       user: [],
       posts: {},
+      friendreqlist: {},
+      friendlist: {},
+      friendsugglist: {},
       imageSelected: 0,
       postimageSelected: 0,
       imgsrc: '',
@@ -1114,6 +1107,16 @@ export default {
         })
       $('#modaldeleteconfirmation').modal('hide')
     },
+    showAcceptedFriends(item) {
+      axios
+        .post(`/show-friends?type=acceptedreq`)
+        .then((response) => {
+          this.friendlist = response.data
+        })
+        .catch((err) => {
+          showError('Someting went wrong!')
+        })
+    },
     authenticatedUser() {
       axios.get('/api/user').then((res) => {
         this.user = res.data
@@ -1132,6 +1135,7 @@ export default {
     this.showDPGallery()
     this.showCPGallery()
     this.showTimeLineGallery()
+    this.showAcceptedFriends()
   },
 }
 </script>
