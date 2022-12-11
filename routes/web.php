@@ -31,6 +31,7 @@ Route::post('/create-post', [DataProviderController::class, 'createPost']);
 Route::post('/update-post', [DataProviderController::class, 'updatePost']);
 Route::post('/delete-post', [DataProviderController::class, 'deletePost']);
 Route::post('/show-posts', [DataProviderController::class, 'showPosts']);
+Route::post('/show-friends', [DataProviderController::class, 'showFriends']);
 
 Route::get('/{vue_capture?}', function () {
     return redirect('/home');

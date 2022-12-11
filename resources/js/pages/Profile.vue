@@ -226,10 +226,116 @@
   <div class="friends-profile-block" v-if="component == 'friends'">
     <div>
       <h3 class="text-white">Friend Requests</h3>
+      <div style="display: flex; flex-direction: row; gap: 1rem;">
+        <div>
+          <img
+            src="../../../public/images/user1-128x128.jpg"
+            alt=""
+            style="width: 17rem; height: 14rem; padding-bottom: 1rem;"
+          />
+          <br />
+          <button
+            class="btn btn-block btn-spooky"
+            style="border: 1px solid black;"
+          >
+            Unfriend
+          </button>
+          <button
+            class="btn btn-block btn-spooky"
+            style="border: 1px solid black;"
+          >
+            Remove
+          </button>
+        </div>
+        <div>
+          <img
+            src="../../../public/images/user1-128x128.jpg"
+            alt=""
+            style="width: 17rem; height: 14rem; padding-bottom: 1rem;"
+          />
+          <br />
+          <button
+            class="btn btn-block btn-spooky"
+            style="border: 1px solid black;"
+          >
+            Unfriend
+          </button>
+          <button
+            class="btn btn-block btn-spooky"
+            style="border: 1px solid black;"
+          >
+            Remove
+          </button>
+        </div>
+      </div>
     </div>
+    <br />
     <div>
       <h3 class="text-white">Friends</h3>
+      <div style="display: flex; flex-direction: row; gap: 1rem;">
+        <div>
+          <img
+            src="../../../public/images/user1-128x128.jpg"
+            alt=""
+            style="width: 17rem; height: 14rem; padding-bottom: 1rem;"
+          />
+          <br />
+          <button
+            class="btn btn-block btn-spooky"
+            style="border: 1px solid black;"
+          >
+            Unfriend
+          </button>
+          <button
+            class="btn btn-block btn-spooky"
+            style="border: 1px solid black;"
+          >
+            Remove
+          </button>
+        </div>
+        <div>
+          <img
+            src="../../../public/images/user1-128x128.jpg"
+            alt=""
+            style="width: 17rem; height: 14rem; padding-bottom: 1rem;"
+          />
+          <br />
+          <button
+            class="btn btn-block btn-spooky"
+            style="border: 1px solid black;"
+          >
+            Unfriend
+          </button>
+          <button
+            class="btn btn-block btn-spooky"
+            style="border: 1px solid black;"
+          >
+            Remove
+          </button>
+        </div>
+        <div>
+          <img
+            src="../../../public/images/user1-128x128.jpg"
+            alt=""
+            style="width: 17rem; height: 14rem; padding-bottom: 1rem;"
+          />
+          <br />
+          <button
+            class="btn btn-block btn-spooky"
+            style="border: 1px solid black;"
+          >
+            Unfriend
+          </button>
+          <button
+            class="btn btn-block btn-spooky"
+            style="border: 1px solid black;"
+          >
+            Remove
+          </button>
+        </div>
+      </div>
     </div>
+    <br />
     <div>
       <h3 class="text-white">Friend Suggestions</h3>
     </div>

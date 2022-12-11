@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Followers;
 use App\Models\Posts;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -153,6 +154,21 @@ class DataProviderController extends Controller
             return Posts::where('userid', $id)
                 ->orderBy('created_at', 'DESC')
                 ->get();
+        }
+    }
+
+    public function showFriends(Request $request)
+    {
+        if ($request->filled('type')) {
+            if ($request->type == 'suggestions') {
+            } elseif ($request->type == 'acceptedreq') {
+                $id = Auth::id();
+                $accreq = Followers::where('userid', $id)->pluck(
+                    'addedfriends'
+                );
+                dd($accreq);
+            } elseif ($request->type == 'pendingreq') {
+            }
         }
     }
 }
