@@ -1117,6 +1117,16 @@ export default {
           showError('Someting went wrong!')
         })
     },
+    showPendingFriends(item) {
+      axios
+        .post(`/show-friends?type=pendingreq`)
+        .then((response) => {
+          this.friendreqlist = response.data
+        })
+        .catch((err) => {
+          showError('Someting went wrong!')
+        })
+    },
     authenticatedUser() {
       axios.get('/api/user').then((res) => {
         this.user = res.data
@@ -1136,6 +1146,7 @@ export default {
     this.showCPGallery()
     this.showTimeLineGallery()
     this.showAcceptedFriends()
+    this.showPendingFriends()
   },
 }
 </script>
