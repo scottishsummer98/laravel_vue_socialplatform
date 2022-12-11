@@ -164,10 +164,11 @@ class DataProviderController extends Controller
             if ($request->type == 'suggestions') {
             } elseif ($request->type == 'acceptedreq') {
                 $id = Auth::id();
-                $accreq = Followers::where('userid', $id)->pluck(
-                    'addedfriends'
-                );
-                dd($accreq);
+                $accreq = Followers::where('userid', $id)->get();
+                $accreqids = explode(',', $accreq[0]->addedfriends);
+                return DB::table('users')
+                    ->whereIn('id', $accreqids)
+                    ->get();
             } elseif ($request->type == 'pendingreq') {
             }
         }
