@@ -160,16 +160,21 @@ class DataProviderController extends Controller
 
     public function showFriends(Request $request)
     {
+        $id = Auth::id();
         if ($request->filled('type')) {
             if ($request->type == 'suggestions') {
             } elseif ($request->type == 'acceptedreq') {
-                $id = Auth::id();
                 $accreq = Followers::where('userid', $id)->get();
                 $accreqids = explode(',', $accreq[0]->addedfriends);
                 return DB::table('users')
                     ->whereIn('id', $accreqids)
                     ->get();
             } elseif ($request->type == 'pendingreq') {
+                $penreq = Followers::where('userid', $id)->get();
+                $penreqids = explode(',', $penreq[0]->pendingfriends);
+                return DB::table('users')
+                    ->whereIn('id', $penreqids)
+                    ->get();
             }
         }
     }
