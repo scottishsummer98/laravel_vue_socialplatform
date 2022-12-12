@@ -288,6 +288,33 @@
     <br />
     <div>
       <h3 class="text-white">Friend Suggestions</h3>
+      <div>
+        <swiper :slides-per-view="4" :space-between="2">
+          <swiper-slide v-for="(item, index) in friendsugglist" :key="index">
+            <div>
+              <img
+                :src="`../storage/${item.dp}`"
+                alt=""
+                style="width: 12rem; height: 12rem; padding-bottom: 1rem;"
+              />
+              <h6 class="text-white">{{ item.fname }} {{ item.lname }}</h6>
+              <br />
+              <button
+                class="btn btn-block btn-spooky"
+                style="border: 1px solid black;"
+              >
+                Add Friend
+              </button>
+              <button
+                class="btn btn-block btn-spooky"
+                style="border: 1px solid black;"
+              >
+                Remove
+              </button>
+            </div>
+          </swiper-slide>
+        </swiper>
+      </div>
     </div>
   </div>
   <div class="pages-profile-block" v-if="component == 'pages'"></div>
@@ -1073,6 +1100,16 @@ export default {
         })
       $('#modaldeleteconfirmation').modal('hide')
     },
+    showFriendSuggestions(item) {
+      axios
+        .post(`/show-friends?type=suggestions`)
+        .then((response) => {
+          this.friendsugglist = response.data
+        })
+        .catch((err) => {
+          showError('Someting went wrong!')
+        })
+    },
     showAcceptedFriends(item) {
       axios
         .post(`/show-friends?type=acceptedreq`)
@@ -1113,6 +1150,7 @@ export default {
     this.showTimeLineGallery()
     this.showAcceptedFriends()
     this.showPendingFriends()
+    this.showFriendSuggestions()
   },
 }
 </script>
