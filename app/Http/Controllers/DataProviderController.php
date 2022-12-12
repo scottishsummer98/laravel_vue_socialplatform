@@ -163,9 +163,9 @@ class DataProviderController extends Controller
         $id = Auth::id();
         if ($request->filled('type')) {
             if ($request->type == 'suggestions') {
-                $accreq = Followers::where('userid', $id)->get();
+                $accreq = User::where('id', $id)->get();
                 $accreqids = explode(',', $accreq[0]->addedfriends);
-                $penreq = Followers::where('userid', $id)->get();
+                $penreq = User::where('id', $id)->get();
                 $penreqids = explode(',', $penreq[0]->pendingfriends);
                 return DB::table('users')
                     ->whereNotIn('id', $accreqids)
@@ -173,13 +173,13 @@ class DataProviderController extends Controller
                     ->where('id', '<>', $id)
                     ->get();
             } elseif ($request->type == 'acceptedreq') {
-                $accreq = Followers::where('userid', $id)->get();
+                $accreq = User::where('id', $id)->get();
                 $accreqids = explode(',', $accreq[0]->addedfriends);
                 return DB::table('users')
                     ->whereIn('id', $accreqids)
                     ->get();
             } elseif ($request->type == 'pendingreq') {
-                $penreq = Followers::where('userid', $id)->get();
+                $penreq = User::where('id', $id)->get();
                 $penreqids = explode(',', $penreq[0]->pendingfriends);
                 return DB::table('users')
                     ->whereIn('id', $penreqids)
