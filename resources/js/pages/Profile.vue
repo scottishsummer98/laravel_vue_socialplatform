@@ -240,7 +240,7 @@
               <button
                 class="btn btn-block btn-spooky"
                 style="border: 1px solid black;"
-                @click="AddFriends(item.id)"
+                @click="AceeptFriends(item.id)"
               >
                 Accept
               </button>
@@ -1128,6 +1128,18 @@ export default {
         .post(`/show-friends?type=pendingreq`)
         .then((response) => {
           this.friendreqlist = response.data
+        })
+        .catch((err) => {
+          showError('Someting went wrong!')
+        })
+    },
+    AceeptFriends(item) {
+      axios
+        .post(`/add-remove-friends?type=accept&id=${item}`)
+        .then((response) => {
+          this.showAcceptedFriends()
+          this.showPendingFriends()
+          this.showFriendSuggestions()
         })
         .catch((err) => {
           showError('Someting went wrong!')

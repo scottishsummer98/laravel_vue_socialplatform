@@ -191,10 +191,12 @@ class DataProviderController extends Controller
     {
         $id = Auth::id();
         if ($request->filled('type')) {
-            if ($request->type == 'add') {
+            if ($request->type == 'accept') {
                 $user = User::where('id', $id)->get();
                 $addedfriendsstring = $user[0]->addedfriends;
                 $friendid = $request->id . ',';
+                $myid = $id . ',';
+                $myidmodified = $myid . $addedfriendsstring;
                 $addedfriendsmodified = $friendid . $addedfriendsstring;
                 $pendingfriendsstring = $user[0]->pendingfriends;
                 $pendingfriendsmodified = str_replace(
@@ -206,6 +208,17 @@ class DataProviderController extends Controller
                     'addedfriends' => $addedfriendsmodified,
                     'pendingfriends' => $pendingfriendsmodified,
                 ]);
+                User::where('id', $request->id)->update([
+                    'addedfriends' => $addedfriendsmodified,
+                ]);
+            } elseif ($request->type == 'add') {
+                $addeduser = User::where('id', $request->id)->get();
+                $pendingfriendsstring = $addeduser[0]->pendingfriends;
+                $addeduserid = $id . ',';
+                $pendingfriendsmodified = $addeduserid . $pendingfriendsstring;
+                User::where('id', $request->id)->update([
+                    'pendingfriends' => $pendingfriendsmodified,
+                ]);
             } elseif ($request->type == 'remove') {
                 $user = User::where('id', $id)->get();
                 $friendid = $request->id . ',';
@@ -215,6 +228,9 @@ class DataProviderController extends Controller
                     '',
                     $addedfriendsstring
                 );
+                User::where('id', $id)->update([
+                    'addedfriends' => $addedfriendsmodified,
+                ]);
             }
         }
     }
