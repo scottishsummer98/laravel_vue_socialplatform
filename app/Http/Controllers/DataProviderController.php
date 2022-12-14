@@ -187,4 +187,18 @@ class DataProviderController extends Controller
             }
         }
     }
+    public function addremoveFriends(Request $request)
+    {
+        $id = Auth::id();
+        if ($request->filled('type')) {
+            if ($request->type == 'add') {
+                $addedfriends = User::where('id', $id)->get();
+                $addedfriendsstring = $addedfriends[0]->addedfriends;
+                $addedfriendsmodified =
+                    $request->id + ',' + $addedfriendsstring;
+                dd($request->id);
+            } elseif ($request->type == 'remove') {
+            }
+        }
+    }
 }

@@ -32,7 +32,10 @@ Route::post('/update-post', [DataProviderController::class, 'updatePost']);
 Route::post('/delete-post', [DataProviderController::class, 'deletePost']);
 Route::post('/show-posts', [DataProviderController::class, 'showPosts']);
 Route::post('/show-friends', [DataProviderController::class, 'showFriends']);
-
+Route::post('/add-remove-friends', [
+    DataProviderController::class,
+    'addremoveFriends',
+]);
 Route::get('/{vue_capture?}', function () {
     return redirect('/home');
 })->where('vue_capture', '[\/\w\.-]*');
