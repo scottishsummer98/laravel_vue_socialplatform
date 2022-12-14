@@ -1133,30 +1133,30 @@ export default {
           showError('Someting went wrong!')
         })
     },
-    // AddFriends(item) {
-    //   axios
-    //     .post(`/add-remove-friends?type=add&id=${item}`)
-    //     .then((response) => {
-    //       this.showAcceptedFriends()
-    //       this.showPendingFriends()
-    //       this.showFriendSuggestions()
-    //     })
-    //     .catch((err) => {
-    //       showError('Someting went wrong!')
-    //     })
-    // },
-    // RemoveFriends(item) {
-    //   axios
-    //     .post(`/add-remove-friends?type=remove&id=${item}`)
-    //     .then((response) => {
-    //       this.showAcceptedFriends()
-    //       this.showPendingFriends()
-    //       this.showFriendSuggestions()
-    //     })
-    //     .catch((err) => {
-    //       showError('Someting went wrong!')
-    //     })
-    // },
+    AddFriends(item) {
+      axios
+        .post(`/add-remove-friends?type=add&id=${item}`)
+        .then((response) => {
+          this.showAcceptedFriends()
+          this.showPendingFriends()
+          this.showFriendSuggestions()
+        })
+        .catch((err) => {
+          showError('Someting went wrong!')
+        })
+    },
+    RemoveFriends(item) {
+      axios
+        .post(`/add-remove-friends?type=remove&id=${item}`)
+        .then((response) => {
+          this.showAcceptedFriends()
+          this.showPendingFriends()
+          this.showFriendSuggestions()
+        })
+        .catch((err) => {
+          showError('Someting went wrong!')
+        })
+    },
     authenticatedUser() {
       axios.get('/api/user').then((res) => {
         this.user = res.data
