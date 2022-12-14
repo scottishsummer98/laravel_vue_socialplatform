@@ -191,46 +191,50 @@ class DataProviderController extends Controller
     {
         $id = Auth::id();
         if ($request->filled('type')) {
-            if ($request->type == 'accept') {
-                $user = User::where('id', $id)->get();
-                $addedfriendsstring = $user[0]->addedfriends;
-                $friendid = $request->id . ',';
-                $myid = $id . ',';
-                $myidmodified = $myid . $addedfriendsstring;
-                $addedfriendsmodified = $friendid . $addedfriendsstring;
-                $pendingfriendsstring = $user[0]->pendingfriends;
-                $pendingfriendsmodified = str_replace(
-                    $friendid,
-                    '',
-                    $pendingfriendsstring
-                );
-                User::where('id', $id)->update([
-                    'addedfriends' => $addedfriendsmodified,
-                    'pendingfriends' => $pendingfriendsmodified,
-                ]);
+            if ($request->type == 'add') {
+                $selfData = User::where('id', $id)->get();
+                $addedFriendData = User::where('id', $request->id)->get();
+                $addedFriendPendingFriendsList =
+                    $addedFriendData[0]->pendingfriends;
+                $selfDataId = $id . ',';
+                $addedFriendPendingFriendsListModified =
+                    $selfDataId . $addedFriendPendingFriendsList;
+
                 User::where('id', $request->id)->update([
-                    'addedfriends' => $addedfriendsmodified,
+                    'pendingfriends' => $addedFriendPendingFriendsListModified,
                 ]);
-            } elseif ($request->type == 'add') {
-                $addeduser = User::where('id', $request->id)->get();
-                $pendingfriendsstring = $addeduser[0]->pendingfriends;
-                $addeduserid = $id . ',';
-                $pendingfriendsmodified = $addeduserid . $pendingfriendsstring;
-                User::where('id', $request->id)->update([
-                    'pendingfriends' => $pendingfriendsmodified,
-                ]);
+            } elseif ($request->type == 'accept') {
+                // $ownid = User::where('id', $id)->get();
+                // $ownaddedfriendsstring = $myself[0]->addedfriends;
+                // $friendid = $request->id . ',';
+                // $myid = $id . ',';
+                // $myidmodified = $myid . $addedfriendsstring;
+                // $addedfriendsmodified = $friendid . $addedfriendsstring;
+                // $pendingfriendsstring = $user[0]->pendingfriends;
+                // $pendingfriendsmodified = str_replace(
+                //     $friendid,
+                //     '',
+                //     $pendingfriendsstring
+                // );
+                // User::where('id', $id)->update([
+                //     'addedfriends' => $addedfriendsmodified,
+                //     'pendingfriends' => $pendingfriendsmodified,
+                // ]);
+                // User::where('id', $request->id)->update([
+                //     'addedfriends' => $addedfriendsmodified,
+                // ]);
             } elseif ($request->type == 'remove') {
-                $user = User::where('id', $id)->get();
-                $friendid = $request->id . ',';
-                $addedfriendsstring = $user[0]->addedfriends;
-                $addedfriendsmodified = str_replace(
-                    $friendid,
-                    '',
-                    $addedfriendsstring
-                );
-                User::where('id', $id)->update([
-                    'addedfriends' => $addedfriendsmodified,
-                ]);
+                // $user = User::where('id', $id)->get();
+                // $friendid = $request->id . ',';
+                // $addedfriendsstring = $user[0]->addedfriends;
+                // $addedfriendsmodified = str_replace(
+                //     $friendid,
+                //     '',
+                //     $addedfriendsstring
+                // );
+                // User::where('id', $id)->update([
+                //     'addedfriends' => $addedfriendsmodified,
+                // ]);
             }
         }
     }
