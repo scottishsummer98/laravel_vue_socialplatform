@@ -192,12 +192,29 @@ class DataProviderController extends Controller
         $id = Auth::id();
         if ($request->filled('type')) {
             if ($request->type == 'add') {
-                $addedfriends = User::where('id', $id)->get();
-                $addedfriendsstring = $addedfriends[0]->addedfriends;
-                $addedfriendsmodified =
-                    $request->id + ',' + $addedfriendsstring;
-                dd($request->id);
+                $user = User::where('id', $id)->get();
+                $addedfriendsstring = $user[0]->addedfriends;
+                $friendid = $request->id . ',';
+                $addedfriendsmodified = $friendid . $addedfriendsstring;
+                $pendingfriendsstring = $user[0]->pendingfriends;
+                $pendingfriendsmodified = str_replace(
+                    $friendid,
+                    '',
+                    $pendingfriendsstring
+                );
+                User::where('id', $id)->update([
+                    'addedfriends' => $addedfriendsmodified,
+                    'pendingfriends' => $pendingfriendsmodified,
+                ]);
             } elseif ($request->type == 'remove') {
+                $user = User::where('id', $id)->get();
+                $friendid = $request->id . ',';
+                $addedfriendsstring = $user[0]->addedfriends;
+                $addedfriendsmodified = str_replace(
+                    $friendid,
+                    '',
+                    $addedfriendsstring
+                );
             }
         }
     }
