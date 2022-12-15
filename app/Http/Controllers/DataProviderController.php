@@ -257,7 +257,7 @@ class DataProviderController extends Controller
                     '',
                     $PendingFriendsList
                 );
-                User::where('id', $request->id)->update([
+                User::where('id', $id)->update([
                     'pendingfriends' => $removableFriendpendingfriendsmodified,
                 ]);
             }

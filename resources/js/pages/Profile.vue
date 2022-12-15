@@ -247,6 +247,7 @@
               <button
                 class="btn btn-block btn-spooky"
                 style="border: 1px solid black;"
+                @click="removeFriend(item.id)"
               >
                 Remove
               </button>
@@ -1181,6 +1182,7 @@ export default {
           showError('Someting went wrong!')
         })
     },
+
     authenticatedUser() {
       axios.get('/api/user').then((res) => {
         this.user = res.data
