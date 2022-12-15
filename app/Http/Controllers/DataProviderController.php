@@ -249,12 +249,16 @@ class DataProviderController extends Controller
                     'addedfriends' => $removableFriendaddedfriendsmodified,
                 ]);
             } elseif ($request->type == 'remove') {
-                $Friend = User::where('id', $request->id)->get();
-                $PendingFriendsList = $Friend[0]->pendingfriends;
-                $selfDataId = $id . ',';
-                $PendingFriendsListModified = $selfDataId . $PendingFriendsList;
+                $user = User::where('id', $id)->get();
+                $PendingFriendsList = $user[0]->pendingfriends;
+                $removableFriendId = $request->id . ',';
+                $removableFriendpendingfriendsmodified = str_replace(
+                    $removableFriendId,
+                    '',
+                    $PendingFriendsList
+                );
                 User::where('id', $request->id)->update([
-                    'pendingfriends' => $PendingFriendsListModified,
+                    'pendingfriends' => $removableFriendpendingfriendsmodified,
                 ]);
             }
         }
