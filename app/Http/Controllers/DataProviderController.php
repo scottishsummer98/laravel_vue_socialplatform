@@ -224,18 +224,38 @@ class DataProviderController extends Controller
                 User::where('id', $request->id)->update([
                     'addedfriends' => $acceptedFriendDataAddedFriendsModified,
                 ]);
+            } elseif ($request->type == 'unfriend') {
+                $user = User::where('id', $id)->get();
+                $addedfriendsstring = $user[0]->addedfriends;
+                $friendid = $request->id . ',';
+                $addedfriendsmodified = str_replace(
+                    $friendid,
+                    '',
+                    $addedfriendsstring
+                );
+                User::where('id', $id)->update([
+                    'addedfriends' => $addedfriendsmodified,
+                ]);
+
+                $Friend = User::where('id', $request->id)->get();
+                $FriendAddedFriendsList = $Friend[0]->addedfriends;
+                $removableFriendIdConcatString = $id . ',';
+                $removableFriendaddedfriendsmodified = str_replace(
+                    $removableFriendIdConcatString,
+                    '',
+                    $FriendAddedFriendsList
+                );
+                User::where('id', $request->id)->update([
+                    'addedfriends' => $removableFriendaddedfriendsmodified,
+                ]);
             } elseif ($request->type == 'remove') {
-                // $user = User::where('id', $id)->get();
-                // $friendid = $request->id . ',';
-                // $addedfriendsstring = $user[0]->addedfriends;
-                // $addedfriendsmodified = str_replace(
-                //     $friendid,
-                //     '',
-                //     $addedfriendsstring
-                // );
-                // User::where('id', $id)->update([
-                //     'addedfriends' => $addedfriendsmodified,
-                // ]);
+                $Friend = User::where('id', $request->id)->get();
+                $PendingFriendsList = $Friend[0]->pendingfriends;
+                $selfDataId = $id . ',';
+                $PendingFriendsListModified = $selfDataId . $PendingFriendsList;
+                User::where('id', $request->id)->update([
+                    'pendingfriends' => $PendingFriendsListModified,
+                ]);
             }
         }
     }

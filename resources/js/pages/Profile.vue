@@ -240,7 +240,7 @@
               <button
                 class="btn btn-block btn-spooky"
                 style="border: 1px solid black;"
-                @click="AceeptFriends(item.id)"
+                @click="aceeptFriend(item.id)"
               >
                 Accept
               </button>
@@ -272,7 +272,7 @@
               <button
                 class="btn btn-block btn-spooky"
                 style="border: 1px solid black;"
-                @click="RemoveFriends(item.id)"
+                @click="unfriend(item.id)"
               >
                 Unfriend
               </button>
@@ -304,7 +304,7 @@
               <button
                 class="btn btn-block btn-spooky"
                 style="border: 1px solid black;"
-                @click="AddFriends(item.id)"
+                @click="addFriend(item.id)"
               >
                 Add Friend
               </button>
@@ -1133,7 +1133,7 @@ export default {
           showError('Someting went wrong!')
         })
     },
-    AceeptFriends(item) {
+    aceeptFriend(item) {
       axios
         .post(`/add-remove-friends?type=accept&id=${item}`)
         .then((response) => {
@@ -1145,7 +1145,7 @@ export default {
           showError('Someting went wrong!')
         })
     },
-    AddFriends(item) {
+    addFriend(item) {
       axios
         .post(`/add-remove-friends?type=add&id=${item}`)
         .then((response) => {
@@ -1157,7 +1157,19 @@ export default {
           showError('Someting went wrong!')
         })
     },
-    RemoveFriends(item) {
+    unfriend(item) {
+      axios
+        .post(`/add-remove-friends?type=unfriend&id=${item}`)
+        .then((response) => {
+          this.showAcceptedFriends()
+          this.showPendingFriends()
+          this.showFriendSuggestions()
+        })
+        .catch((err) => {
+          showError('Someting went wrong!')
+        })
+    },
+    removeFriend(item) {
       axios
         .post(`/add-remove-friends?type=remove&id=${item}`)
         .then((response) => {
