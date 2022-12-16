@@ -149,6 +149,14 @@ class DataProviderController extends Controller
                 return Posts::where('userid', $id)
                     ->where('img', $request->img)
                     ->get();
+            } elseif ($request->gtype == 'newsfeed') {
+                $id = Auth::id();
+                $self = User::where('id', $id)->get();
+                $selfFriendsList = explode(',', $self[0]->addedfriends);
+                return DB::table('posts')
+                    ->whereIn('userid', $selfFriendsList)
+                    ->orderBy('created_at', 'DESC')
+                    ->get();
             }
         } else {
             $id = Auth::id();
