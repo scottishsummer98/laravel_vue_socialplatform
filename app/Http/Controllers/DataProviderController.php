@@ -261,6 +261,19 @@ class DataProviderController extends Controller
                     'pendingfriends' => $removableFriendpendingfriendsmodified,
                 ]);
             }
+            // } elseif ($request->type == 'cancelreq') {
+            //     $Friend = User::where('id', $request->id)->get();
+            //     $PendingFriendsList = $Friend[0]->pendingfriends;
+            //     $selfDataId = $id . ',';
+            //     $pendingfriendsmodified = str_replace(
+            //         $selfDataId,
+            //         '',
+            //         $PendingFriendsList
+            //     );
+            //     User::where('id', $request->id)->update([
+            //         'pendingfriends' => $pendingfriendsmodified,
+            //     ]);
+            // }
         }
     }
 }

@@ -307,7 +307,7 @@
                   v-if="item.pendingfriends.includes(user.id)"
                   class="btn btn-block btn-spooky"
                   style="border: 1px solid black;"
-                  @click="addFriend(item.id)"
+                  @click="cancelRequest(item.id)"
                 >
                   Friend Request Sent
                 </button>
@@ -1208,7 +1208,18 @@ export default {
           showError('Someting went wrong!')
         })
     },
-
+    cancelRequest(item) {
+      axios
+        .post(`/add-remove-friends?type=cancelreq&id=${item}`)
+        .then((response) => {
+          this.showAcceptedFriends()
+          this.showPendingFriends()
+          this.showFriendSuggestions()
+        })
+        .catch((err) => {
+          showError('Someting went wrong!')
+        })
+    },
     authenticatedUser() {
       axios.get('/api/user').then((res) => {
         this.user = res.data
