@@ -302,19 +302,45 @@
               />
               <h6 class="text-white">{{ item.fname }} {{ item.lname }}</h6>
               <br />
-              <button
-                class="btn btn-block btn-spooky"
-                style="border: 1px solid black;"
-                @click="addFriend(item.id)"
-              >
-                Add Friend
-              </button>
-              <button
-                class="btn btn-block btn-spooky"
-                style="border: 1px solid black;"
-              >
-                Remove
-              </button>
+              <div v-if="item.pendingfriends != null">
+                <button
+                  v-if="item.pendingfriends.includes(user.id)"
+                  class="btn btn-block btn-spooky"
+                  style="border: 1px solid black;"
+                  @click="addFriend(item.id)"
+                >
+                  Friend Request Sent
+                </button>
+                <button
+                  v-else
+                  class="btn btn-block btn-spooky"
+                  style="border: 1px solid black;"
+                  @click="addFriend(item.id)"
+                >
+                  Add Friend
+                </button>
+                <button
+                  class="btn btn-block btn-spooky"
+                  style="border: 1px solid black;"
+                >
+                  Remove
+                </button>
+              </div>
+              <div v-else>
+                <button
+                  class="btn btn-block btn-spooky"
+                  style="border: 1px solid black;"
+                  @click="addFriend(item.id)"
+                >
+                  Add Friend
+                </button>
+                <button
+                  class="btn btn-block btn-spooky"
+                  style="border: 1px solid black;"
+                >
+                  Remove
+                </button>
+              </div>
             </div>
           </swiper-slide>
         </swiper>
