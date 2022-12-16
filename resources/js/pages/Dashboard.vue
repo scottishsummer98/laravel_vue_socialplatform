@@ -8,11 +8,11 @@
     >
       <div class="card-header">
         <div class="row" style="align-items: center;">
-          <!-- <div class="col-lg-1">
+          <div class="col-lg-1">
             <img
               class="timeline-img"
-              v-if="user.dp != null"
-              :src="`../storage/${user.dp}`"
+              v-if="item.dp != null"
+              :src="`../storage/${item.dp}`"
               alt="User Image"
             />
             <img
@@ -21,24 +21,24 @@
               class="timeline-img"
               alt="User Image"
             />
-          </div> -->
-          <!-- <div class="col-lg-12">
+          </div>
+          <div class="col-lg-11">
             <h3 v-if="item.posttype == 'dp'">
-              {{ user.fname }} {{ user.lname }} Updated the Profile Picture
+              {{ item.fname }} {{ item.lname }} Updated the Profile Picture
               <br />
               <h6>{{ dateFormat(item.created_at) }}</h6>
             </h3>
             <h3 v-else-if="item.posttype == 'cp'">
-              {{ user.fname }} {{ user.lname }} Updated the Cover Picture
+              {{ item.fname }} {{ item.lname }} Updated the Cover Picture
               <br />
               <h6>{{ dateFormat(item.created_at) }}</h6>
             </h3>
             <h3 v-else>
-              {{ user.fname }} {{ user.lname }} Posted a Status
+              {{ item.fname }} {{ item.lname }} Posted a Status
               <br />
               <h6>{{ dateFormat(item.created_at) }}</h6>
             </h3>
-          </div> -->
+          </div>
         </div>
         <div v-if="item.posttype == 'dp'" style="text-align: center;">
           <div v-if="item.desc == 'dp'">
@@ -106,6 +106,7 @@
 </template>
 
 <script>
+import moment from 'moment'
 export default {
   data() {
     return {
@@ -113,6 +114,9 @@ export default {
     }
   },
   methods: {
+    dateFormat(date) {
+      return moment(date).format('MMMM Do YYYY, LT')
+    },
     showPosts() {
       axios
         .post(`/show-posts?gtype=newsfeed`)

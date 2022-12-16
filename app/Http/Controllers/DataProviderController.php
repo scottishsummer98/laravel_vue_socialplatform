@@ -154,8 +154,9 @@ class DataProviderController extends Controller
                 $self = User::where('id', $id)->get();
                 $selfFriendsList = explode(',', $self[0]->addedfriends);
                 return DB::table('posts')
-                    ->whereIn('userid', $selfFriendsList)
-                    ->orderBy('created_at', 'DESC')
+                    ->join('users', 'posts.userid', '=', 'users.id')
+                    ->whereIn('posts.userid', $selfFriendsList)
+                    ->orderBy('posts.created_at', 'DESC')
                     ->get();
             }
         } else {
