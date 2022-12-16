@@ -247,7 +247,7 @@
               <button
                 class="btn btn-block btn-spooky"
                 style="border: 1px solid black;"
-                @click="removeFriend(item.id)"
+                @click="removeRequest(item.id)"
               >
                 Remove
               </button>
@@ -276,12 +276,6 @@
                 @click="unfriend(item.id)"
               >
                 Unfriend
-              </button>
-              <button
-                class="btn btn-block btn-spooky"
-                style="border: 1px solid black;"
-              >
-                Remove
               </button>
             </div>
           </swiper-slide>
@@ -319,12 +313,6 @@
                 >
                   Add Friend
                 </button>
-                <button
-                  class="btn btn-block btn-spooky"
-                  style="border: 1px solid black;"
-                >
-                  Remove
-                </button>
               </div>
               <div v-else>
                 <button
@@ -333,12 +321,6 @@
                   @click="addFriend(item.id)"
                 >
                   Add Friend
-                </button>
-                <button
-                  class="btn btn-block btn-spooky"
-                  style="border: 1px solid black;"
-                >
-                  Remove
                 </button>
               </div>
             </div>
@@ -1196,9 +1178,9 @@ export default {
           showError('Someting went wrong!')
         })
     },
-    removeFriend(item) {
+    removeRequest(item) {
       axios
-        .post(`/add-remove-friends?type=remove&id=${item}`)
+        .post(`/add-remove-friends?type=removereq&id=${item}`)
         .then((response) => {
           this.showAcceptedFriends()
           this.showPendingFriends()

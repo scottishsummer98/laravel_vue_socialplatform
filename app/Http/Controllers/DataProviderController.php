@@ -248,7 +248,7 @@ class DataProviderController extends Controller
                 User::where('id', $request->id)->update([
                     'addedfriends' => $removableFriendaddedfriendsmodified,
                 ]);
-            } elseif ($request->type == 'remove') {
+            } elseif ($request->type == 'removereq') {
                 $user = User::where('id', $id)->get();
                 $PendingFriendsList = $user[0]->pendingfriends;
                 $removableFriendId = $request->id . ',';
