@@ -235,7 +235,14 @@
                 alt=""
                 style="width: 12rem; height: 12rem; padding-bottom: 1rem;"
               />
-              <h6 class="text-white">{{ item.fname }} {{ item.lname }}</h6>
+              <h6 class="text-white">
+                <router-link
+                  to="/pages"
+                  style="text-decoration: none; color: white;"
+                >
+                  {{ item.fname }} {{ item.lname }}
+                </router-link>
+              </h6>
               <br />
               <button
                 class="btn btn-block btn-spooky"
@@ -268,7 +275,14 @@
                 alt=""
                 style="width: 12rem; height: 12rem; padding-bottom: 1rem;"
               />
-              <h6 class="text-white">{{ item.fname }} {{ item.lname }}</h6>
+              <h6 class="text-white">
+                <router-link
+                  to="/pages"
+                  style="text-decoration: none; color: white;"
+                >
+                  {{ item.fname }} {{ item.lname }}
+                </router-link>
+              </h6>
               <br />
               <button
                 class="btn btn-block btn-spooky"
@@ -294,7 +308,14 @@
                 alt=""
                 style="width: 12rem; height: 12rem; padding-bottom: 1rem;"
               />
-              <h6 class="text-white">{{ item.fname }} {{ item.lname }}</h6>
+              <h6 class="text-white">
+                <router-link
+                  to="/pages"
+                  style="text-decoration: none; color: white;"
+                >
+                  {{ item.fname }} {{ item.lname }}
+                </router-link>
+              </h6>
               <br />
               <div v-if="item.pendingfriends != null">
                 <button
