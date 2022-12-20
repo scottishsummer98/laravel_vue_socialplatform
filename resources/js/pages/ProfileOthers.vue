@@ -1,16 +1,11 @@
 <template>
   <div class="fb-profile-block" v-for="(item, index) in user" :key="index">
     <div class="fb-profile-block-thumb">
-      <img :src="`../storage/${item.cp}`" alt="" title="" @click="CPOverlay" />
+      <img :src="`../storage/${item.cp}`" alt="" title="" />
     </div>
     <div class="profile-img">
       <a href="#">
-        <img
-          :src="`../storage/${item.dp}`"
-          alt=""
-          title=""
-          @click="DPOverlay"
-        />
+        <img :src="`../storage/${item.dp}`" alt="" title="" />
       </a>
     </div>
     <div class="profile-name">
@@ -35,51 +30,32 @@
       :key="index"
     >
       <div class="card-header">
-        <!-- <div class="row" style="align-items: center;">
+        <div class="row" style="align-items: center;">
           <div class="col-lg-1">
             <img
               class="timeline-img"
-              :src="`../storage/${item.dp}`"
+              :src="`../storage/${dpimg}`"
               alt="User Image"
             />
           </div>
-          <div class="col-lg-10">
+          <div class="col-lg-11">
             <h3 v-if="item.posttype == 'dp'">
-              {{ user.fname }} {{ user.lname }} Updated the Profile Picture
+              {{ fname }} {{ lname }} Updated the Profile Picture
               <br />
               <h6>{{ dateFormat(item.created_at) }}</h6>
             </h3>
             <h3 v-else-if="item.posttype == 'cp'">
-              {{ user.fname }} {{ user.lname }} Updated the Cover Picture
+              {{ fname }} {{ lname }} Updated the Cover Picture
               <br />
               <h6>{{ dateFormat(item.created_at) }}</h6>
             </h3>
             <h3 v-else>
-              {{ user.fname }} {{ user.lname }} Posted a Status
+              {{ fname }} {{ lname }} Posted a Status
               <br />
               <h6>{{ dateFormat(item.created_at) }}</h6>
             </h3>
           </div>
-          <div class="col-lg-1">
-            <div class="btn-group dropend">
-              <button
-                type="button"
-                class="btn"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-                style="border: none;"
-              >
-                <i class="fa-solid fa-ellipsis-vertical text-white"></i>
-              </button>
-              <ul class="p-2 dropdown-menu">
-                <li @click="editOverlay(item)">Edit Post</li>
-                <li @click="deleteOverlay(item.id, item.posttype)">
-                  Delete Post
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div> -->
+        </div>
         <div v-if="item.posttype == 'dp'" style="text-align: center;">
           <div v-if="item.desc == 'dp'">
             <img
@@ -152,20 +128,20 @@
               />
               <h6 class="text-white">
                 <router-link
+                  v-if="authuser.id == item.id"
+                  to="/profile"
+                  style="text-decoration: none; color: white;"
+                >
+                  {{ item.fname }} {{ item.lname }}
+                </router-link>
+                <router-link
+                  v-else
                   :to="`/profile/${item.id}`"
                   style="text-decoration: none; color: white;"
                 >
                   {{ item.fname }} {{ item.lname }}
                 </router-link>
               </h6>
-              <br />
-              <button
-                class="btn btn-block btn-spooky"
-                style="border: 1px solid black;"
-                @click="unfriend(item.id)"
-              >
-                Unfriend
-              </button>
             </div>
           </swiper-slide>
         </swiper>
@@ -213,16 +189,11 @@ export default {
     return {
       formData: {
         id: '',
-        fname: '',
-        lname: '',
-        dob: '',
-        email: '',
-        mobile: '',
-        desc: '',
-        PP: '',
-        DP: 'dist/img/blank_avatar.webp',
-        CP: 'dist/img/blank_cover.jpg',
       },
+      authuser: [],
+      fname: '',
+      lname: '',
+      dpimg: '',
       user: {},
       posts: {},
       friendlist: {},
@@ -239,10 +210,13 @@ export default {
     dateFormat(date) {
       return moment(date).format('MMMM Do YYYY, LT')
     },
-    authenticatedUser() {
+    UserInfo() {
       this.formData.id = this.$route.params.id
       axios.post(`/get-user?id=${this.formData.id}`).then((res) => {
         this.user = res.data.UserInformation
+        this.fname = res.data.UserInformation[0].fname
+        this.lname = res.data.UserInformation[0].lname
+        this.dpimg = res.data.UserInformation[0].dp
         this.posts = res.data.PostsList
         this.dpimages = res.data.DPImages
         this.cpimages = res.data.CPImages
@@ -250,8 +224,14 @@ export default {
         this.friendlist = res.data.UserfriendsList
       })
     },
+    authenticatedUser() {
+      axios.get('/api/user').then((res) => {
+        this.authuser = res.data
+      })
+    },
   },
   mounted() {
+    this.UserInfo()
     this.authenticatedUser()
   },
 }
