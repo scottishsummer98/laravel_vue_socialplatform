@@ -36,6 +36,7 @@ Route::post('/add-remove-friends', [
     DataProviderController::class,
     'addremoveFriends',
 ]);
+Route::post('/get-user', [DataProviderController::class, 'getUser']);
 Route::get('/{vue_capture?}', function () {
     return redirect('/home');
 })->where('vue_capture', '[\/\w\.-]*');

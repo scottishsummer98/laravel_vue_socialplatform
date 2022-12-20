@@ -237,7 +237,7 @@
               />
               <h6 class="text-white">
                 <router-link
-                  to="/pages"
+                  :to="`/profile/${item.id}`"
                   style="text-decoration: none; color: white;"
                 >
                   {{ item.fname }} {{ item.lname }}
@@ -277,7 +277,7 @@
               />
               <h6 class="text-white">
                 <router-link
-                  to="/pages"
+                  :to="`/profile/${item.id}`"
                   style="text-decoration: none; color: white;"
                 >
                   {{ item.fname }} {{ item.lname }}
@@ -310,7 +310,7 @@
               />
               <h6 class="text-white">
                 <router-link
-                  to="/pages"
+                  :to="`/profile/${item.id}`"
                   style="text-decoration: none; color: white;"
                 >
                   {{ item.fname }} {{ item.lname }}

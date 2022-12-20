@@ -284,4 +284,10 @@ class DataProviderController extends Controller
             }
         }
     }
+    public function getUser(Request $request)
+    {
+        return DB::table('users')
+            ->where('id', $request->id)
+            ->get();
+    }
 }

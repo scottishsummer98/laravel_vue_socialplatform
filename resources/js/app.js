@@ -44,6 +44,10 @@ const routes = [
     path: '/profile',
     component: require('./pages/Profile').default,
   },
+  {
+    path: '/profile/:id',
+    component: require('./pages/ProfileOthers').default,
+  },
 ]
 
 const router = createRouter({
