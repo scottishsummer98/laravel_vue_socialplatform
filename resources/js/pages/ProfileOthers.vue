@@ -1,44 +1,20 @@
 <template>
-  <div class="fb-profile-block">
+  <div class="fb-profile-block" v-for="(item, index) in user" :key="index">
     <div class="fb-profile-block-thumb">
-      <img
-        v-if="user.cp != null"
-        :src="`../storage/${user.cp}`"
-        alt=""
-        title=""
-        @click="CPOverlay"
-      />
-      <img v-else :src="`/${formData.CP}`" alt="" title="" />
-      <a
-        href="#"
-        class="icon_profile_cp"
-        title="Change Cover Picture"
-        @click="editcp(user.id)"
-      >
-        <i class="fa fa-camera"></i>
-      </a>
+      <img :src="`../storage/${item.cp}`" alt="" title="" @click="CPOverlay" />
     </div>
     <div class="profile-img">
       <a href="#">
         <img
-          v-if="user.dp != null"
-          :src="`../storage/${user.dp}`"
+          :src="`../storage/${item.dp}`"
           alt=""
           title=""
           @click="DPOverlay"
         />
-        <img v-else :src="`/${formData.DP}`" alt="" title="" />
-        <div
-          class="icon_profile_dp"
-          title="Change Profile Picture"
-          @click="editdp(user.id)"
-        >
-          <i class="fa fa-camera"></i>
-        </div>
       </a>
     </div>
     <div class="profile-name">
-      <h2>{{ user.fname }} {{ user.lname }}</h2>
+      <h2>{{ item.fname }} {{ item.lname }}</h2>
     </div>
     <div class="fb-profile-block-menu">
       <div class="block-menu">
@@ -59,18 +35,11 @@
       :key="index"
     >
       <div class="card-header">
-        <div class="row" style="align-items: center;">
+        <!-- <div class="row" style="align-items: center;">
           <div class="col-lg-1">
             <img
               class="timeline-img"
-              v-if="user.dp != null"
-              :src="`../storage/${user.dp}`"
-              alt="User Image"
-            />
-            <img
-              v-else
-              :src="`/${formData.DP}`"
-              class="timeline-img"
+              :src="`../storage/${item.dp}`"
               alt="User Image"
             />
           </div>
@@ -110,14 +79,13 @@
               </ul>
             </div>
           </div>
-        </div>
+        </div> -->
         <div v-if="item.posttype == 'dp'" style="text-align: center;">
           <div v-if="item.desc == 'dp'">
             <img
               class="dpclass mt-3"
               :src="`../storage/${item.img}`"
               alt="DP Image"
-              @click="PostImageOverlay(item.img)"
             />
           </div>
           <div v-else>
@@ -128,7 +96,6 @@
               class="dpclass mt-3"
               :src="`../storage/${item.img}`"
               alt="DP Image"
-              @click="PostImageOverlay(item.img)"
             />
           </div>
         </div>
@@ -138,7 +105,6 @@
               class="cpclass mt-3"
               :src="`../storage/${item.img}`"
               alt="CP Image"
-              @click="PostImageOverlay(item.img)"
             />
           </div>
           <div v-else>
@@ -149,7 +115,6 @@
               class="cpclass mt-3"
               :src="`../storage/${item.img}`"
               alt="CP Image"
-              @click="PostImageOverlay(item.img)"
             />
           </div>
         </div>
@@ -167,7 +132,6 @@
               class="cpclass mt-3"
               :src="`../storage/${item.img}`"
               alt="Post Image"
-              @click="PostImageOverlay(item.img)"
             />
           </div>
         </div>
@@ -175,46 +139,6 @@
     </div>
   </div>
   <div class="friends-profile-block" v-if="component == 'friends'">
-    <div>
-      <h3 class="text-white">Friend Requests</h3>
-      <div>
-        <swiper :slides-per-view="4" :space-between="2">
-          <swiper-slide v-for="(item, index) in friendreqlist" :key="index">
-            <div>
-              <img
-                :src="`../storage/${item.dp}`"
-                alt=""
-                style="width: 12rem; height: 12rem; padding-bottom: 1rem;"
-              />
-              <h6 class="text-white">
-                <router-link
-                  :to="`/profile/${item.id}`"
-                  style="text-decoration: none; color: white;"
-                >
-                  {{ item.fname }} {{ item.lname }}
-                </router-link>
-              </h6>
-              <br />
-              <button
-                class="btn btn-block btn-spooky"
-                style="border: 1px solid black;"
-                @click="aceeptFriend(item.id)"
-              >
-                Accept
-              </button>
-              <button
-                class="btn btn-block btn-spooky"
-                style="border: 1px solid black;"
-                @click="removeRequest(item.id)"
-              >
-                Remove
-              </button>
-            </div>
-          </swiper-slide>
-        </swiper>
-      </div>
-    </div>
-    <br />
     <div>
       <h3 class="text-white">Friends</h3>
       <div>
@@ -247,59 +171,6 @@
         </swiper>
       </div>
     </div>
-    <br />
-    <div>
-      <h3 class="text-white">Friend Suggestions</h3>
-      <div>
-        <swiper :slides-per-view="4" :space-between="2">
-          <swiper-slide v-for="(item, index) in friendsugglist" :key="index">
-            <div>
-              <img
-                :src="`../storage/${item.dp}`"
-                alt=""
-                style="width: 12rem; height: 12rem; padding-bottom: 1rem;"
-              />
-              <h6 class="text-white">
-                <router-link
-                  :to="`/profile/${item.id}`"
-                  style="text-decoration: none; color: white;"
-                >
-                  {{ item.fname }} {{ item.lname }}
-                </router-link>
-              </h6>
-              <br />
-              <div v-if="item.pendingfriends != null">
-                <button
-                  v-if="item.pendingfriends.includes(user.id)"
-                  class="btn btn-block btn-spooky"
-                  style="border: 1px solid black;"
-                  @click="cancelRequest(item.id)"
-                >
-                  Friend Request Sent
-                </button>
-                <button
-                  v-else
-                  class="btn btn-block btn-spooky"
-                  style="border: 1px solid black;"
-                  @click="addFriend(item.id)"
-                >
-                  Add Friend
-                </button>
-              </div>
-              <div v-else>
-                <button
-                  class="btn btn-block btn-spooky"
-                  style="border: 1px solid black;"
-                  @click="addFriend(item.id)"
-                >
-                  Add Friend
-                </button>
-              </div>
-            </div>
-          </swiper-slide>
-        </swiper>
-      </div>
-    </div>
   </div>
   <div class="pages-profile-block" v-if="component == 'pages'"></div>
   <div class="photos-profile-block" v-if="component == 'photos'">
@@ -319,54 +190,6 @@
       <div class="gallery-container">
         <h3 class="text-white">Uploaded Pictures</h3>
         <lightbox :items="timelineimages"></lightbox>
-      </div>
-    </div>
-  </div>
-  <div
-    class="modal fade bd-example-modal-lg"
-    tabindex="-1"
-    role="dialog"
-    aria-labelledby="myLargeModalLabel"
-    aria-hidden="true"
-    id="modalcpshow"
-  >
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div>
-          <img :src="`../storage/${user.cp}`" class="img_Overlay" />
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
-    class="modal fade bd-example-modal-sm"
-    tabindex="-1"
-    role="dialog"
-    aria-labelledby="myLargeModalLabel"
-    aria-hidden="true"
-    id="modaldpshow"
-  >
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div>
-          <img :src="`../storage/${user.dp}`" class="img_Overlay" />
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
-    class="modal fade bd-example-modal-sm"
-    tabindex="-1"
-    role="dialog"
-    aria-labelledby="myLargeModalLabel"
-    aria-hidden="true"
-    id="modalpostimageshow"
-  >
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div>
-          <img :src="`../storage/${imgsrc}`" class="img_Overlay" />
-        </div>
       </div>
     </div>
   </div>
@@ -400,25 +223,13 @@ export default {
         DP: 'dist/img/blank_avatar.webp',
         CP: 'dist/img/blank_cover.jpg',
       },
-      user: [],
+      user: {},
       posts: {},
-      friendreqlist: {},
       friendlist: {},
-      friendsugglist: {},
-      imageSelected: 0,
-      postimageSelected: 0,
       imgsrc: '',
       postId: '',
       posttype: '',
       component: 'timeline',
-      isEditingfname: false,
-      isEditinglname: false,
-      isEditingdob: false,
-      isEditingemail: false,
-      isEditingmobile: false,
-      editingItem: {
-        desc: '',
-      },
       dpimages: [],
       cpimages: [],
       timelineimages: [],
@@ -428,121 +239,20 @@ export default {
     dateFormat(date) {
       return moment(date).format('MMMM Do YYYY, LT')
     },
-    DPOverlay() {
-      $('#modaldpshow').modal('toggle')
-    },
-    CPOverlay() {
-      $('#modalcpshow').modal('toggle')
-    },
-    PostImageOverlay(item) {
-      this.imgsrc = item
-      $('#modalpostimageshow').modal('toggle')
-    },
-    showDPP() {
-      this.imageSelected = 1
-      var src = document.getElementById('src3')
-      var target = document.getElementById('target3')
-      var fr = new FileReader()
-      fr.onload = function (e) {
-        target.src = this.result
-      }
-      src.addEventListener('change', function () {
-        fr.readAsDataURL(src.files[0])
-      })
-    },
-    showCP() {
-      this.imageSelected = 1
-      var src = document.getElementById('src2')
-      var target = document.getElementById('target2')
-      var fr = new FileReader()
-      fr.onload = function (e) {
-        target.src = this.result
-      }
-      src.addEventListener('change', function () {
-        fr.readAsDataURL(src.files[0])
-      })
-    },
-    showPostImage() {
-      this.postimageSelected = 1
-      var src = document.getElementById('src4')
-      var target = document.getElementById('target4')
-      var fr = new FileReader()
-      fr.onload = function (e) {
-        target.src = this.result
-      }
-      src.addEventListener('change', function () {
-        fr.readAsDataURL(src.files[0])
-      })
-    },
-    showDPGallery() {
-      axios
-        .post(`/show-posts?gtype=DP`)
-        .then((response) => {
-          this.dpimages = response.data
-        })
-        .catch((err) => {
-          // console.log(err.response);
-        })
-    },
-    showCPGallery() {
-      axios
-        .post(`/show-posts?gtype=CP`)
-        .then((response) => {
-          this.cpimages = response.data
-        })
-        .catch((err) => {
-          // console.log(err.response);
-        })
-    },
-    showTimeLineGallery() {
-      axios
-        .post(`/show-posts?gtype=timeline`)
-        .then((response) => {
-          this.timelineimages = response.data
-        })
-        .catch((err) => {
-          // console.log(err.response);
-        })
-    },
-    showPosts() {
-      axios
-        .post(`/show-posts`)
-        .then((response) => {
-          this.posts = response.data
-        })
-        .catch((err) => {
-          // console.log(err.response);
-        })
-    },
-    showAcceptedFriends(item) {
-      axios
-        .post(`/show-friends?type=acceptedreq`)
-        .then((response) => {
-          this.friendlist = response.data
-        })
-        .catch((err) => {
-          showError('Someting went wrong!')
-        })
-    },
     authenticatedUser() {
       this.formData.id = this.$route.params.id
       axios.post(`/get-user?id=${this.formData.id}`).then((res) => {
-        this.user = res.data
-        this.formData.fname = res.data.fname
-        this.formData.lname = res.data.lname
-        this.formData.dob = res.data.dob
-        this.formData.email = res.data.email
-        this.formData.mobile = res.data.mobile
+        this.user = res.data.UserInformation
+        this.posts = res.data.PostsList
+        this.dpimages = res.data.DPImages
+        this.cpimages = res.data.CPImages
+        this.timelineimages = res.data.GPImages
+        this.friendlist = res.data.UserfriendsList
       })
     },
   },
   mounted() {
     this.authenticatedUser()
-    this.showPosts()
-    this.showDPGallery()
-    this.showCPGallery()
-    this.showTimeLineGallery()
-    this.showAcceptedFriends()
   },
 }
 </script>

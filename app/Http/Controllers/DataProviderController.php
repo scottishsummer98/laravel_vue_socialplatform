@@ -286,8 +286,29 @@ class DataProviderController extends Controller
     }
     public function getUser(Request $request)
     {
-        return DB::table('users')
-            ->where('id', $request->id)
+        $UserInfo = User::where('id', $request->id)->get();
+        $PostInfo = Posts::where('userid', $request->id)->get();
+        $DPImages = Posts::where('userid', $request->id)
+            ->where('posttype', 'dp')
+            ->pluck('img');
+        $CPImages = Posts::where('userid', $request->id)
+            ->where('posttype', 'cp')
+            ->pluck('img');
+        $GPImages = Posts::where('userid', $request->id)
+            ->where('posttype', 'generalposts')
+            ->where('img', '!=', null)
+            ->pluck('img');
+        $friends = explode(',', $UserInfo[0]->addedfriends);
+        $UserfriendsList = DB::table('users')
+            ->whereIn('id', $friends)
             ->get();
+        return [
+            'UserInformation' => $UserInfo,
+            'PostsList' => $PostInfo,
+            'DPImages' => $DPImages,
+            'CPImages' => $CPImages,
+            'GPImages' => $GPImages,
+            'UserfriendsList' => $UserfriendsList,
+        ];
     }
 }
