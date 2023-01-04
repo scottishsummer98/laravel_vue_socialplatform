@@ -144,12 +144,12 @@ class DataProviderController extends Controller
                     ->where('img', '!=', null)
                     ->orderBy('created_at', 'DESC')
                     ->pluck('img');
-            } elseif ($request->gtype == 'lightbox') {
-                $id = Auth::id();
-                return Posts::where('userid', $id)
-                    ->where('img', $request->img)
-                    ->get();
-            } elseif ($request->gtype == 'newsfeed') {
+                // } elseif ($request->gtype == 'lightbox') {
+                //     return DB::table('posts')
+                //         ->join('users', 'posts.userid', '=', 'users.id')
+                //         ->where('posts.img', $request->img)
+                //         ->get();
+                // } elseif ($request->gtype == 'newsfeed') {
                 $id = Auth::id();
                 $self = User::where('id', $id)->get();
                 $selfFriendsList = explode(',', $self[0]->addedfriends);

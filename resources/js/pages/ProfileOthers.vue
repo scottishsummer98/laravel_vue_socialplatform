@@ -62,6 +62,7 @@
               class="dpclass mt-3"
               :src="`../storage/${item.img}`"
               alt="DP Image"
+              @click="PostImageOverlay(item.img)"
             />
           </div>
           <div v-else>
@@ -72,6 +73,7 @@
               class="dpclass mt-3"
               :src="`../storage/${item.img}`"
               alt="DP Image"
+              @click="PostImageOverlay(item.img)"
             />
           </div>
         </div>
@@ -81,6 +83,7 @@
               class="cpclass mt-3"
               :src="`../storage/${item.img}`"
               alt="CP Image"
+              @click="PostImageOverlay(item.img)"
             />
           </div>
           <div v-else>
@@ -91,6 +94,7 @@
               class="cpclass mt-3"
               :src="`../storage/${item.img}`"
               alt="CP Image"
+              @click="PostImageOverlay(item.img)"
             />
           </div>
         </div>
@@ -108,6 +112,7 @@
               class="cpclass mt-3"
               :src="`../storage/${item.img}`"
               alt="Post Image"
+              @click="PostImageOverlay(item.img)"
             />
           </div>
         </div>
@@ -169,6 +174,77 @@
       </div>
     </div>
   </div>
+  <div
+    class="modal fade bd-example-modal-sm"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="myLargeModalLabel"
+    aria-hidden="true"
+    id="modalpostimageshow"
+  >
+    <div class="modal-dialog modal-lg">
+      <div
+        v-for="(item, index) in imageInfo"
+        :key="index"
+        style="
+          left: -50%;
+          width: 200%;
+          position: absolute;
+          background-color: #320000;
+          color: white;
+        "
+      >
+        <div class="row">
+          <div class="col-lg-6">
+            <img
+              style="height: 30rem; width: 50rem;"
+              :src="`../storage/${item.img}`"
+              alt=""
+            />
+          </div>
+          <div class="col-lg-6">
+            <div class="col-lg-1" style="top: 8%;">
+              <img
+                class="timeline-img"
+                v-if="item.dp != null"
+                :src="`../storage/${item.dp}`"
+                alt="User Image"
+              />
+              <img
+                v-else
+                :src="`/${formData.DP}`"
+                class="timeline-img"
+                alt="User Image"
+              />
+            </div>
+            <div class="col-lg-11" style="top: -2%; left: 8%;">
+              <h3 v-if="item.posttype == 'dp'">
+                {{ item.fname }} {{ item.lname }} Updated the Profile Picture
+                <br />
+                <h6>{{ dateFormat(item.created_at) }}</h6>
+              </h3>
+              <h3 v-else-if="item.posttype == 'cp'">
+                {{ item.fname }} {{ item.lname }} Updated the Cover Picture
+                <br />
+                <h6>{{ dateFormat(item.created_at) }}</h6>
+              </h3>
+              <h3 v-else>
+                {{ item.fname }} {{ item.lname }} Posted a Status
+                <br />
+                <h6>{{ dateFormat(item.created_at) }}</h6>
+              </h3>
+            </div>
+            <div class="col-lg-12 mt-3">
+              <h4 v-if="item.desc == 'dp' || item.desc == 'cp'"></h4>
+              <h4 v-else>
+                {{ item.desc }}
+              </h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -197,6 +273,7 @@ export default {
       user: {},
       posts: {},
       friendlist: {},
+      imageInfo: {},
       imgsrc: '',
       postId: '',
       posttype: '',
@@ -228,6 +305,18 @@ export default {
       axios.get('/api/user').then((res) => {
         this.authuser = res.data
       })
+    },
+    PostImageOverlay(item) {
+      this.imgsrc = item
+      axios
+        .post(`/show-posts?gtype=lightbox&img=${this.imgsrc}`)
+        .then((response) => {
+          this.imageInfo = response.data
+        })
+        .catch((err) => {
+          // console.log(err.response);
+        })
+      $('#modalpostimageshow').modal('toggle')
     },
   },
   mounted() {
