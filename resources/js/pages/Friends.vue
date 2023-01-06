@@ -141,6 +141,7 @@ export default {
   },
   data() {
     return {
+      user: [],
       friendreqlist: {},
       friendlist: {},
       friendsugglist: {},
@@ -237,8 +238,14 @@ export default {
           showError('Someting went wrong!')
         })
     },
+    authenticatedUser() {
+      axios.get('/api/user').then((res) => {
+        this.user = res.data
+      })
+    },
   },
   mounted() {
+    this.authenticatedUser()
     this.showAcceptedFriends()
     this.showPendingFriends()
     this.showFriendSuggestions()
