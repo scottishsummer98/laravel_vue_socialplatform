@@ -128,4 +128,120 @@
   </div>
 </template>
 
-<style></style>
+<script>
+// Import Swiper Vue.js components
+import { Swiper, SwiperSlide } from 'swiper/vue'
+// Import Swiper styles
+import 'swiper/css'
+import { showSuccess, showError } from '../helper'
+export default {
+  components: {
+    Swiper,
+    SwiperSlide,
+  },
+  data() {
+    return {
+      friendreqlist: {},
+      friendlist: {},
+      friendsugglist: {},
+    }
+  },
+  methods: {
+    showFriendSuggestions(item) {
+      axios
+        .post(`/show-friends?type=suggestions`)
+        .then((response) => {
+          this.friendsugglist = response.data
+        })
+        .catch((err) => {
+          showError('Someting went wrong!')
+        })
+    },
+    showAcceptedFriends(item) {
+      axios
+        .post(`/show-friends?type=acceptedreq`)
+        .then((response) => {
+          this.friendlist = response.data
+        })
+        .catch((err) => {
+          showError('Someting went wrong!')
+        })
+    },
+    showPendingFriends(item) {
+      axios
+        .post(`/show-friends?type=pendingreq`)
+        .then((response) => {
+          this.friendreqlist = response.data
+        })
+        .catch((err) => {
+          showError('Someting went wrong!')
+        })
+    },
+    aceeptFriend(item) {
+      axios
+        .post(`/add-remove-friends?type=accept&id=${item}`)
+        .then((response) => {
+          this.showAcceptedFriends()
+          this.showPendingFriends()
+          this.showFriendSuggestions()
+        })
+        .catch((err) => {
+          showError('Someting went wrong!')
+        })
+    },
+    addFriend(item) {
+      axios
+        .post(`/add-remove-friends?type=add&id=${item}`)
+        .then((response) => {
+          this.showAcceptedFriends()
+          this.showPendingFriends()
+          this.showFriendSuggestions()
+        })
+        .catch((err) => {
+          showError('Someting went wrong!')
+        })
+    },
+    unfriend(item) {
+      axios
+        .post(`/add-remove-friends?type=unfriend&id=${item}`)
+        .then((response) => {
+          this.showAcceptedFriends()
+          this.showPendingFriends()
+          this.showFriendSuggestions()
+        })
+        .catch((err) => {
+          showError('Someting went wrong!')
+        })
+    },
+    removeRequest(item) {
+      axios
+        .post(`/add-remove-friends?type=removereq&id=${item}`)
+        .then((response) => {
+          this.showAcceptedFriends()
+          this.showPendingFriends()
+          this.showFriendSuggestions()
+        })
+        .catch((err) => {
+          showError('Someting went wrong!')
+        })
+    },
+    cancelRequest(item) {
+      axios
+        .post(`/add-remove-friends?type=cancelreq&id=${item}`)
+        .then((response) => {
+          this.showAcceptedFriends()
+          this.showPendingFriends()
+          this.showFriendSuggestions()
+        })
+        .catch((err) => {
+          showError('Someting went wrong!')
+        })
+    },
+  },
+  mounted() {
+    this.showAcceptedFriends()
+    this.showPendingFriends()
+    this.showFriendSuggestions()
+  },
+}
+</script>
