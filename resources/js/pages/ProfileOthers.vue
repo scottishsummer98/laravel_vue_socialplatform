@@ -11,6 +11,7 @@
     <div class="profile-name">
       <h2>{{ item.fname }} {{ item.lname }}</h2>
     </div>
+
     <div class="fb-profile-block-menu">
       <div class="block-menu">
         <ul>
