@@ -28,7 +28,7 @@ const routes = [
           next()
         })
         .catch(() => {
-          return next({ path: '/login' })
+          window.location.href = '/login'
         })
     },
   },
