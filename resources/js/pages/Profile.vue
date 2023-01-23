@@ -350,7 +350,9 @@
       </div>
     </div>
   </div>
-  <div class="pages-profile-block" v-if="component == 'pages'"></div>
+  <div class="pages-profile-block" v-if="component == 'pages'">
+    <button class="btn btn-spooky">Create Page</button>
+  </div>
   <div class="photos-profile-block" v-if="component == 'photos'">
     <div class="gallery-row">
       <div class="gallery-container">
