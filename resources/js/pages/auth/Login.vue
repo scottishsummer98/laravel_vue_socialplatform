@@ -45,9 +45,6 @@
                 <button class="btn btn-block btn-spooky" @click="redirect">
                   Create New Account
                 </button>
-                <router-link to="#" class="btn btn-block btn-spooky">
-                  Forgotten Password?
-                </router-link>
               </div>
             </form>
           </div>
